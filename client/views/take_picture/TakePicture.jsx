@@ -1,7 +1,9 @@
-TakePicture = React.createClass({
+import React from 'react';
+
+export default class Feed extends React.Component {
 	render() {
 		return (
-			<div> Hi I am the photo taking page </div>
+			<div> Hi I am the feed page </div>
 			);
 	}
-})
+}
