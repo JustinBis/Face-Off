@@ -6,6 +6,7 @@ import Feed from './views/feed/Feed.jsx';
 import Bet from './views/place_bet/PlaceBet.jsx'
 import TakePicture from './views/take_picture/TakePicture.jsx'
 
+
 FlowRouter.route('/', {
 	name: 'App.home',
 	action() {
@@ -25,7 +26,7 @@ FlowRouter.route('/feed', {
 });
 
 FlowRouter.route('/bet', {
-	name: 'App.Bet',
+	name: 'App.bet',
 	action() {
 		mount(Bet, {
 			main: () => <Bet />,
