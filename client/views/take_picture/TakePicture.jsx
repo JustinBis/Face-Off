@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default class Feed extends React.Component {
+export default class TakePicture extends React.Component {
 	render() {
 		return (
-			<div> Hi I am the feed page </div>
+			<div> Hi I am the taking picture page </div>
 			);
 	}
 }
