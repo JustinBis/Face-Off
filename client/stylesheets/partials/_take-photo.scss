@@ -1,0 +1,38 @@
+@import '../modules/colors';
+
+#take-picture {
+	position: relative;
+
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+
+	height: 100%;
+
+	// Margin collapse fix
+	overflow: auto;
+
+	text-align: center;
+
+	h1 {
+		// Don't grow in the flexbox
+		flex: 0 1 auto;
+	}
+
+	.emoji-container {
+		// Take up all available room
+		flex: 1 1 auto;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	emoji {
+		font-size: 50vmin; // TODO: make this relative
+	}
+
+	button {
+		margin: 10px 0;
+	}
+}
