@@ -1,9 +1,10 @@
 @import "modules/colors";
 @import "modules/device-sizes";
-
-
+@import "partials/feed";
+@import "partials/bet-image";
 body {
 	background-color: $primary-color;
 	color: $secondary-color;
+	height: 100vh;
 }
 
