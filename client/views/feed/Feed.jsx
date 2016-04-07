@@ -8,7 +8,7 @@ class Image extends React.Component {
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
                         <img width="600" height="400" src="http://memesvault.com/wp-content/uploads/Wat-Meme-Tumblr-04.jpg" />
-                        <figcaption className="uk-overlay-panel uk-overlay-icon uk-icon-usd uk-icon-spin uk-overlay-background uk-overlay-fade">
+                        <figcaption className="uk-overlay-panel uk-overlay-icon-feed uk-icon-usd uk-overlay-background uk-overlay-fade">
 
                         </figcaption>
                         <a className="uk-position-cover" href="#"></a>
