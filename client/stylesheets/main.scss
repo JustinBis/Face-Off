@@ -1,9 +1,18 @@
-@import "modules/colors";
-@import "modules/device-sizes";
+@import 'modules/all';
+@import 'partials/all';
 
+html {
+	// Make the page full height
+	height: 100vh;
+	height: 100%;
+}
 
 body {
+	height: 100%;
 	background-color: $primary-color;
 	color: $secondary-color;
 }
 
+#react-root {
+	height: 100%;
+}
