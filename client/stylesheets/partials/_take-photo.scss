@@ -17,6 +17,7 @@
 	h1 {
 		// Don't grow in the flexbox
 		flex: 0 1 auto;
+		margin-top: 1em;
 	}
 
 	.emoji-container {
@@ -26,13 +27,19 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		width: 100%;
 	}
 
-	emoji {
-		font-size: 50vmin; // TODO: make this relative
+	img.emoji {
+		width: 80%;
 	}
 
 	button {
-		margin: 10px 0;
+		margin: 10px 0 0;
+		padding: 0px 20px;
+
+		min-height: 50px;
+		line-height: 50px;
 	}
 }
