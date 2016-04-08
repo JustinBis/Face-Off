@@ -41,13 +41,19 @@ export default class TakePicture extends React.Component {
 		MeteorCamera.getPicture({}, (err, data) => {
 			if(err)
 			{
-				// TODO: relay this error to the user
 				console.error("Error taking a picture with MeteorCamera", err);
 
 				if(err.error == "cancel")
 				{
 					// The user cancelled the photo, so silently exit
-					return;
+					//return;
+				}
+
+				// Relay this error to the user
+				if(UIkit && UIkit.notify)
+				{
+					console.log("yeah");
+					UIkit.notify(`Picture Error: ${err.reason}`, 'danger');
 				}
 
 				return;
@@ -64,7 +70,6 @@ export default class TakePicture extends React.Component {
 	 * @return {void} This function does not return a value
 	 */
 	newRandomEmoji() {
-		console.log("called");
 		this.setState({selected_emoji: this.getRandomEmoji()});
 	}
 	
