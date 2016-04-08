@@ -3,21 +3,21 @@ $image-max-width: 30em;
 $button-max-width: $image-max-width/2;
 
 #bet {
-	background: url(http://memesvault.com/wp-content/uploads/Wat-Meme-Tumblr-04.jpg);
+	background: url(images/selfie.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
 	background-position: center;
 	height: 100%;
-	.choice-container {
-		display: block;
-		width: 100%;
-		max-width: $image-max-width;
-		margin: auto;
-		.uk-button-primary {
-			width: 50%;
-			height: 7em;
-		}
+	overflow: auto;
+	.back-btn {
+		font-size: 5em;
+		margin: 5px 0 0 5px;
 	}
+	@media (min-width: $small-device) {
+		margin-top: 2em;
+		height: 90%;
+	}
+
 }
