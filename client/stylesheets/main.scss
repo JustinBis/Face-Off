@@ -13,6 +13,13 @@ body {
 	color: $secondary-color;
 }
 
+
+#phone-body{
+	max-width: 414px;
+	margin: auto;
+	height: 100%;	
+}
+
 #react-root {
 	height: 100%;
 }

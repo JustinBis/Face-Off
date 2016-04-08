@@ -4,4 +4,9 @@
 
 @import 'take-photo';
 @import "feed";
-@import "bet-image";
+@import "bet";
+
+
+button:focus {
+	outline: 0;
+}
