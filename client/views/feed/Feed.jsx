@@ -11,7 +11,7 @@ class Image extends React.Component {
                         <figcaption className="uk-overlay-panel uk-overlay-icon-feed uk-icon-usd uk-overlay-background uk-overlay-fade">
 
                         </figcaption>
-                        <a className="uk-position-cover" href="#"></a>
+                        <a className="uk-position-cover" href="/bet"></a>
                     </figure>
 				</div>			
 			</div>
