@@ -1,7 +1,7 @@
 {
   "name": "faceoff",
   "version": "1.0.0",
-  "description": "",
+  "description": "A final project for CS132",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "react-mounter": "^1.1.0"
+    "react-mounter": "^1.1.0",
+    "react-addons-pure-render-mixin": "^0.14.8"
   }
 }
