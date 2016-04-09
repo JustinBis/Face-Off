@@ -11,6 +11,8 @@ $button-max-width: $image-max-width/2;
 	background-position: center;
 	height: 100%;
 	overflow: auto;
+	display: flex;
+	flex-flow: column;
 	.back-btn {
 		font-size: 5em;
 		margin: 5px 0 0 5px;
@@ -18,6 +20,15 @@ $button-max-width: $image-max-width/2;
 	@media (min-width: $small-device) {
 		margin-top: 2em;
 		height: 90%;
+	}
+	.choices-container {
+		width: 100%;
+		margin-top: auto;
+		margin-bottom: 50px;
+	}
+	.choice {
+		display: inline-block;
+		width: 25%;
 	}
 
 }
