@@ -17,7 +17,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/login', {
 	name: 'App.login',
 	triggersEnter: [ (context, redirect) => {
-		// If the user isn't logged in, make them log in
+		// If the is logged in, redirect them to the feed
 		if(Meteor.loggingIn() || Meteor.userId())
 		{
 			redirect('App.feed');
@@ -40,8 +40,7 @@ var loggedInRoutes = FlowRouter.group({
 		// If the user isn't logged in, make them log in
 		if(!(Meteor.loggingIn() || Meteor.userId()))
 		{
-			//Session.set('redirectAfterLogin', context.path);
-			redirect('App.login');
+			//redirect('App.login');
 		}
 	}]
 });

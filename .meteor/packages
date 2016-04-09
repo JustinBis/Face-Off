@@ -23,3 +23,5 @@ kadira:flow-router
 fourseven:scss
 mdg:camera
 accounts-base
+accounts-google
+accounts-ui
