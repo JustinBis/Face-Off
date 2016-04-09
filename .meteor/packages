@@ -22,3 +22,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 kadira:flow-router
 fourseven:scss
 mdg:camera
+accounts-base

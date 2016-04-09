@@ -41,26 +41,31 @@ export default class TakePicture extends React.Component {
 		MeteorCamera.getPicture({}, (err, data) => {
 			if(err)
 			{
-				console.error("Error taking a picture with MeteorCamera", err);
-
 				if(err.error == "cancel")
 				{
 					// The user cancelled the photo, so silently exit
-					//return;
+					return;
 				}
-
-				// Relay this error to the user
-				if(UIkit && UIkit.notify)
-				{
-					console.log("yeah");
-					UIkit.notify(`Picture Error: ${err.reason}`, 'danger');
-				}
-
-				return;
+				this.reportError(err);
 			}
 
 			this.setState({picture_data: data});
 		});
+	}
+
+	/**
+	 * Logs an error and reports it to the user
+	 * @param  {Meteor Error Object} err The error to report
+	 * @return {void} This function does not return anythijg
+	 */
+	reportError(err) {
+		console.error(err);
+
+		// Relay this error to the user
+		if(UIkit && UIkit.notify && err && err.reason)
+		{
+			UIkit.notify(`Picture Error: ${err.reason}`, 'danger');
+		}
 	}
 
 	// Logic helper methods
