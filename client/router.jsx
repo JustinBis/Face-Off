@@ -40,6 +40,7 @@ var loggedInRoutes = FlowRouter.group({
 		// If the user isn't logged in, make them log in
 		if(!(Meteor.loggingIn() || Meteor.userId()))
 		{
+			// TODO: uncomment this to enable logins
 			//redirect('App.login');
 		}
 	}]

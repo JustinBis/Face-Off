@@ -49,8 +49,13 @@ export default class TakePicture extends React.Component {
 				this.reportError(err);
 			}
 
-			this.setState({picture_data: data});
+			// TODO: add a better review sceen for pictures (possibly invoked here)
+			this.savePictureToDB(data);
 		});
+	}
+
+	savePictureToDB(data) {
+		console.log(data);
 	}
 
 	/**
