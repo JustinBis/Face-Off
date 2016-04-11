@@ -1,5 +1,5 @@
 import React from 'react';
-import Meteor from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 
 export default class TakePicture extends React.Component {
 	constructor(props) {
@@ -48,6 +48,7 @@ export default class TakePicture extends React.Component {
 					return;
 				}
 				this.reportError(err);
+				return;
 			}
 
 			// TODO: add a better review sceen for pictures (possibly invoked here)
@@ -63,7 +64,12 @@ export default class TakePicture extends React.Component {
 	 * @return {void}      This function returns nothing
 	 */
 	savePictureToDB(pictureData, emoji) {
-		Meteor.call('storePicture', photoData, emoji);
+		Meteor.call('pictures.insert', pictureData, emoji, (err) => {
+			if(err)
+			{
+				this.reportError(err);
+			}
+		});
 	}
 
 	/**
