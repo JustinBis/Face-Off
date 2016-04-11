@@ -1,4 +1,5 @@
 import React from 'react';
+import Meteor from 'meteor/meteor';
 
 export default class TakePicture extends React.Component {
 	constructor(props) {
@@ -50,12 +51,19 @@ export default class TakePicture extends React.Component {
 			}
 
 			// TODO: add a better review sceen for pictures (possibly invoked here)
-			this.savePictureToDB(data);
+			this.savePictureToDB(data, this.state.selected_emoji);
 		});
 	}
 
-	savePictureToDB(data) {
-		console.log(data);
+	/**
+	 * Saves a picture and its associated emoji to the database
+	 * @param  {string} pictureData the image data, stored as a Base64 encoded 
+	 *                  string that can be used in the 'src' of an img tag
+	 * @param  {string} emoji the emoji that corresponds to this picture, represented as a unicode string
+	 * @return {void}      This function returns nothing
+	 */
+	savePictureToDB(pictureData, emoji) {
+		Meteor.call('storePicture', photoData, emoji);
 	}
 
 	/**
@@ -75,6 +83,15 @@ export default class TakePicture extends React.Component {
 
 	// Logic helper methods
 	
+	/**
+	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
+	 * @param  {string} emoji a unicode string with a single character representing the emoji
+	 * @return {string}       the HTML string containing an img tag for the given emoji
+	 */
+	emojiStringToHTML(emoji) {
+		// TODO: implement this and replace the rendering code
+	}
+
 	/**
 	 * Stores a new random emoji in the state of this React component
 	 * @return {void} This function does not return a value
