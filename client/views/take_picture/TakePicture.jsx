@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import reportError from '../../../imports/ui/report-error';
 
 export default class TakePicture extends React.Component {
 	constructor(props) {
@@ -47,7 +48,7 @@ export default class TakePicture extends React.Component {
 					// The user cancelled the photo, so silently exit
 					return;
 				}
-				this.reportError(err);
+				reportError(err);
 				return;
 			}
 
@@ -70,21 +71,6 @@ export default class TakePicture extends React.Component {
 				this.reportError(err);
 			}
 		});
-	}
-
-	/**
-	 * Logs an error and reports it to the user
-	 * @param  {Meteor Error Object} err The error to report
-	 * @return {void} This function does not return anythijg
-	 */
-	reportError(err) {
-		console.error(err);
-
-		// Relay this error to the user
-		if(UIkit && UIkit.notify && err && err.reason)
-		{
-			UIkit.notify(`Picture Error: ${err.reason}`, 'danger');
-		}
 	}
 
 	// Logic helper methods

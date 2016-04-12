@@ -1,1 +1,39 @@
 @import '../modules/all';
+
+
+$emoji-yellow: #F8D720;
+
+$yellow: rgb(212, 192, 42); //#FFF200;
+$blue: rgb(33, 79, 136); //#199FD5;
+$red: #CC1437;
+
+
+#login {
+	background-color: $blue;
+
+	text-align: center;
+
+	height: 100%;
+	width: 100%;
+
+	overflow: auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	flex-direction: column;
+
+	h1 {
+		margin: 0 auto 2em;
+		color: $yellow;
+	}
+
+	.login-with-facebook-button {
+		background: url('/img/buttons/login-with-facebook.png');
+		width: 202px;
+		height: 46px;
+		padding: 0;
+		margin: 0;
+	}
+}

@@ -6,6 +6,11 @@ import Feed from './views/feed/Feed.jsx';
 import Bet from './views/place_bet/PlaceBet.jsx'
 import TakePicture from './views/take_picture/TakePicture.jsx'
 
+// The default route for a logged out user (e.g. where a user will be redirected on logout)
+const loggedOutDefault = 'App.login';
+// The default route for a logged in user (e.g. where a user will be redirected on login)
+const loggedInDefault = 'App.feed';
+
 
 FlowRouter.route('/', {
 	name: 'App.index',
@@ -20,7 +25,7 @@ FlowRouter.route('/login', {
 		// If the is logged in, redirect them to the feed
 		if(Meteor.loggingIn() || Meteor.userId())
 		{
-			redirect('App.feed');
+			redirect(loggedInDefault);
 		}
 	}],
 	action() {
@@ -33,6 +38,12 @@ FlowRouter.route('/login', {
 /*
  * Routes only available to logged in users
  */
+
+// Hooks for login
+Accounts.onLogin(() => {
+	FlowRouter.go(loggedInDefault)
+});
+
 var loggedInRoutes = FlowRouter.group({
 	name: 'loggedInRoutes',
 	triggersEnter: [ (context, redirect) => {

@@ -1,17 +1,33 @@
 import React from 'react';
+import reportError from '../../../imports/ui/report-error';
 
 export default class Login extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+
+		// this bindings
+		this.loginWithFacebook = this.loginWithFacebook.bind(this);
+	}
+
 	render() {
-		// Meteor.loginWithGoogle({
-		// 	requestPermissions: ['user', 'public_repo']
-		// }, function (err) {
-		// 	if (err)
-		// 	{
-		// 		console.log(err);
-		// 	}
-		// });
 		return (
-			<div> Hi I am the login page </div>
+			<div id='login'>
+				<h1>Face Off</h1>
+				<br />
+				<button className='login-with-facebook-button' onClick={this.loginWithFacebook}></button>
+			</div>
 			);
+	}
+
+	loginWithFacebook() {
+		Meteor.loginWithFacebook({}, (err) => {
+			if(err)
+			{
+				reportError(err);
+				return;
+			}
+
+		});
 	}
 }
