@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 /**
 	Root element of Bet placement page, responsible for setting background image
 	(the image to be guessed), as well as 4 emojis (one of which is the correct emoji)

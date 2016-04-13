@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pictures } from '../../../imports/api/pictures.js';
 
 
 /**
@@ -17,14 +18,18 @@ export default class Feed extends React.Component {
 			image,
 			image
 		];
-		this.state = {images:images}
+		this.state = { 
+			images:images, 
+			data:Pictures.find({}).fetch()
 		}
+	
+	}
 
 
 	render() {
 		return (
 			<div id="feed">
-				<ImageList images={this.state.images}/>
+				<ImageList images={this.state.images} data={this.state.data}/>
 			</div>
 		);
 	}
