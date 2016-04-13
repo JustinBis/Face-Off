@@ -3,7 +3,7 @@ import { mount } from 'react-mounter';
 
 import Login from './views/login/Login.jsx';
 import Feed from './views/feed/Feed.jsx';
-import Bet from './views/place_bet/PlaceBet.jsx'
+import BetContainer from './views/place_bet/BetContainer.jsx'
 import TakePicture from './views/take_picture/TakePicture.jsx'
 
 // The default route for a logged out user (e.g. where a user will be redirected on logout)
@@ -74,9 +74,10 @@ loggedInRoutes.route('/feed', {
 
 loggedInRoutes.route('/bet', {
 	name: 'App.bet',
-	action() {
-		mount(Bet, {
-			main: () => <Bet />,
+	action(params,queryParams) {
+		console.log(queryParams.id)
+		mount(BetContainer, {
+			main: () => <BetContainer params={{pictureId: queryParams.id}} />,
 		});
 	},
 });

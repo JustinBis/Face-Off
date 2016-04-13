@@ -6,7 +6,6 @@ import BetLink from './BetLink.jsx'
 */
 export default class ImageList extends React.Component {
 	render() {
-		console.log(this.props.images)
 		//Generate image components using Image class
 		var imageComps = this.props.images.map((image, ind) => {
 			return (
@@ -23,11 +22,6 @@ export default class ImageList extends React.Component {
 
 /**
 	Clickable image within the feed that leads to the bet placing page
-
-	TODO remove and add moneybag
-	** Commented Dollar sign div
-	<figcaption className="uk-overlay-panel uk-overlay-icon-feed uk-icon-usd uk-overlay-background uk-overlay-fade">
-                         </figcaption>
 */
 class Image extends React.Component {
 	render() {
@@ -37,7 +31,7 @@ class Image extends React.Component {
 					<figure className="uk-overlay">
                        	<img className="picture" src={this.props.picture.pictureData} />
                         <img className="pot" src="http://www.pngall.com/wp-content/uploads/2016/03/Money-Free-Download-PNG-180x180.png" />
-                       	<BetLink picture={this.props.picture}/>
+                       	<BetLink id={this.props.picture._id}/>
                     </figure>
 				</div>			
 			</div>

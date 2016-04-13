@@ -1,11 +1,12 @@
 import React from 'react';
-import ChoiceList from './ChoiceList.jsx'
+import ChoiceList from './ChoiceList.jsx';
 
 /**
 	Root element of Bet placement page, responsible for setting background image
 	(the image to be guessed), as well as 4 emojis (one of which is the correct emoji)
 */
-export default class PlaceBet extends React.Component {
+
+export default class Bet extends React.Component {
 	constructor(props) {
 		super(props);
 		var choices = [ "images/emojis/toungue.png",
@@ -16,9 +17,10 @@ export default class PlaceBet extends React.Component {
 	}
 
 	render() {
+		var betStyle = { background: "url("+this.props.image.pictureData+")" };
 		return (
 			<div id="phone-body">
-				<div id="bet">
+				<div id="bet" style={betStyle} >
 					<a className="back-btn" href="/feed">
 						<i className="uk-icon-arrow-circle-left"></i>
 					</a>
@@ -28,3 +30,12 @@ export default class PlaceBet extends React.Component {
 			);
 	}
 }
+
+Bet.propTypes = {
+	image: React.PropTypes.object.isRequired
+};
+
+
+
+
+

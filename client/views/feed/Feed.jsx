@@ -20,9 +20,11 @@ class Feed extends React.Component {
 		);
 	}
 }
+
 Feed.propTypes = {
   images: React.PropTypes.array.isRequired,
 };
+
 export default createContainer(() => {
   return {
     images: Pictures.find({}, {sort:{createdAt:-1}}).fetch(),
