@@ -17,7 +17,9 @@ export default class Bet extends React.Component {
 	}
 
 	render() {
-		var betStyle = { background: "url("+this.props.image.pictureData+")" };
+		var betStyle = { 
+			"backgroundImage": "url("+this.props.image.pictureData+")" 
+		};
 		return (
 			<div id="phone-body">
 				<div id="bet" style={betStyle} >

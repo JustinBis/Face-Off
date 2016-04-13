@@ -2,7 +2,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
 
 import Login from './views/login/Login.jsx';
-import Feed from './views/feed/Feed.jsx';
+import FeedContainer from './views/feed/FeedContainer.jsx';
 import BetContainer from './views/place_bet/BetContainer.jsx'
 import TakePicture from './views/take_picture/TakePicture.jsx'
 
@@ -66,8 +66,8 @@ var loggedInRoutes = FlowRouter.group({
 loggedInRoutes.route('/feed', {
 	name: 'App.feed',
 	action() {
-		mount(Feed, {
-			main: () => <Feed />,
+		mount(FeedContainer, {
+			main: () => <FeedContainer />,
 		});
 	},
 });
