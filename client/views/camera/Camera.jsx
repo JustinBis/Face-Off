@@ -4,53 +4,131 @@ import reportError from '../../../imports/ui/report-error';
 
 // When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
 
+// The quality factor to use for images (0-100)
+const quality = 80;
+
 export default class TakePicture extends React.Component {
 	constructor(props) {
 		super(props);
 
 		// Initial state
 		this.state = {
-			selected_emoji: this.getRandomEmoji()
+			needsCameraPermission: true,
+			selectedEmoji: this.getRandomEmoji()
 		};
 
 		// Event Bindings (simulate auto binding of keyword this)
-		this.newRandomEmoji = this.newRandomEmoji.bind(this);
-		this.takePicture = this.takePicture.bind(this);
+		//this.newRandomEmoji = this.newRandomEmoji.bind(this);
+		//this.takePicture = this.takePicture.bind(this);
   	}
 
-	render() {
-		// For compatibility with React's dangerouslySetInnerHTML
-		var emoji_html = {__html: this.emojiStringToHTML(this.state.selected_emoji)};
-
-		var view = (<div id="take-picture">
-			<h1>Make This Face</h1>
-			<div className="emoji-container" dangerouslySetInnerHTML={emoji_html}>
-			</div>
-			<div className="uk-button-group">
-				<button className="uk-button uk-button-large uk-button-primary" onClick={this.newRandomEmoji}>New Emoji</button>
-				<button className="uk-button uk-button-large uk-button-primary" onClick={this.takePicture}>Take a Selfie</button>
-			</div>
-			</div>);
-
-		return view;
-	}
-
-	takePicture() {
-		MeteorCamera.getPicture({}, (err, data) => {
-			if(err)
+  	componentDidMount() {
+		if(Meteor.isCordova)
+		{
+			// TODO: Jump to native camera on phones
+		}
+		else
+		{
+			// Prep the camera web page
+			this.fixGetUserMediaFunction();
+			if(!navigator.getUserMedia)
 			{
-				if(err.error == "cancel")
-				{
-					// The user cancelled the photo, so silently exit
-					return;
-				}
-				reportError(err);
+				// This browser doesn't support getUserMedia
+				console.log("This browser doesn't support getUserMedia");
+				this.setState({notSupported: true});
 				return;
 			}
 
-			// TODO: add a better review sceen for pictures (possibly invoked here)
-			this.savePictureToDB(data, this.state.selected_emoji);
-		});
+			// Initiate a request for camera access
+			navigator.getUserMedia({
+				video: true,
+				audio: false
+  			},
+  			// Success callback
+  			(stream) => {
+  				this.setState({needsCameraPermission: false});
+
+  				// Setup the video source
+  				this.setState({videoSrc: window.URL.createObjectURL(stream)});
+
+
+  			},
+  			// Failure callback
+  			(err) => {
+  				var prefix = "Error accessing camera:";
+  				if(err.name == "PermissionDeniedError" || err.name == "PERMISSION_DENIED")
+  				{
+  					err.reason = "Permission to use the camera was denied";
+  					reportError(err, prefix);
+  				}
+  				else if(err.name == "NotFoundError")
+  				{
+  					err.reason = "Camera could not be found by the browser";
+  					reportError(err, prefix);
+  				}
+  				else
+  				{
+  					err.reason = `Unknown error (${err.name})`;
+  					reportError(err, prefix);
+  				}
+  			});
+		}
+	}
+
+	render() {
+		var view;
+		if(this.state.notSupported)
+		{
+			// TODO: Make this message not so crappy
+			view = (<h1>Sorry, your browser does not support camera access</h1>)
+		}
+		else if(this.state.needsCameraPermission)
+		{
+			// TODO: Make this message not so crappy
+			view = (<h1>Please Allow Camera Permissions</h1>);
+
+		}
+		else
+		{
+			view = (
+				<video id='viewfinder' onLoadedMetadata={this.onloadedmetadata} src={this.state.videoSrc}></video>
+			);
+		}
+		return (
+			<div id='camera'>
+				{view}
+			</div>
+			);
+	}
+
+	/**
+	 * Event callback for the video viewfinder -- will be called when the source has loaded.
+	 * This will cause the video to start playing
+	 * @param  {Event Object} e The event object
+	 * @return {[type]}   This method doesn't return anything
+	 */
+	onloadedmetadata(e) {
+		console.log("lol")
+		console.log(e);
+		e.target.play();
+	}
+
+	/**
+	 * Fixes the navigator.getUserMedia function used by this browser (if it has one at all)
+	 * This will mutate the global navigator object to set navigator.getUserMedia (without a browser prefix) if it isn't set already
+	 * (I can't believe this is necessary. How is this not standardized by now?)
+	 * @return {function} navigator.getUserMedia - the function to capture video and audio media from the user
+	 *                                           Will return `undefined` if the browser is unsupported
+	 */
+	fixGetUserMediaFunction() {
+		// Attempt to consolidate the many browser prefixes for `getUserMedia`
+		navigator.getUserMedia = (
+			navigator.getUserMedia ||
+			navigator.webkitGetUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia
+		);
+		return navigator.getUserMedia;
 	}
 
 	/**
@@ -60,17 +138,15 @@ export default class TakePicture extends React.Component {
 	 * @param  {string} emoji the emoji that corresponds to this picture, represented as a unicode string
 	 * @return {void}      This function returns nothing
 	 */
-	savePictureToDB(pictureData, emoji) {
+	savePicture(pictureData, emoji) {
 		Meteor.call('pictures.insert', pictureData, emoji, (err) => {
 			if(err)
 			{
-				reportError(err);
+				reportError(err, "Error saving picture:");
 			}
 		});
 	}
 
-	// Logic helper methods
-	
 	/**
 	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
 	 * @param  {string} emoji a unicode string with a single character representing the emoji
