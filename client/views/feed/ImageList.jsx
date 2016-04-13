@@ -30,7 +30,7 @@ class Image extends React.Component {
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
                        	<img className="picture" src={this.props.picture.pictureData} />
-                        <img className="pot" src="http://www.pngall.com/wp-content/uploads/2016/03/Money-Free-Download-PNG-180x180.png" />
+                        <img className="pot" src="images/potogold.png" />
                        	<BetLink id={this.props.picture._id}/>
                     </figure>
 				</div>			

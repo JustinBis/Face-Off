@@ -6,6 +6,11 @@ $thumbnail-size: 100%;
 		background-color: #000;
 		.picture {
 			opacity: .6;
+			-webkit-filter: blur(5px);
+			-moz-filter: blur(5px);
+			-o-filter: blur(5px);
+			-ms-filter: blur(5px);
+			filter: blur(5px);
 		}
 		&:hover {
 			.picture {
@@ -16,8 +21,8 @@ $thumbnail-size: 100%;
 		.pot {
 			position: absolute;
     		top: 20%;
-    		left: 25%;
-    		width: 50%;
+    		left: 27.5%;
+    		width: 45%;
     		opacity: 1;
 		}
 	}
