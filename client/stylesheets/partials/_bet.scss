@@ -17,7 +17,7 @@ $button-max-width: $image-max-width/2;
 		font-size: 5em;
 		margin: 5px 0 0 5px;
 		&:hover {
-			color: inherit;
+			color: $link-color;
 		}
 	}
 	@media (min-width: $small-device) {
