@@ -2,6 +2,8 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import reportError from '../../../imports/ui/report-error';
 
+// When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
+
 export default class TakePicture extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,14 +19,8 @@ export default class TakePicture extends React.Component {
   	}
 
 	render() {
-		// Use Twemoji to convert the emoji to an img tag using our images as sources
-		var parsed_emoji = twemoji.parse(this.state.selected_emoji, {
-			folder: 'svg',
-			ext: '.svg'
-		});
-
 		// For compatibility with React's dangerouslySetInnerHTML
-		var emoji_html = {__html: parsed_emoji};
+		var emoji_html = {__html: this.emojiStringToHTML(this.state.selected_emoji)};
 
 		var view = (<div id="take-picture">
 			<h1>Make This Face</h1>
@@ -81,7 +77,10 @@ export default class TakePicture extends React.Component {
 	 * @return {string}       the HTML string containing an img tag for the given emoji
 	 */
 	emojiStringToHTML(emoji) {
-		// TODO: implement this and replace the rendering code
+		return twemoji.parse(emoji, {
+			folder: 'svg',
+			ext: '.svg'
+		})
 	}
 
 	/**
