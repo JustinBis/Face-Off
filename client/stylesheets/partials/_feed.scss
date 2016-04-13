@@ -2,9 +2,20 @@
 $thumbnail-size: 100%;
 
 #feed {
-	.uk-grid {
-		background-color: $primary-color;
+
+	.uk-grid { 
+		margin: 0;
 	}
+
+	.uk-grid > * {
+		background-color: $primary-color;
+		padding: 0;
+	}
+
+	.uk-thumbnail {
+		padding: 0;
+	}
+
 	.uk-overlay {
 		background-color: #000;
 		.picture {
@@ -23,15 +34,21 @@ $thumbnail-size: 100%;
 
 		.pot {
 			position: absolute;
-    		top: 20%;
-    		left: 27.5%;
-    		width: 45%;
+    		bottom: 10%;
+    		left: 10%;
+    		width: 15%;
     		opacity: 1;
 		}
 	}
 
-	.uk-thumbnail {
-		display: block;
-		margin: 10px auto;
+	.countdown-container {
+		position: absolute;
+	    bottom: 10%;
+	    right: 10%;
+	    color: white;
+	    font-size: 100%;
+	    div {
+	    	display: inline-block;
+	    }
 	}
 }
