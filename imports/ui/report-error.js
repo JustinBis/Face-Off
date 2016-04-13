@@ -6,13 +6,17 @@
  */
 export default function reportError(err, prefix) {
 	var errorString;
-	if(prefix)
+	if(prefix && err.reason)
 	{
 		errorString = `${prefix} ${err.reason}`;
 	}
-	else
+	else if(err.reason)
 	{
 		errorString = `Error: ${err.reason}`;
+	}
+	else
+	{
+		errorString = `Error: unknown error. See console for details.`;
 	}
 	console.error(errorString);
 
