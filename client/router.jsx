@@ -32,6 +32,14 @@ FlowRouter.route('/login', {
 		mount(Login, {
 			main: () => <Login />,
 		});
+
+		// Redirect on login
+		Accounts.onLogin((stop) => {
+			console.log('yeah');
+			FlowRouter.go(loggedInDefault)
+			// Unregister the hook
+			stop();
+		});
 	},
 });
 
@@ -40,9 +48,7 @@ FlowRouter.route('/login', {
  */
 
 // Hooks for login
-Accounts.onLogin(() => {
-	FlowRouter.go(loggedInDefault)
-});
+
 
 var loggedInRoutes = FlowRouter.group({
 	name: 'loggedInRoutes',
@@ -52,7 +58,7 @@ var loggedInRoutes = FlowRouter.group({
 		if(!(Meteor.loggingIn() || Meteor.userId()))
 		{
 			// TODO: uncomment this to enable logins
-			//redirect('App.login');
+			redirect('App.login');
 		}
 	}]
 });
