@@ -1,6 +1,6 @@
 
 // Import startup code
-import '../imports/startup/server/service-configuration';
+import '../imports/startup/server';
 
 // Import all collections
 import '../imports/api/pictures.js';

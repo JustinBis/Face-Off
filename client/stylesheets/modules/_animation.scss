@@ -1,0 +1,29 @@
+/**
+ * Animation helpers
+ */
+
+@mixin animate($animation, $duration, $repeat, $easing) {
+	-webkit-animation: $animation $duration $repeat $easing;
+	   -moz-animation: $animation $duration $repeat $easing;
+	    -ms-animation: $animation $duration $repeat $easing;
+	        animation: $animation $duration $repeat $easing;
+}
+
+
+// Keyframes Mixin
+// https://gist.github.com/ericam/1607696
+
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name} {
+		@content; 
+	}
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	@-ms-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	} 
+}
