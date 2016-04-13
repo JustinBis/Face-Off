@@ -2,6 +2,9 @@
 $thumbnail-size: 100%;
 
 #feed {
+	.uk-grid {
+		background-color: $primary-color;
+	}
 	.uk-overlay {
 		background-color: #000;
 		.picture {
