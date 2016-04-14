@@ -17,7 +17,7 @@ var fakeUser = function() {
 	var pic = pics[_.random(0,pics.length)];
 	//Update pictures createdAt time
 	var now = new Date();
-	Pictures.update({"_id":pic._id}, {"createdAt":now});
+	Pictures.update({"_id":pic._id}, {$set: {"createdAt":now}} );
 
 	console.log("Revived picture:",pic._id);
 }
