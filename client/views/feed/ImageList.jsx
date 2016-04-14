@@ -22,13 +22,6 @@ export default class ImageList extends React.Component {
 	}
 }
 
-    // initialTimeRemaining: React.PropTypes.number.isRequired,
-    // interval: React.PropTypes.number,
-    // formatFunc: React.PropTypes.func,
-    // tickCallback: React.PropTypes.func,
-    // completeCallback: React.PropTypes.func
-
-
 /**
 	Clickable image within the feed that leads to the bet placing page
 */
