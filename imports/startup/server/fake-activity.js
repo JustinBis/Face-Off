@@ -14,7 +14,7 @@ var fakeUser = function() {
 	//Retrieve 20 pictures
 	var pics = Pictures.find({},{limit:20}).fetch();
 	//Choose random pic
-	var pic = pics[_.random(0,pics.length)];
+	var pic = pics[_.random(0,pics.length-1)];
 	//Update pictures createdAt time
 	var now = new Date();
 	Pictures.update({"_id":pic._id}, {$set: {"createdAt":now}} );
