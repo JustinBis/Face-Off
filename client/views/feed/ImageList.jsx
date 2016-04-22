@@ -30,8 +30,6 @@ export default class ImageList extends React.Component {
 class Image extends React.Component {
 	constructor(props) {
 		super(props);
-		var selectorImage = props.alreadyBet ? 'green-checkmark.png' : 'potogold.png';
-		this.state = {selectorImage:selectorImage};
 		if (props.alreadyBet) {
 			console.log("Already bet");
 		}
@@ -43,7 +41,7 @@ class Image extends React.Component {
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
                        	<img className="picture" src={this.props.picture.pictureData} />
-                        <img className="pot" src={'images/'+this.state.selectorImage} />
+                        <img className="pot" src={this.props.alreadyBet ? 'images/green-checkmark.png' : 'images/potogold.png'} />
                         
                         <div className="countdown-container">
                         	<span> Time Left: </span>

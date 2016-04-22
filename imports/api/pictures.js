@@ -32,9 +32,12 @@ Meteor.methods({
 			usersBet: []
 		});
 	},
+	/**
+	 * Adds user to list of users who have bet on this specific image
+	 */
 	'pictures.updateBets'(pictureId) {
 		check(pictureId, String);
-		console.log(pictureId)
+		console.log("Bet placed on ",pictureId)
 		if(!Meteor.userId()) {
 			throw new Meteor.Error('not-authorized', 'You must be logged in to place a bet');
 		}
@@ -46,6 +49,12 @@ Meteor.methods({
 		{
 			$push: {usersBet: Meteor.userId()} 
 		})
+	},
+	/**
+	 * Retrieves 4 viable emoji options for a user to select as their bet
+	 */
+	'pictures.getOptions'(pictureId) {
+
 	}
 
 

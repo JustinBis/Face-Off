@@ -17,10 +17,11 @@ var fakeUser = function() {
 	var pic = pics[_.random(0,pics.length-1)];
 	//Update pictures createdAt time
 	var now = new Date();
-	Pictures.update({"_id":pic._id}, {$set: {"createdAt":now}} );
+	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[]}} );
 
 	console.log("Revived picture:",pic._id);
 }
 
-fakeUser();
+fakeUser(); 
+
 Meteor.setInterval(fakeUser, 60*1000);
