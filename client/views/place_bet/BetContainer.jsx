@@ -11,6 +11,6 @@ export default createContainer( ({params}) => {
 	const id = FlowRouter.getQueryParam("id");
 	const image = Pictures.findOne({_id:id});
 	return {
-		image: image
+		image: image || {}
 	};
 }, Bet);

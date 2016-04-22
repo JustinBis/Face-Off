@@ -10,7 +10,7 @@ export default class ChoiceList extends React.Component {
 
 	render() {
 		var choices = this.props.choices.map( (emojiUrl) => {
-						return (<Choice key={emojiUrl} emojiUrl={emojiUrl} />);
+						return (<Choice key={emojiUrl} emojiUrl={emojiUrl} placeBet={this.props.placeBet} />);
 					});
 		return (
 			<div className="choices-container">
@@ -26,11 +26,16 @@ export default class ChoiceList extends React.Component {
 class Choice extends React.Component {
 	constructor(props) {
 		super(props);
+		this.placeBet = this.placeBet.bind(this);
+	}
+
+	placeBet() {
+		this.props.placeBet.placeBet(this.props.emojiUrl);
 	}
 
 	render() {
 		return (
-			<div className="choice">
+			<div className="choice" onClick={this.placeBet}>
 				<img src={this.props.emojiUrl}/>
 			</div>
 		);

@@ -28,7 +28,25 @@ Meteor.methods({
 			pictureData,
 			emoji,
 			createdAt: new Date(),
-			owner: Meteor.userId()
+			owner: Meteor.userId(),
+			usersBet: []
 		});
+	},
+	'pictures.updateBets'(pictureId) {
+		check(pictureId, String);
+		console.log(pictureId)
+		if(!Meteor.userId()) {
+			throw new Meteor.Error('not-authorized', 'You must be logged in to place a bet');
+		}
+
+		Pictures.update(
+		{
+			_id: pictureId
+		},
+		{
+			$push: {usersBet: Meteor.userId()} 
+		})
 	}
+
+
 });
