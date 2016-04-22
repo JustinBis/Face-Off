@@ -8,7 +8,14 @@ import { Pictures } from './pictures.js';
 //TODO make sure "correct answer" field of pictures not accessible client side (not published)
 
 Meteor.methods({
-	'Bets.addBet'(pictureId, emojiId) {
+
+	/**
+	 * Inserting a bet into the Bets collection
+	 * Params
+	 * @param  String pictureId ID of the picture being bet on
+	 * @param  String emojiId   ID of the emoji selected by the user
+	 */
+	'Bets.insert'(pictureId, emojiGuessed) {
 		check(pictureId, String);
 		check(emojiId, String);
 		var userId = Meteor.userId();
@@ -16,14 +23,22 @@ Meteor.methods({
 		if (!userId) {
 			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
 		}
+		
+		// var stake = 100;
+		// check uniqueBet
+		// get pictures info 
+		// Bets.insert({
+		// 	userId,
+		// 	pictureId,
+		// 	emojiActual,
+		// 	emojiGuessed,
+		// 	stake
+		// });
 
-		// if pictureId 
-
-		// const picture = Pictures.find({"_id":pictureId});
-		// Meteor.users({"_id":userId}).update({$set: {$activeBets: {$addToSet:}}})
-		// if (picture.emojiId === emojiId) {
-
-		// }
+		// if picture emoji === emojiActual
+		// 	user.update + stake
+		// else
+		// 	user.update - stake
 	}
 })
 
