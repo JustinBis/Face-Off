@@ -194,7 +194,7 @@ export default class TakePicture extends React.Component {
 
 		var canvas = this._canvas;
 
-		// set the canvas height and width
+		// Set the canvas height and width so it can accept the image at the correct size
 		canvas.height = IMAGE_HEIGHT;
 		canvas.width = IMAGE_WIDTH;
 

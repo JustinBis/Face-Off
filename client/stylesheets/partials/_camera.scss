@@ -5,11 +5,13 @@
 	.viewfinder
 	{
 		position: relative;
-		background-color: red;
 		height: 480px;
 		width: 360px;
 
 		margin: 0 auto;
+
+		background: url('/img/icons/aperture.svg') no-repeat center center;
+		background-size: 50%;
 
 		overflow: hidden;
 
