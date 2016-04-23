@@ -28,4 +28,4 @@ var fakeUser = function() {
 
 fakeUser(); 
 
-Meteor.setInterval(fakeUser, 6*1000);
+Meteor.setInterval(fakeUser, 60*1000);
