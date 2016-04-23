@@ -12,7 +12,10 @@ import { Bets } from '../../api/bets.js';
 var fakeUser = function() {
 
 	//Retrieve 20 pictures
-	var pics = Pictures.find({},{limit:20}).fetch();
+	var pics = Pictures.find({ usersBet:{$ne:[]} },{limit:20}).fetch();
+	if(!pics.length) {
+		return;
+	}
 	//Choose random pic
 	var pic = pics[_.random(0,pics.length-1)];
 	//Update pictures createdAt time
@@ -25,4 +28,4 @@ var fakeUser = function() {
 
 fakeUser(); 
 
-Meteor.setInterval(fakeUser, 60*1000);
+Meteor.setInterval(fakeUser, 6*1000);

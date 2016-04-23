@@ -28,7 +28,6 @@ Meteor.methods({
 		}
 		const pic = Pictures.findOne({_id: pictureId});
 		const emojiActual = pic.emoji;
-		console.log(pic)
 		Bets.insert({
 			userId,
 			pictureId,
