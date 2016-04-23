@@ -1,7 +1,7 @@
 
 
 import { Pictures } from '../../api/pictures.js';
-
+import { Bets } from '../../api/bets.js';
 
 /**
  * Fakes user activity.
@@ -18,7 +18,8 @@ var fakeUser = function() {
 	//Update pictures createdAt time
 	var now = new Date();
 	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[]}} );
-
+	//Clear bets that were on the given image
+	Bets.remove({pictureId:pic._id});
 	console.log("Revived picture:",pic._id);
 }
 
