@@ -4,7 +4,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
- 
+import { getOptions } from './emoji-util.js';
 export const Pictures = new Mongo.Collection('pictures');
 
 
@@ -29,6 +29,7 @@ Meteor.methods({
 			emoji,
 			createdAt: new Date(),
 			owner: Meteor.userId(),
+			choices: getOptions(emoji),
 			usersBet: []
 		});
 	},
@@ -49,12 +50,6 @@ Meteor.methods({
 		{
 			$push: {usersBet: Meteor.userId()} 
 		})
-	},
-	/**
-	 * Retrieves 4 viable emoji options for a user to select as their bet
-	 */
-	'pictures.getOptions'(pictureId) {
-
 	}
 
 

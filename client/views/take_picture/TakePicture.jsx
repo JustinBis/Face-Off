@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import reportError from '../../../imports/ui/report-error';
+import { getRandomEmoji, emojiStringToHTML } from '../../../imports/api/emoji-util';
 
 // When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
 
@@ -20,7 +21,7 @@ export default class TakePicture extends React.Component {
 
 	render() {
 		// For compatibility with React's dangerouslySetInnerHTML
-		var emoji_html = {__html: this.emojiStringToHTML(this.state.selected_emoji)};
+		var emoji_html = {__html: emojiStringToHTML(this.state.selected_emoji)};
 
 		var view = (<div id="take-picture">
 			<h1>Make This Face</h1>
@@ -69,38 +70,12 @@ export default class TakePicture extends React.Component {
 		});
 	}
 
-	// Logic helper methods
-	
-	/**
-	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
-	 * @param  {string} emoji a unicode string with a single character representing the emoji
-	 * @return {string}       the HTML string containing an img tag for the given emoji
-	 */
-	emojiStringToHTML(emoji) {
-		return twemoji.parse(emoji, {
-			folder: 'svg',
-			ext: '.svg'
-		})
-	}
-
 	/**
 	 * Stores a new random emoji in the state of this React component
 	 * @return {void} This function does not return a value
 	 */
 	newRandomEmoji() {
-		this.setState({selected_emoji: this.getRandomEmoji()});
+		this.setState({selected_emoji: getRandomEmoji()});
 	}
-	
-	/**
-	 * Selects a random emoji from the group of possible emojis
-	 * @return {string} A string representing the emoji to display
-	 */
-	getRandomEmoji() {
-		// Why doesn't ES6 support unicode for real yet? Damnit javascript 😡
-		//var possibleEmojis = [😀,😬,😁,😂,😃,😄,😅,😆,😇,😉,😊,🙂,🙃,😋,😌,😍,😘,😗,😙,😚,😜,😝,😛,🤑,🤓,😎,🤗,😏,😶,😐,😑,😒,🙄,🤔,😳,😞,😟,😠,😡,😔,😕,🙁,😣,😖,😫,😩,😤,😮,😱,😨,😰,😯,😦,😧,😢,😥,😪,😓,😭,😵,😲,🤐,😷,🤒,🤕,😴];
-		var possibleEmojis = ['\ud83d\ude00','\ud83d\ude2c','\ud83d\ude01','\ud83d\ude02','\ud83d\ude03','\ud83d\ude04','\ud83d\ude05','\ud83d\ude06','\ud83d\ude07','\ud83d\ude09','\ud83d\ude0a','\ud83d\ude42','\ud83d\ude43','\u263a\ufe0f','\ud83d\ude0b','\ud83d\ude0c','\ud83d\ude0d','\ud83d\ude18','\ud83d\ude17','\ud83d\ude19','\ud83d\ude1a','\ud83d\ude1c','\ud83d\ude1d','\ud83d\ude1b','\ud83e\udd11','\ud83e\udd13','\ud83d\ude0e','\ud83e\udd17','\ud83d\ude0f','\ud83d\ude36','\ud83d\ude10','\ud83d\ude11','\ud83d\ude12','\ud83d\ude44','\ud83e\udd14','\ud83d\ude33','\ud83d\ude1e','\ud83d\ude1f','\ud83d\ude20','\ud83d\ude21','\ud83d\ude14','\ud83d\ude15','\ud83d\ude41','\u2639\ufe0f','\ud83d\ude23','\ud83d\ude16','\ud83d\ude2b','\ud83d\ude29','\ud83d\ude24','\ud83d\ude2e','\ud83d\ude31','\ud83d\ude28','\ud83d\ude30','\ud83d\ude2f','\ud83d\ude26','\ud83d\ude27','\ud83d\ude22','\ud83d\ude25','\ud83d\ude2a','\ud83d\ude13','\ud83d\ude2d','\ud83d\ude35','\ud83d\ude32','\ud83e\udd10','\ud83d\ude37','\ud83e\udd12','\ud83e\udd15','\ud83d\ude34'];
 
-		var randomEmoji = possibleEmojis[Math.floor(Math.random() * possibleEmojis.length)];
-		return randomEmoji;
-	}
 }
