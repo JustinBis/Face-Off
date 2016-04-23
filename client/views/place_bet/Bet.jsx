@@ -1,5 +1,7 @@
 import React from 'react';
 import ChoiceList from './ChoiceList.jsx';
+import reportError from '../../../imports/ui/report-error';
+import Loading from '../../../imports/ui/Loading';
 
 /**
 	Root element of Bet placement page, responsible for setting background image
@@ -9,24 +11,47 @@ import ChoiceList from './ChoiceList.jsx';
 export default class Bet extends React.Component {
 	constructor(props) {
 		super(props);
-		var choices = [ "images/emojis/toungue.png",
-						"images/emojis/kiss.png",
-						"images/emojis/open_smile.png",
-						"images/emojis/blush.png"];
-		this.state = { choices:choices };
+		console.log(this.props)
+
+		this.placeBet = this.placeBet.bind(this);
+	}
+
+	/**
+	 * Occurs when given emoji choice is clicked, adds user to updated bets in the pictures collection
+	 * and inserts bet to bets collection, simultaneously updating user's score
+	 * @param  {[type]} emojiId unique emoji identifier
+	 */
+	placeBet(emojiId) {
+		var pictureId = this.props.image._id;
+		Meteor.call('pictures.updateBets', pictureId, function (err) {
+			if (err) {
+				reportError(err);
+			}
+		});
+		Meteor.call('bets.insert', pictureId, emojiId, function (err) {
+			if (err) {
+				reportError(err);
+			}
+		});
 	}
 
 	render() {
+		if(!this.props.imageReady) {
+			return( <Loading /> );
+		}
+
 		var betStyle = { 
 			"backgroundImage": "url("+this.props.image.pictureData+")" 
 		};
+		//TODO LOL WHY IS THIS NECESSARY (try and pass in just the function on its own)
+		var placeBet = {placeBet:this.placeBet}
 		return (
 			<div id="phone-body">
 				<div id="bet" style={betStyle} >
 					<a className="back-btn" href="/feed">
 						<i className="uk-icon-arrow-circle-left"></i>
 					</a>
-					<ChoiceList choices={this.state.choices} />
+					<ChoiceList choices={this.props.image.options} placeBet={placeBet} pictureId={this.props.image._id}/>
 				</div>
 			</div>
 			);
@@ -34,7 +59,8 @@ export default class Bet extends React.Component {
 }
 
 Bet.propTypes = {
-	image: React.PropTypes.object.isRequired
+	image: React.PropTypes.object,
+	imageReady: React.PropTypes.bool
 };
 
 

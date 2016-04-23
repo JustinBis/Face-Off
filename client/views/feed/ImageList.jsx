@@ -10,8 +10,10 @@ export default class ImageList extends React.Component {
 	render() {
 		//Generate image components using Image class
 		var imageComps = this.props.images.map((image, ind) => {
+			//See if user already bet on this image
+			var alreadyBet = image.usersBet.indexOf( Meteor.userId() ) !== -1;
 			return (
-				<Image key={image._id} picture={image}/>
+				<Image key={image._id} picture={image} alreadyBet={alreadyBet}/>
 			);
 		});
 		return (
@@ -28,7 +30,9 @@ export default class ImageList extends React.Component {
 class Image extends React.Component {
 	constructor(props) {
 		super(props);
-
+		if (props.alreadyBet) {
+			console.log("Already bet");
+		}
 	}
 
 	render() {
@@ -37,7 +41,7 @@ class Image extends React.Component {
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
                        	<img className="picture" src={this.props.picture.pictureData} />
-                        <img className="pot" src="images/potogold.png" />
+                        <img className="pot" src={this.props.alreadyBet ? 'images/green-checkmark.png' : 'images/potogold.png'} />
                         
                         <div className="countdown-container">
                         	<span> Time Left: </span>

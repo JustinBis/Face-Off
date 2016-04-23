@@ -1,7 +1,7 @@
 
 
 import { Pictures } from '../../api/pictures.js';
-
+import { Bets } from '../../api/bets.js';
 
 /**
  * Fakes user activity.
@@ -12,15 +12,20 @@ import { Pictures } from '../../api/pictures.js';
 var fakeUser = function() {
 
 	//Retrieve 20 pictures
-	var pics = Pictures.find({},{limit:20}).fetch();
+	var pics = Pictures.find({ usersBet:{$ne:[]} },{limit:20}).fetch();
+	if(!pics.length) {
+		return;
+	}
 	//Choose random pic
 	var pic = pics[_.random(0,pics.length-1)];
 	//Update pictures createdAt time
 	var now = new Date();
-	Pictures.update({"_id":pic._id}, {$set: {"createdAt":now}} );
-
+	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[]}} );
+	//Clear bets that were on the given image
+	Bets.remove({pictureId:pic._id});
 	console.log("Revived picture:",pic._id);
 }
 
-fakeUser();
+fakeUser(); 
+
 Meteor.setInterval(fakeUser, 60*1000);
