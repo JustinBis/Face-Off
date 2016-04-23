@@ -5,7 +5,11 @@ import reportError from '../../../imports/ui/report-error';
 // When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
 
 // The quality factor to use for images (0-100)
-const quality = 80;
+const QUALITY = 80;
+
+// The height and width of the viewfinder and the image we wish to take
+const IMAGE_HEIGHT = 480;
+const IMAGE_WIDTH = 360;
 
 export default class TakePicture extends React.Component {
 	constructor(props) {
@@ -17,9 +21,12 @@ export default class TakePicture extends React.Component {
 			selectedEmoji: this.getRandomEmoji()
 		};
 
+		this._video = null;
+		this._canvas = null;
+
 		// Event Bindings (simulate auto binding of keyword this)
-		//this.newRandomEmoji = this.newRandomEmoji.bind(this);
-		//this.takePicture = this.takePicture.bind(this);
+		this.newRandomEmoji = this.newRandomEmoji.bind(this);
+		this.takePicture = this.takePicture.bind(this);
   	}
 
   	componentDidMount() {
@@ -46,10 +53,17 @@ export default class TakePicture extends React.Component {
   			},
   			// Success callback
   			(stream) => {
+  				// Crate the canvas element needed to capture frames from the video
+  				this._canvas = document.createElement("canvas");
+
   				this.setState({needsCameraPermission: false});
 
-  				// Setup the video source
-  				this.setState({videoSrc: window.URL.createObjectURL(stream)});
+  				// Setup the video source URL
+  				var vendorURL = window.URL || window.webkitURL
+  				this.setState({
+  					videoSrc: vendorURL.createObjectURL(stream),
+  					videoSrcObject: stream
+  				});
 
 
   			},
@@ -76,6 +90,7 @@ export default class TakePicture extends React.Component {
 	}
 
 	render() {
+		// TODO: Make these individual react components for better organization
 		var view;
 		if(this.state.notSupported)
 		{
@@ -91,7 +106,29 @@ export default class TakePicture extends React.Component {
 		else
 		{
 			view = (
-				<video id='viewfinder' onLoadedMetadata={this.onloadedmetadata} src={this.state.videoSrc}></video>
+				<div className='viewfinder'>
+					<video id='camera-preview'
+						ref={(ref) => this._video = ref}
+						onLoadedMetadata={this.onloadedmetadata}
+						src={this.state.videoSrc}
+						srcObject={this.state.videoSrcObject}
+						mozSrcObject={this.state.videoSrcObject}
+					></video>
+					<div className='overlay'>
+						<button className='exit'>Exit</button>
+						<div className='bottom-row'>
+							<div>
+								<button onClick={this.newRandomEmoji} className='shutter'>New Emoji</button>
+							</div>
+							<div>
+								<button onClick={this.takePicture} className='shutter'>Shutter</button>
+							</div>
+							<div>
+								<button className='shutter'>Items</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			);
 		}
 		return (
@@ -108,8 +145,6 @@ export default class TakePicture extends React.Component {
 	 * @return {[type]}   This method doesn't return anything
 	 */
 	onloadedmetadata(e) {
-		console.log("lol")
-		console.log(e);
 		e.target.play();
 	}
 
@@ -130,6 +165,45 @@ export default class TakePicture extends React.Component {
 		);
 		return navigator.getUserMedia;
 	}
+
+	/**
+	 * Saves a frame from the current camera feed.
+	 * This relies on this._video and this._canvas being defined and ready to use
+	 * (i.e. they must be active DOM elements and the video must be playing)
+	 *
+	 * This function will store the picture data in this component's state under 'pictureData'
+	 * as a Base64 encoded string that can be used as the src of an img tag
+	 * 
+	 * @return {null} This method saves its result in the state of this component
+	 */
+	takePicture() {
+		if(this._video === null || this._canvas === null)
+		{
+			reportError("Error taking picture: internal video error");
+			return;
+		}
+
+		var video = this._video;
+		//var videoWidth = video.videoWidth;
+		//var videoHeight = video.videoHeight;
+		
+		// Since the viewfinder is centered on the video, we need to extract a center frame of the video
+		// so we calculate the difference between the video width and the viewfinder width and divide by two
+		// to get the size of the left and right margins
+		var leftMargin = Math.floor( (video.videoWidth - IMAGE_WIDTH) / 2 );
+
+		var canvas = this._canvas;
+
+		// set the canvas height and width
+		canvas.height = IMAGE_HEIGHT;
+		canvas.width = IMAGE_WIDTH;
+
+		canvas.getContext('2d').drawImage(video, leftMargin, 0, IMAGE_WIDTH, video.videoHeight, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+		var pictureData = canvas.toDataURL('image/jpeg', QUALITY);
+
+		this.setState({pictureData});
+	}
+
 
 	/**
 	 * Saves a picture and its associated emoji to the database

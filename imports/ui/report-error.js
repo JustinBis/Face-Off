@@ -14,6 +14,14 @@ export default function reportError(err, prefix) {
 	{
 		errorString = `Error: ${err.reason}`;
 	}
+	else if(typeof(err) === "string" && prefix)
+	{
+		errorString = `${prefix} ${err}`;
+	}
+	else if(typeof(err) === "string")
+	{
+		errorString = `${err}`;
+	}
 	else
 	{
 		errorString = `Error: unknown error. See console for details.`;

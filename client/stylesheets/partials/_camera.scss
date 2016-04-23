@@ -1,0 +1,61 @@
+#camera {
+
+	// Note: the iPhone front facing camera takes photos in a 4:3 aspect ratio,
+	// so we attempt to emulate that here with the fixed height and width
+	.viewfinder
+	{
+		position: relative;
+		background-color: red;
+		height: 480px;
+		width: 360px;
+
+		margin: 0 auto;
+
+		overflow: hidden;
+
+		#camera-preview {
+			// Maximize height since most desktop/laptop cameras will be widescreen
+			height: 100%;
+			max-width: initial; // Disable any width-limiting
+
+			// Center the video in the viewfinder-container
+			position: absolute;
+			top: -100%;
+			bottom: -100%;
+			left: -100%;
+			right: -100%;
+			margin: auto;
+
+			z-index: 0;
+		}
+
+		.overlay {
+			position: relative;
+			z-index: 1;
+			height: 100%;
+			width: 100%;
+
+			.exit {
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				margin: 5%;
+			}
+
+			.bottom-row {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				margin: 0 auto 5%;
+
+				& > div {
+					display: inline-block;
+					width: 33%;
+					text-align: center;
+				}
+			}
+		}
+	}
+	
+}
