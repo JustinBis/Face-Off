@@ -1,5 +1,9 @@
 #camera {
 
+	display: flex;
+	align-items: center;
+	height: 100%;
+
 	// Note: the iPhone front facing camera takes photos in a 4:3 aspect ratio,
 	// so we attempt to emulate that here with the fixed height and width
 	.viewfinder
@@ -56,8 +60,46 @@
 					width: 33%;
 					text-align: center;
 				}
+
+				button {
+					border: none;
+
+					height: 50px;
+					width: 50px;
+
+					background-size: contain;
+
+					&.small {
+						height: 30px;
+						width: 30px;
+					}
+				}
+
+				.shutter {
+					background: url('/img/icons/face.svg') no-repeat center/contain;
+				}
+
+				.new-emoji {
+					background: url('/img/icons/refresh_arrows.svg') no-repeat center/contain;
+				}
+
+				.items {
+					background: url('/img/icons/party_hat.svg') no-repeat center/contain;
+					// Use opacity to indicate that this feature is not yet available
+					opacity: 0.4;
+				}
 			}
 		}
+	}
+
+	.camera-error {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+
+		font-size: 1.5em;
+
+		margin-top: 3em;
 	}
 	
 }

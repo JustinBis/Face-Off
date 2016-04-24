@@ -95,13 +95,24 @@ export default class TakePicture extends React.Component {
 		if(this.state.notSupported)
 		{
 			// TODO: Make this message not so crappy
-			view = (<h1>Sorry, your browser does not support camera access</h1>)
+			view = (
+				<div className='viewfinder'>
+					<span className='camera-error'>
+						Sorry, your browser does not support camera access :(
+					</span>
+				</div>
+				);
 		}
 		else if(this.state.needsCameraPermission)
 		{
 			// TODO: Make this message not so crappy
-			view = (<h1>Please Allow Camera Permissions</h1>);
-
+			view = (
+				<div className='viewfinder'>
+					<span className='camera-error'>
+						Please Allow Camera Permissions
+					</span>
+				</div>
+				);
 		}
 		else
 		{
@@ -115,16 +126,16 @@ export default class TakePicture extends React.Component {
 						mozSrcObject={this.state.videoSrcObject}
 					></video>
 					<div className='overlay'>
-						<button className='exit'>Exit</button>
+						<button onClick={this.exitButtonClicked} className='exit'>Exit</button>
 						<div className='bottom-row'>
 							<div>
-								<button onClick={this.newRandomEmoji} className='shutter'>New Emoji</button>
+								<button onClick={this.newRandomEmoji} className='small new-emoji' />
 							</div>
 							<div>
-								<button onClick={this.takePicture} className='shutter'>Shutter</button>
+								<button onClick={this.takePicture} className='shutter' />
 							</div>
 							<div>
-								<button className='shutter'>Items</button>
+								<button className='small items' />
 							</div>
 						</div>
 					</div>
@@ -136,6 +147,14 @@ export default class TakePicture extends React.Component {
 				{view}
 			</div>
 			);
+	}
+
+	/**
+	 * Click handler for the exit button. This will send the user back to the feed.
+	 * @return {null} This function returns nothing
+	 */
+	exitButtonClicked() {
+		FlowRouter.go('App.feed');
 	}
 
 	/**
