@@ -3,6 +3,7 @@ $image-max-width: 30em;
 $button-max-width: $image-max-width/2;
 
 #bet {
+
 	background: url(images/selfie.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -14,7 +15,7 @@ $button-max-width: $image-max-width/2;
 	display: flex;
 	flex-flow: column;
 	.back-btn {
-		font-size: 5em;
+		font-size: 4em;
 		margin: 5px 0 0 5px;
 		&:hover {
 			color: $link-color;

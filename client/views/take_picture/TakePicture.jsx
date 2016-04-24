@@ -11,7 +11,7 @@ export default class TakePicture extends React.Component {
 
 		// Initial state
 		this.state = {
-			selected_emoji: this.getRandomEmoji()
+			selected_emoji: getRandomEmoji()
 		};
 
 		// Event Bindings (simulate auto binding of keyword this)

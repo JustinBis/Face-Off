@@ -43,13 +43,13 @@ export default class Bet extends React.Component {
 		var betStyle = { 
 			"backgroundImage": "url("+this.props.image.pictureData+")" 
 		};
-		//TODO LOL WHY IS THIS NECESSARY (try and pass in just the function on its own)
+		//TODO LOL WHY IS THIS NECESSARY (try and pass in just the function on its own) 
 		var placeBet = {placeBet:this.placeBet}
 		return (
 			<div id="phone-body">
 				<div id="bet" style={betStyle} >
 					<a className="back-btn" href="/feed">
-						<i className="uk-icon-arrow-circle-left"></i>
+						<i className="uk-icon-arrow-left"></i>
 					</a>
 					<ChoiceList choices={this.props.image.options} placeBet={placeBet} pictureId={this.props.image._id}/>
 				</div>

@@ -29,7 +29,7 @@ Meteor.methods({
 			emoji,
 			createdAt: new Date(),
 			owner: Meteor.userId(),
-			choices: getOptions(emoji),
+			options: getOptions(emoji),
 			usersBet: []
 		});
 	},
