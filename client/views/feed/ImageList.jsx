@@ -1,6 +1,6 @@
 import React from 'react';
 import CountdownTimer from '../../../imports/ui/CountdownTimer.jsx';
-import formatFunc from '../../../imports/ui/countdown-format.js';
+import {formatFunc, getTimeRemaining} from '../../../imports/ui/countdown-util.js';
 import BetLink from './BetLink.jsx';
 
 /**
@@ -13,7 +13,7 @@ export default class ImageList extends React.Component {
 			//See if user already bet on this image
 			var alreadyBet = image.usersBet.indexOf( Meteor.userId() ) !== -1;
 			return (
-				<Image key={image._id} picture={image} alreadyBet={alreadyBet}/>
+				<Image key={image._id} picture={image} alreadyBet={alreadyBet} imageDuration={this.props.imageDuration}/>
 			);
 		});
 		return (
@@ -45,7 +45,8 @@ class Image extends React.Component {
                         
                         <div className="countdown-container">
                         	<span> Time Left: </span>
-                        	<CountdownTimer initialTimeRemaining={5000} formatFunc={formatFunc} />
+                        	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt, this.props.imageDuration)} 
+                        					formatFunc={formatFunc} />
                         </div>
                        	<BetLink id={this.props.picture._id}/>
                     </figure>

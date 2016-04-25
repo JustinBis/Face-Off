@@ -1,6 +1,7 @@
 
 import { Pictures } from '../../../imports/api/pictures.js';
 import { createContainer } from 'meteor/react-meteor-data';
+import { getMinutesAgo } from '../../../imports/ui/countdown-util.js';
 import Feed from './Feed.jsx';
 
 /**
@@ -9,7 +10,10 @@ import Feed from './Feed.jsx';
  */
 export default createContainer(() => {
   Meteor.subscribe('pictures');
+  //Number of minutes any given image should last
+  var imageDuration = 10;
   return {
-    images: Pictures.find({}, {sort:{createdAt:1}}).fetch(),
+    images: Pictures.find({createdAt: {$gt: getMinutesAgo(imageDuration)} }, {sort:{createdAt:-1}}).fetch(),
+    imageDuration
   };
 }, Feed); 

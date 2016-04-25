@@ -10,9 +10,8 @@ import { Bets } from '../../api/bets.js';
  * 
  */
 var fakeUser = function() {
-
 	//Retrieve 20 pictures
-	var pics = Pictures.find({ usersBet:{$ne:[]} },{limit:20}).fetch();
+	var pics = Pictures.find({ },{limit:20}).fetch();
 	if(!pics.length) {
 		return;
 	}
@@ -26,6 +25,6 @@ var fakeUser = function() {
 	console.log("Revived picture:",pic._id);
 }
 
-fakeUser(); 
+fakeUser();
 
 Meteor.setInterval(fakeUser, 60*1000);

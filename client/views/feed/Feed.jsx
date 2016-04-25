@@ -20,7 +20,7 @@ export default class Feed extends React.Component {
 	render() {
 		return (
 			<div id="feed">
-				<ImageList images={this.props.images}/>
+				<ImageList images={this.props.images} imageDuration={this.props.imageDuration}/>
 			</div>
 		);
 	}
