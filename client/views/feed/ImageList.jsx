@@ -35,6 +35,12 @@ class Image extends React.Component {
 	}
 
 	render() {
+		var betLink;
+		if(!this.props.alreadyBet) {
+			betLink = <BetLink id={this.props.picture._id}/>
+		} else {
+			betLink = "";
+		}
 		return (
 			<div className="uk-width-small-1-3 uk-width-1-2"> 
 				<div className="uk-thumbnail">
@@ -47,7 +53,7 @@ class Image extends React.Component {
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
                         					formatFunc={formatFunc} />
                         </div>
-                       	<BetLink id={this.props.picture._id}/>
+                       	{betLink}
                     </figure>
 				</div>			
 			</div>

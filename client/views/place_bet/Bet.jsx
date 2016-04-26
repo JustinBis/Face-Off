@@ -48,9 +48,9 @@ export default class Bet extends React.Component {
 		return (
 			<div id="phone-body">
 				<div id="bet" style={betStyle} >
-					<a className="back-btn" href="/feed">
+					{/*<a className="back-btn" href="/feed">
 						<i className="uk-icon-arrow-left"></i>
-					</a>
+					</a>*/}
 					<ChoiceList choices={this.props.image.options} placeBet={placeBet} pictureId={this.props.image._id}/>
 				</div>
 			</div>

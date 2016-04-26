@@ -8,5 +8,8 @@ import {Pictures, handleExpire, IMAGE_DURATION_MILLIS} from '../../api/pictures.
 Pictures.find({expired:false}).forEach( (picture) => {
 	var now = new Date();
 	var timeLeft = IMAGE_DURATION_MILLIS - (now-picture.createdAt);
+	if(timeLeft < 0) {
+		timeLeft = 0;
+	}
 	handleExpire(timeLeft, picture._id)
 })

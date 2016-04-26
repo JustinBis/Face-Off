@@ -17,7 +17,7 @@ export const IMAGE_DURATION_MILLIS = 1000*60*10;
  */
 export function handleExpire(timeRemaining, pictureId){
 	Meteor.setTimeout( () => {
-		console.log("Expiring",pictureId)
+		console.log("Expired picture", pictureId)
 		Pictures.update({_id: pictureId}, {$set:{expired:true}})
 	}, timeRemaining);	
 }
