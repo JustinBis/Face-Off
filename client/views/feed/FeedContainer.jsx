@@ -10,10 +10,7 @@ import Feed from './Feed.jsx';
  */
 export default createContainer(() => {
   Meteor.subscribe('pictures');
-  //Number of minutes any given image should last
-  var imageDuration = 10;
   return {
-    images: Pictures.find({createdAt: {$gt: getMinutesAgo(imageDuration)} }, {sort:{createdAt:-1}}).fetch(),
-    imageDuration
+    images: Pictures.find({expired:false }, {sort:{createdAt:-1}}).fetch()
   };
 }, Feed); 

@@ -1,8 +1,7 @@
 
 
-import { Pictures } from '../../api/pictures.js';
+import { Pictures, handleExpire, IMAGE_DURATION_MILLIS } from '../../api/pictures.js';
 import { Bets } from '../../api/bets.js';
-
 /**
  * Fakes user activity.
  * Finds random picture and "revives" it by changing it's created at date,
@@ -17,14 +16,20 @@ var fakeUser = function() {
 	}
 	//Choose random pic
 	var pic = pics[_.random(0,pics.length-1)];
+
 	//Update pictures createdAt time
 	var now = new Date();
-	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[]}} );
+	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[], expired:false}} );
+	handleExpire(IMAGE_DURATION_MILLIS, pic._id);
+
 	//Clear bets that were on the given image
 	Bets.remove({pictureId:pic._id});
 	console.log("Revived picture:",pic._id);
 }
 
 fakeUser();
+fakeUser();
+fakeUser();
+fakeUser();
 
-Meteor.setInterval(fakeUser, 60*1000);
+Meteor.setInterval(fakeUser, 60*1000*1);

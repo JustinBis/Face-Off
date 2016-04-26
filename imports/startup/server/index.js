@@ -1,5 +1,7 @@
 // Import all server startup packages
 import './service-configuration';
+import './migrations';
 import './accounts-config';
 import './fake-activity';
-import './migrations';
+import './image-cleanup';
+

@@ -1,16 +1,12 @@
-import {Pictures} from '../../api/pictures.js';
+import {Pictures, handleExpire, IMAGE_DURATION_MILLIS} from '../../api/pictures.js';
 
 /**
- * Sets up a timeout to reap pictures by setting their expired flag
- * @param  {[type]} timeRemaining [description]
- * @param  {[type]} pictureId     [description]
- * @return {[type]}               [description]
+ * Reinitialize expiry handlers for images that are still alive. Any image that has 
+ * already gone past it's expiration (while the server was offline) that has not been reaped
+ * will instantly expire
  */
-function handleExpire(timeRemaining, pictureId){
-	Meteor.setTimeout(Pictures.update({_id: pictureId}, {$set:{expired:true}}), timeRemaining);	
-}
-
-//TODO cleanup script on startup 
-//TODO migration function setting default expired value to false
-//TODO fake activity set expired to false
-//TODO update FeedContainer code to reflect image cleanup expiry
+Pictures.find({expired:false}).forEach( (picture) => {
+	var now = new Date();
+	var timeLeft = IMAGE_DURATION_MILLIS - (now-picture.createdAt);
+	handleExpire(timeLeft, picture._id)
+})

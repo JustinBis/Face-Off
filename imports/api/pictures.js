@@ -6,7 +6,21 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { getOptions } from './emoji-util.js';
 export const Pictures = new Mongo.Collection('pictures');
+//Amount of time in milliseconds a given image lasts
+export const IMAGE_DURATION_MILLIS = 1000*60*10;
 
+
+/**
+ * Sets up a timeout to reap pictures by setting their expired flag
+ * @param  Number 	timeRemaining  time remaining in ms
+ * @param  String 	pictureId      id of picture to set expiry of
+ */
+export function handleExpire(timeRemaining, pictureId){
+	Meteor.setTimeout( () => {
+		console.log("Expiring",pictureId)
+		Pictures.update({_id: pictureId}, {$set:{expired:true}})
+	}, timeRemaining);	
+}
 
 if (Meteor.isServer) {
 	Meteor.publish('pictures', function picturesPublication (){
@@ -31,7 +45,17 @@ Meteor.methods({
 			owner: Meteor.userId(),
 			options: getOptions(emoji),
 			usersBet: []
+		}, (err, docsInserted) => {
+			//Initialize expiry handler for duration of image's lifespan
+			if(Meteor.isServer) {
+				if(err) {
+					throw new Meteor.Error('insertion error', 'The database encountered an error saving the image');
+				} else {
+					handleExpire(IMAGE_DURATION_MILLIS, docsInserted)
+				}
+			}
 		});
+
 	},
 	/**
 	 * Adds user to list of users who have bet on this specific image
@@ -51,6 +75,4 @@ Meteor.methods({
 			$push: {usersBet: Meteor.userId()} 
 		})
 	}
-
-
 });

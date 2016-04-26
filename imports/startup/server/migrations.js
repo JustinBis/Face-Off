@@ -16,6 +16,11 @@ Pictures.find({usersBet: {$exists:false}}, {_id:1}).forEach( picture => {
 	Pictures.update({_id: picture._id}, {$set: {usersBet: []}});
 });
 
+// If a given picture has no expired field, initialize to false
+Pictures.find({expired: {$exists:false}}, {_id:1}).forEach( picture => {
+	Pictures.update({_id: picture._id}, {$set: {expired: false}});
+});
+
 // If a given user has no score field, initialize to 1000
 Meteor.users.find({score: {$exists:false}}).forEach( user => {
 	Meteor.users.update({_id:user.id}, {$set: {score: 1000}});
