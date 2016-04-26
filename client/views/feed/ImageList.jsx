@@ -45,7 +45,8 @@ class Image extends React.Component {
 			<div className="uk-width-small-1-3 uk-width-1-2"> 
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
-                       	<img className="picture" src={this.props.picture.pictureData} />
+                       	<img className={this.props.alreadyBet ? "picture-visited" : "picture" } 
+                       		 src={this.props.picture.pictureData} />
                         <img className="pot" src={this.props.alreadyBet ? 'images/green-checkmark.png' : 'images/potogold.png'} />
                         
                         <div className="countdown-container">
