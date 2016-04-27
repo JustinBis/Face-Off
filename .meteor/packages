@@ -20,7 +20,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 autopublish             # Publish all data to the clients (for prototyping)
 kadira:flow-router
 fourseven:scss
-mdg:camera
 accounts-base
 accounts-ui
 react-meteor-data
