@@ -25,3 +25,4 @@ accounts-ui
 react-meteor-data
 accounts-facebook
 service-configuration
+practicalmeteor:mocha
