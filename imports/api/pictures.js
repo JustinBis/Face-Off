@@ -44,7 +44,8 @@ Meteor.methods({
 			createdAt: new Date(),
 			owner: Meteor.userId(),
 			options: getOptions(emoji),
-			usersBet: []
+			usersBet: [],
+			expired: false
 		}, (err, docsInserted) => {
 			//Initialize expiry handler for duration of image's lifespan
 			if(Meteor.isServer) {
