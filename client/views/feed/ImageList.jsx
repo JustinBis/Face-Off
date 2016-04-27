@@ -26,7 +26,7 @@ export default class ImageList extends React.Component {
 /**
 	Clickable image within the feed that leads to the bet placing page
 */
-class Image extends React.Component {
+export class Image extends React.Component {
 	constructor(props) {
 		super(props);
 		if (props.alreadyBet) {

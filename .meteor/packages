@@ -19,9 +19,9 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 kadira:flow-router
 fourseven:scss
-mdg:camera
 accounts-base
 accounts-ui
 react-meteor-data
 accounts-facebook
 service-configuration
+practicalmeteor:mocha

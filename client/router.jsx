@@ -4,7 +4,7 @@ import { mount } from 'react-mounter';
 import Login from './views/login/Login.jsx';
 import FeedContainer from './views/feed/FeedContainer.jsx';
 import BetContainer from './views/place_bet/BetContainer.jsx'
-import TakePicture from './views/take_picture/TakePicture.jsx'
+import Camera from './views/camera/Camera.jsx'
 
 // The default route for a logged out user (e.g. where a user will be redirected on logout)
 const loggedOutDefault = 'App.login';
@@ -53,7 +53,6 @@ FlowRouter.route('/login', {
 var loggedInRoutes = FlowRouter.group({
 	name: 'loggedInRoutes',
 	triggersEnter: [ (context, redirect) => {
-		console.log("LoggedInRoute");
 		// If the user isn't logged in, make them log in
 		if(!(Meteor.loggingIn() || Meteor.userId()))
 		{
@@ -82,11 +81,11 @@ loggedInRoutes.route('/bet', {
 	},
 });
 
-loggedInRoutes.route('/take-picture', {
-	name: 'App.take-picture',
+loggedInRoutes.route('/camera', {
+	name: 'App.camera',
 	action() {
-		mount(TakePicture, {
-			main: () => <TakePicture />,
+		mount(Camera, {
+			main: () => <Camera />,
 		});
 	},
 });
