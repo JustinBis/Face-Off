@@ -4,6 +4,8 @@
 	align-items: center;
 	height: 100%;
 
+	text-align: center;
+
 	// Note: the iPhone front facing camera takes photos in a 4:3 aspect ratio,
 	// so we attempt to emulate that here with the fixed height and width
 	.viewfinder
@@ -19,7 +21,7 @@
 
 		overflow: hidden;
 
-		#camera-preview {
+		#camera-preview, .behind-overlay {
 			// Maximize height since most desktop/laptop cameras will be widescreen
 			height: 100%;
 			max-width: initial; // Disable any width-limiting
@@ -37,7 +39,7 @@
 
 		.overlay {
 			position: relative;
-			z-index: 1;
+			z-index: 10;
 			height: 100%;
 			width: 100%;
 
@@ -76,7 +78,14 @@
 				}
 
 				.shutter {
-					background: url('/img/icons/face.svg') no-repeat center/contain;
+					background: #FFF;
+					border-radius: 100%;
+					//background: url('/img/icons/face.svg') no-repeat center/contain;
+					
+					img {
+						height: 38px;
+						width: 38px;
+					}
 				}
 
 				.new-emoji {
@@ -100,6 +109,30 @@
 		font-size: 1.5em;
 
 		margin-top: 3em;
+	}
+
+	.overlay-container {
+		height: 100%;
+		width: 100%;
+	}
+
+	.quip {
+		color: #FFF;
+
+		display: inline-block;
+		margin-top: 4em;
+		font-size: 1.5em;
+		overflow: auto;
+	}
+
+	button.yes {
+		// Thumbs up
+		background-color: green;
+	}
+
+	button.no {
+		// Thumbs down
+		background-color: red;
 	}
 	
 }

@@ -5,13 +5,13 @@ import reportError from '../../../imports/ui/report-error';
 // When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
 
 // The quality factor to use for images (0-100)
-const QUALITY = 80;
+const QUALITY = 90;
 
 // The height and width of the viewfinder and the image we wish to take
 const IMAGE_HEIGHT = 480;
 const IMAGE_WIDTH = 360;
 
-export default class TakePicture extends React.Component {
+export default class Camera extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -27,6 +27,8 @@ export default class TakePicture extends React.Component {
 		// Event Bindings (simulate auto binding of keyword this)
 		this.newRandomEmoji = this.newRandomEmoji.bind(this);
 		this.takePicture = this.takePicture.bind(this);
+		this.savePicture = this.savePicture.bind(this);
+		this.clearPictureData = this.clearPictureData.bind(this);
   	}
 
   	componentDidMount() {
@@ -114,8 +116,43 @@ export default class TakePicture extends React.Component {
 				</div>
 				);
 		}
+		// else if(this.state.pictureData)
+		// {
+		// 	// Render the confirmation screen
+		// 	view = (<ConfirmPhoto 
+		// 		pictureData={this.state.pictureData}
+		// 		emojiString={this.state.selectedEmoji}
+		// 		acceptPhoto={this.savePicture}
+		// 		rejectPhoto={this.clearPictureData}
+		// 		/>);
+		// }
 		else
 		{
+			// For compatibility with React's dangerouslySetInnerHTML
+			var emoji_html = {__html: this.emojiStringToHTML(this.state.selectedEmoji)};
+
+			var overlay;
+			if(this.state.pictureData)
+			{
+				overlay = (
+					<ConfirmPhotoOverlay
+						pictureData={this.state.pictureData}
+						emojiString={this.state.selectedEmoji}
+						acceptPhoto={this.savePicture}
+						rejectPhoto={this.clearPictureData}
+					/>);
+			}
+			else
+			{
+				overlay = (
+					<CameraOverlay
+						emojiString={this.state.selectedEmoji}
+						takePicture={this.takePicture}
+						newRandomEmoji={this.newRandomEmoji}
+						exitButtonClicked={this.exitButtonClicked}
+					/>);
+			}
+
 			view = (
 				<div className='viewfinder'>
 					<video id='camera-preview'
@@ -125,20 +162,7 @@ export default class TakePicture extends React.Component {
 						srcObject={this.state.videoSrcObject}
 						mozSrcObject={this.state.videoSrcObject}
 					></video>
-					<div className='overlay'>
-						<button onClick={this.exitButtonClicked} className='exit'>Exit</button>
-						<div className='bottom-row'>
-							<div>
-								<button onClick={this.newRandomEmoji} className='small new-emoji' />
-							</div>
-							<div>
-								<button onClick={this.takePicture} className='shutter' />
-							</div>
-							<div>
-								<button className='small items' />
-							</div>
-						</div>
-					</div>
+					{overlay}
 				</div>
 			);
 		}
@@ -225,21 +249,31 @@ export default class TakePicture extends React.Component {
 
 
 	/**
-	 * Saves a picture and its associated emoji to the database
-	 * @param  {string} pictureData the image data, stored as a Base64 encoded 
-	 *                  string that can be used in the 'src' of an img tag
-	 * @param  {string} emoji the emoji that corresponds to this picture, represented as a unicode string
+	 * Resets the stored pictureData in this component's state
+	 * @return {null} This method returns nothing
+	 */
+	clearPictureData() {
+		this.setState({pictureData: null});
+	}
+
+
+	/**
+	 * Saves a picture and its associated emoji to the database using the current
+	 * photoData and emoji string stored in the state of this component
 	 * @return {void}      This function returns nothing
 	 */
-	savePicture(pictureData, emoji) {
-		Meteor.call('pictures.insert', pictureData, emoji, (err) => {
+	savePicture() {
+		Meteor.call('pictures.insert', this.state.pictureData, this.state.selectedEmoji, (err) => {
 			if(err)
 			{
 				reportError(err, "Error saving picture:");
 			}
+			// Exit the camera in the same was as using the exit button
+			this.exitButtonClicked();
 		});
 	}
 
+	// TODO: abstract this away
 	/**
 	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
 	 * @param  {string} emoji a unicode string with a single character representing the emoji
@@ -257,7 +291,7 @@ export default class TakePicture extends React.Component {
 	 * @return {void} This function does not return a value
 	 */
 	newRandomEmoji() {
-		this.setState({selected_emoji: this.getRandomEmoji()});
+		this.setState({selectedEmoji: this.getRandomEmoji()});
 	}
 	
 	/**
@@ -271,5 +305,95 @@ export default class TakePicture extends React.Component {
 
 		var randomEmoji = possibleEmojis[Math.floor(Math.random() * possibleEmojis.length)];
 		return randomEmoji;
+	}
+}
+
+
+class CameraOverlay extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+    	// For compatibility with React's dangerouslySetInnerHTML
+		var emoji_html = {__html: this.emojiStringToHTML(this.props.emojiString)};
+
+        return (
+        	<div className='overlay'>
+				<button onClick={this.props.exitButtonClicked} className='exit'>Exit</button>
+				<div className='bottom-row'>
+					<div>
+						<button onClick={this.props.newRandomEmoji} className='small new-emoji' />
+					</div>
+					<div>
+						<button onClick={this.props.takePicture} className='shutter' dangerouslySetInnerHTML={emoji_html} />
+					</div>
+					<div>
+						<button className='small items' />
+					</div>
+				</div>
+			</div>
+        	);
+    }
+
+    // TODO: abstract this away
+    /**
+	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
+	 * @param  {string} emoji a unicode string with a single character representing the emoji
+	 * @return {string}       the HTML string containing an img tag for the given emoji
+	 */
+	emojiStringToHTML(emoji) {
+		return twemoji.parse(emoji, {
+			folder: 'svg',
+			ext: '.svg'
+		})
+	}
+}
+
+class ConfirmPhotoOverlay extends React.Component {
+	constructor(props) {
+		super(props);
+
+		if(!(props.pictureData || props.emojiString || props.rejectPhoto || props.acceptPhoto))
+		{
+			console.error("Error creating ConfirmPhoto React Component: invalid props");
+			console.error(props);
+		}
+
+		// Initial state
+		this.state = {
+			quip: "Lookin' Good!"
+		};
+
+		console.log(props);
+  	}
+
+	render() {
+		// Crappy default error screen. This should never be shown to a user unless something goes very wrong.
+		if(!this.props.pictureData || !this.props.emojiString)
+		{
+			return (
+					<div id='confirm-photo'>
+						<h2>Error: invalid props data</h2>
+					</div>
+				)
+		}
+
+		return (
+			<div className='overlay-container'>
+				<img className='behind-overlay' src={this.props.pictureData} />
+				<div className='overlay'>
+					<span className='quip'>{this.state.quip}</span>
+					<div className='bottom-row'>
+						<div>
+							<button onClick={this.props.rejectPhoto} className='no' />
+						</div>
+						<div>
+							<button onClick={this.props.acceptPhoto} className='yes' />
+						</div>
+					</div>
+				</div>
+			</div>
+			);
 	}
 }
