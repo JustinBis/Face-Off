@@ -32,4 +32,4 @@ fakeUser();
 fakeUser();
 fakeUser();
 
-Meteor.setInterval(fakeUser, 60*1000*1);
+Meteor.setInterval(fakeUser, 5*1000*1);
