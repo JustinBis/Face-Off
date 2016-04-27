@@ -2,8 +2,6 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import reportError from '../../../imports/ui/report-error';
 
-// When they submit the photo and have a review screen, add random notes like "lookin' good!" or things like that
-
 // The quality factor to use for images (0-100)
 const QUALITY = 90;
 
@@ -117,16 +115,6 @@ export default class Camera extends React.Component {
 				</div>
 				);
 		}
-		// else if(this.state.pictureData)
-		// {
-		// 	// Render the confirmation screen
-		// 	view = (<ConfirmPhoto 
-		// 		pictureData={this.state.pictureData}
-		// 		emojiString={this.state.selectedEmoji}
-		// 		acceptPhoto={this.savePicture}
-		// 		rejectPhoto={this.clearPictureData}
-		// 		/>);
-		// }
 		else
 		{
 			// For compatibility with React's dangerouslySetInnerHTML
@@ -187,7 +175,7 @@ export default class Camera extends React.Component {
 	 * Event callback for the video viewfinder -- will be called when the source has loaded.
 	 * This will cause the video to start playing
 	 * @param  {Event Object} e The event object
-	 * @return {[type]}   This method doesn't return anything
+	 * @return {null}   This method doesn't return anything
 	 */
 	onloadedmetadata(e) {
 		e.target.play();
@@ -262,7 +250,7 @@ export default class Camera extends React.Component {
 	/**
 	 * Saves a picture and its associated emoji to the database using the current
 	 * photoData and emoji string stored in the state of this component
-	 * @return {void}      This function returns nothing
+	 * @return {null}      This function returns nothing
 	 */
 	savePicture() {
 		Meteor.call('pictures.insert', this.state.pictureData, this.state.selectedEmoji, (err) => {
@@ -356,7 +344,7 @@ class CameraOverlay extends React.Component {
 		return twemoji.parse(emoji, {
 			folder: 'svg',
 			ext: '.svg'
-		})
+		});
 	}
 }
 
