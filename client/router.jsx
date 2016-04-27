@@ -35,7 +35,6 @@ FlowRouter.route('/login', {
 
 		// Redirect on login
 		Accounts.onLogin((stop) => {
-			console.log('yeah');
 			FlowRouter.go(loggedInDefault)
 			// Unregister the hook
 			stop();
