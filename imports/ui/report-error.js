@@ -29,7 +29,7 @@ export default function reportError(err, prefix) {
 	console.error(errorString);
 
 	// Relay this error to the user
-	if(UIkit && UIkit.notify && err && err.reason)
+	if(UIkit && UIkit.notify)
 	{
 		UIkit.notify(errorString, 'danger');
 	}

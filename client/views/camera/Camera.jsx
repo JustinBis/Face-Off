@@ -29,6 +29,7 @@ export default class Camera extends React.Component {
 		this.takePicture = this.takePicture.bind(this);
 		this.savePicture = this.savePicture.bind(this);
 		this.clearPictureData = this.clearPictureData.bind(this);
+		this.openItems = this.openItems.bind(this);
   	}
 
   	componentDidMount() {
@@ -149,6 +150,7 @@ export default class Camera extends React.Component {
 						emojiString={this.state.selectedEmoji}
 						takePicture={this.takePicture}
 						newRandomEmoji={this.newRandomEmoji}
+						openItems={this.openItems}
 						exitButtonClicked={this.exitButtonClicked}
 					/>);
 			}
@@ -273,6 +275,14 @@ export default class Camera extends React.Component {
 		});
 	}
 
+	/**
+	 * Opens the items menu to put items over photos
+	 * @return {null} This method returns nothing
+	 */
+	openItems() {
+		reportError("Items coming soon!");
+	}
+
 	// TODO: abstract this away
 	/**
 	 * Converts a unicode string representing an emoji to an HTML img tag for that emoji
@@ -320,8 +330,8 @@ class CameraOverlay extends React.Component {
 
         return (
         	<div className='overlay'>
-				<button onClick={this.props.exitButtonClicked} className='exit'>Exit</button>
-				<div className='bottom-row'>
+				<button onClick={this.props.exitButtonClicked} className='exit small' />
+				<div className='bottom-row three'>
 					<div>
 						<button onClick={this.props.newRandomEmoji} className='small new-emoji' />
 					</div>
@@ -329,7 +339,7 @@ class CameraOverlay extends React.Component {
 						<button onClick={this.props.takePicture} className='shutter' dangerouslySetInnerHTML={emoji_html} />
 					</div>
 					<div>
-						<button className='small items' />
+						<button onClick={this.props.openItems} className='small items' />
 					</div>
 				</div>
 			</div>
@@ -364,8 +374,6 @@ class ConfirmPhotoOverlay extends React.Component {
 		this.state = {
 			quip: "Lookin' Good!"
 		};
-
-		console.log(props);
   	}
 
 	render() {
@@ -383,13 +391,17 @@ class ConfirmPhotoOverlay extends React.Component {
 			<div className='overlay-container'>
 				<img className='behind-overlay' src={this.props.pictureData} />
 				<div className='overlay'>
-					<span className='quip'>{this.state.quip}</span>
-					<div className='bottom-row'>
+					{/*<span className='quip'>{this.state.quip}</span>*/}
+					<div className='bottom-row two'>
 						<div>
-							<button onClick={this.props.rejectPhoto} className='no' />
+							<button onClick={this.props.rejectPhoto} className='no'>
+								<img src="/img/buttons/apple_thumbs_down.png" />
+							</button>
 						</div>
 						<div>
-							<button onClick={this.props.acceptPhoto} className='yes' />
+							<button onClick={this.props.acceptPhoto} className='yes'>
+								<img src="/img/buttons/apple_thumbs_up.png" />
+							</button>
 						</div>
 					</div>
 				</div>
