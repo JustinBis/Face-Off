@@ -2,10 +2,9 @@
 @import 'typography';
 
 @import 'login';
-@import 'take-photo';
-@import "feed";
-@import "bet";
-
+@import 'camera';
+@import 'feed';
+@import 'bet';
 
 button:focus {
 	outline: 0;

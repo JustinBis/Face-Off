@@ -1,0 +1,144 @@
+#camera {
+
+	display: flex;
+	align-items: center;
+	height: 100%;
+
+	color: #FFF;
+	text-align: center;
+
+	// Note: the iPhone front facing camera takes photos in a 4:3 aspect ratio,
+	// so we attempt to emulate that here with the fixed height and width
+	.viewfinder
+	{
+		position: relative;
+		height: 480px;
+		width: 360px;
+
+		margin: 0 auto;
+
+		background: url('/img/icons/aperture.svg') no-repeat center center;
+		background-size: 50%;
+
+		overflow: hidden;
+
+		#camera-preview, .behind-overlay {
+			// Maximize height since most desktop/laptop cameras will be widescreen
+			height: 100%;
+			max-width: initial; // Disable any width-limiting
+
+			// Center the video in the viewfinder-container
+			position: absolute;
+			top: -100%;
+			bottom: -100%;
+			left: -100%;
+			right: -100%;
+			margin: auto;
+
+			z-index: 0;
+		}
+
+		.overlay {
+			position: relative;
+			z-index: 10;
+			height: 100%;
+			width: 100%;
+
+			.exit {
+				position: absolute;
+				top: 0;
+				left: 0;
+
+				margin: 5%;
+			}
+
+			.bottom-row {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				margin: 0 auto 5%;
+
+				& > div {
+					display: inline-block;
+					text-align: center;
+					vertical-align: middle;
+				}
+
+				&.two > div {
+					width: 40%;
+				}
+
+				&.three > div {
+					width: 33%;
+				}
+
+				.shutter {
+					background: #FFF;
+					border-radius: 100%;
+					//background: url('/img/icons/face.svg') no-repeat center/contain;
+					
+					img {
+						height: 38px;
+						width: 38px;
+					}
+				}
+			}
+		}
+	}
+
+	button {
+		border: none;
+
+		height: 50px;
+		width: 50px;
+
+		background-size: contain;
+
+		&.small {
+			height: 30px;
+			width: 30px;
+		}
+	}
+
+	.exit {
+		background: url('/img/icons/left-arrow-stroke.svg') no-repeat center/contain;
+	}
+
+	.new-emoji {
+		background: url('/img/icons/refresh_arrows.svg') no-repeat center/contain;
+	}
+
+	.items {
+		background: url('/img/icons/party_hat.svg') no-repeat center/contain;
+		// Use opacity to indicate that this feature is not yet available
+		opacity: 0.4;
+	}
+
+	.camera-error {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+
+		font-size: 1.5em;
+
+		margin-top: 3em;
+	}
+
+	.overlay-container {
+		height: 100%;
+		width: 100%;
+	}
+
+	.quip {
+
+		display: inline-block;
+		margin-top: 1.5em;
+		font-size: 1.5em;
+		overflow: auto;
+	}
+
+	button.yes, button.no {
+		background-color: transparent;
+	}
+	
+}
