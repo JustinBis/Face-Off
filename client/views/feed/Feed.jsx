@@ -1,5 +1,7 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
+import CameraButton from './CameraButton.jsx';
+
 /**
 	Root class for Image feed, responsible for creating an image list
 	containing the url's for images that need to be displayed on a user's feed

@@ -1,0 +1,14 @@
+#camera-button {
+	position: fixed;
+    top: 10%;
+    left: 10%;
+
+	button {
+		background: #C35AC3;
+    	border-radius: 50px;
+    	border: 1px solid white;
+    	-webkit-box-shadow: 6px 6px 5px -1px rgba(171,168,171,1);
+        -moz-box-shadow: 6px 6px 5px -1px rgba(171,168,171,1);
+        box-shadow: 6px 6px 5px -1px rgba(171,168,171,1);
+    }
+}
