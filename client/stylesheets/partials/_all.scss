@@ -3,8 +3,9 @@
 
 @import 'login';
 @import 'camera';
-@import 'feed';
-@import 'bet';
+@import "feed";
+@import "bet";
+@import "camera-button";
 
 button:focus {
 	outline: 0;
