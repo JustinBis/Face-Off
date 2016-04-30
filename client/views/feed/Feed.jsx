@@ -12,17 +12,11 @@ export default class Feed extends React.Component {
 
 	}
 
-
-    // initialTimeRemaining: React.PropTypes.number.isRequired,
-    // interval: React.PropTypes.number,
-    // formatFunc: React.PropTypes.func,
-    // tickCallback: React.PropTypes.func,
-    // completeCallback: React.PropTypes.func
-
 	render() {
 		return (
 			<div id="feed">
 				<ImageList images={this.props.images} />
+				<CameraButton />
 			</div>
 		);
 	}

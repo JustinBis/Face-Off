@@ -10,14 +10,14 @@ class CameraButton extends React.Component {
     }
 
     onClick() {
-    	FlowRouter.go("App.camera");
+    	FlowRouter.go("App.take-picture");
     }
 
 
     render() {
         return (
         	<div id="camera-button">
-        		<button onClick={this.onClick}><i className="uk-icon-camera"></i></button>
+        		<button onClick={this.onClick}><i className="uk-icon-camera uk-icon-medium"></i></button>
         	</div>);
     }
 }
