@@ -1,8 +1,34 @@
 
 $thumbnail-size: 100%;
+$image-size: 250px;
 
 #feed {
 	background-color: $primary-color;
+
+	img {
+		width: 100%;
+		height: $image-size;
+	}
+
+	.grid-item {
+		width: 25%;
+	}
+
+	@media (max-width: $large-device) {
+		.grid-item {
+			width: 33%;
+		}
+	}
+
+	@media (max-width: $medium-device) {
+		.grid-item {
+			width: 50%;
+		}
+		img {
+			height: $image-size * .75;
+		}
+	}
+
 
 	.uk-grid { 
 		margin: 0;
@@ -38,6 +64,7 @@ $thumbnail-size: 100%;
     		bottom: 10%;
     		left: 10%;
     		width: 15%;
+    		height: 15%;
     		opacity: 1;
 		}
 	}

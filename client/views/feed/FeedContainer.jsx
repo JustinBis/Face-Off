@@ -13,4 +13,4 @@ export default createContainer(() => {
   return {
     images: Pictures.find({expired:false }, {sort:{createdAt:-1}}).fetch()
   };
-}, Feed); 
+}, Feed);

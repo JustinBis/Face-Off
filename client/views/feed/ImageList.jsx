@@ -42,7 +42,7 @@ export class Image extends React.Component {
 			betLink = "";
 		}
 		return (
-			<div className="uk-width-small-1-3 uk-width-1-2"> 
+			<div className="grid-item"> 
 				<div className="uk-thumbnail">
 					<figure className="uk-overlay">
                        	<img className={this.props.alreadyBet ? "picture-visited" : "picture" } 

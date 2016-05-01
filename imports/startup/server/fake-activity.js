@@ -27,9 +27,9 @@ var fakeUser = function() {
 	console.log("Revived picture:",pic._id);
 }
 
-fakeUser();
-fakeUser();
-fakeUser();
-fakeUser();
+var revives = 10;
+for(var i = 0; i < revives; i ++) {
+	fakeUser();
+}
 
 Meteor.setInterval(fakeUser, 60*1000*1);
