@@ -36,7 +36,6 @@ class Choice extends React.Component {
 
 	placeBet() {
 		this.props.placeBet.placeBet(this.props.emoji);
-		FlowRouter.go('App.feed');
 	}
 
 	render() {

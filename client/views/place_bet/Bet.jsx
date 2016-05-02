@@ -15,6 +15,8 @@ export default class Bet extends React.Component {
 		console.log(this.props)
 
 		this.placeBet = this.placeBet.bind(this);
+		this.transitionTime = 1000;
+		this.state = {betPlaced:false};
 	}
 
 	/**
@@ -34,6 +36,20 @@ export default class Bet extends React.Component {
 				reportError(err);
 			}
 		});
+		this.setState({betPlaced:true});
+
+		//ON TRANSITION COMPLETE (as of writing this there is no hook for react )
+		setTimeout(()=>{
+			FlowRouter.go('App.feed');
+		}, this.transitionTime)
+
+
+	}
+
+	transitionComplete() {
+		if( this.state.betPlaced ) {
+			console.log("OVER")
+		}
 	}
 
 	render() {
@@ -47,20 +63,22 @@ export default class Bet extends React.Component {
 		//TODO LOL WHY IS THIS NECESSARY (try and pass in just the function on its own) 
 		var placeBet = {placeBet:this.placeBet}
 
+		//Animated div occuring after bet placed
+		var betTransition = this.state.betPlaced ? (<div key="ayy" className="bet-response" >
+	          				<i className="uk-icon-check"></i>
+	          				<div> Correct! </div>
+          				</div>) : "";
+
 
 		return (
 			<div id="phone-body">
 				<div id="bet" style={betStyle} >					
         			<ReactCSSTransitionGroup 
         				component="div"
-        			    transitionName="example"
-        			    transitionAppear={true}
-        			    transitionAppearTimeout={3000}
-          				transitionEnterTimeout={500}
-          				transitionLeaveTimeout={500} >
-          				<div key="ayy" className="bet-response" >
-	          				<i className="uk-icon-check"></i>
-          				</div>
+        			    transitionName="response"
+          				transitionEnterTimeout={this.transitionTime}
+          				transitionLeave={false}>
+          				{betTransition}
         			</ReactCSSTransitionGroup>
 					<ChoiceList choices={this.props.image.options} placeBet={placeBet} pictureId={this.props.image._id}/>
 					
