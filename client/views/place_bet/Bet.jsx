@@ -2,6 +2,7 @@ import React from 'react';
 import ChoiceList from './ChoiceList.jsx';
 import reportError from '../../../imports/ui/report-error';
 import Loading from '../../../imports/ui/Loading';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 /**
 	Root element of Bet placement page, responsible for setting background image
@@ -45,13 +46,24 @@ export default class Bet extends React.Component {
 		};
 		//TODO LOL WHY IS THIS NECESSARY (try and pass in just the function on its own) 
 		var placeBet = {placeBet:this.placeBet}
+
+
 		return (
 			<div id="phone-body">
-				<div id="bet" style={betStyle} >
-					{/*<a className="back-btn" href="/feed">
-						<i className="uk-icon-arrow-left"></i>
-					</a>*/}
+				<div id="bet" style={betStyle} >					
+        			<ReactCSSTransitionGroup 
+        				component="div"
+        			    transitionName="example"
+        			    transitionAppear={true}
+        			    transitionAppearTimeout={3000}
+          				transitionEnterTimeout={500}
+          				transitionLeaveTimeout={500} >
+          				<div key="ayy" className="bet-response" >
+	          				<i className="uk-icon-check"></i>
+          				</div>
+        			</ReactCSSTransitionGroup>
 					<ChoiceList choices={this.props.image.options} placeBet={placeBet} pictureId={this.props.image._id}/>
+					
 				</div>
 			</div>
 			);

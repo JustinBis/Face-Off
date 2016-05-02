@@ -18,7 +18,9 @@
   "homepage": "https://github.com/JustinBis/Face-Off#readme",
   "dependencies": {
     "react": "~15.0.1",
+    "react-addons-css-transition-group": "^15.0.2",
     "react-addons-pure-render-mixin": "~15.0.1",
+    "react-addons-test-utils": "^15.0.2",
     "react-dom": "~15.0.1",
     "react-mounter": "~1.2.0"
   },

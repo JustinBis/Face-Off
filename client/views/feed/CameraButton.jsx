@@ -1,9 +1,11 @@
 import React from 'react';
 
 
+
+/**
+ * Button placed in fixed position on the feed that takes a user back to the take-picture page
+ */
 class CameraButton extends React.Component {
-	//TODO test onClick
-	//TODO fix box shadow on button
     constructor(props) {
         super(props);
         this.displayName = 'CameraButton';

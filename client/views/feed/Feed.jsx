@@ -4,7 +4,7 @@ import CameraButton from './CameraButton.jsx';
 
 /**
 	Root class for Image feed, responsible for creating an image list
-	containing the url's for images that need to be displayed on a user's feed
+	containing the images that need to be displayed on a user's feed
 */
 export default class Feed extends React.Component {
 	constructor(props) {

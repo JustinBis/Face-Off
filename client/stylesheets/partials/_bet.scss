@@ -13,13 +13,39 @@ $button-max-width: $image-max-width/2;
 	overflow: auto;
 	display: flex;
 	flex-flow: column;
-	.back-btn {
-		font-size: 4em;
-		margin: 5px 0 0 5px;
-		&:hover {
-			color: $link-color;
-		}
+	position: relative;
+
+	.bet-response {
+		background-color: green;
+		color: green;
+		position: absolute;
+		text-align: center;
+		font-size: 10em;
 	}
+
+
+	.example-appear.example-appear-active, .bet-response {
+		width: 100%;
+		height: 100%;
+		top: 0%;
+		left: 0%;
+		border-radius: 0;
+		line-height: 85vh;
+		color: #ffffff;
+	}
+
+	.example-appear {
+		width: 10%;
+		height: 10%;
+		top: 40%;
+		left: 40%;
+		border-radius: 50%;
+		line-height: 0vh;
+		color: transparent;
+		transition: all .8s ease-in, color 0.4s linear .8s;
+	}
+
+
 	@media (min-width: $small-device) {
 		margin-top: 2em;
 		height: 90%;
