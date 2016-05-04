@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import ItemCard from './item-card.jsx';
+
 export default class Item extends React.Component {
 
 	constructor(props) {
@@ -12,7 +14,7 @@ export default class Item extends React.Component {
 		if (this.props.sufficientFunds) {
 			var isSelected = !this.state.isSelected;
 			this.setState({isSelected: isSelected});
-			this.props.increaseAmount.updateCart((2 * isSelected - 1) * this.props.item.price);
+			this.props.increaseAmount.updateCart(isSelected, this.props.item);
 		}
 	}
 
@@ -23,11 +25,7 @@ export default class Item extends React.Component {
 		return (
 			<li>
 				<div className={classes} onClick={this.onClick.bind(this)} >
-					<img className='item-pic' src={item.url}/>
-					<div className='price'>
-						<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
-						<p>{item.price}</p>
-					</div>
+					<ItemCard item={this.props.item} />
 				</div>
 			</li>
 		);

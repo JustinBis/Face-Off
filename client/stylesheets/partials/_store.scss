@@ -12,8 +12,9 @@ body {
 }
 
 #contents {
-	width: 500px;
+	width: 450px;
 	margin: auto;
+	position: relative;
 }
 
 #items {
@@ -47,7 +48,7 @@ li {
 	text-align: center;
 }
 
-.item, .money-tag, #insufficient-funds {
+.item, .money-tag, #insufficient-funds, #purchasing {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
@@ -144,14 +145,16 @@ p {
 	display: none;
 }
 
-#insufficient-funds {
+#insufficient-funds, #purchasing {
 	padding: 10px;
 	line-height: 35px;
 	position: fixed;
 	width: 350px;
-	text-align: center;
-	top: 30%;
-	left: 31%;
+	margin: auto;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 #curr-funds-p {
@@ -162,9 +165,36 @@ p {
 	display: block;
 }
 
-#ok {
+.pop-up-button {
 	background-color: rgb(175,170,185);
 	border-width: 3px;
 	border-radius: 10px;
 	border-color: rgb(225,220,235);
+}
+
+#purchasing {
+	padding-bottom: 20px;
+}
+
+#checkout-list {
+	margin-top: 0;
+	padding: 0;
+}
+
+#checkout-list li {
+	padding: 0;
+}
+
+#checkout-list li .price {
+	position: relative;
+	bottom: 0;
+	left: 0;
+}
+
+#confirm-button {
+	position: relative;
+	bottom: 5px;
+	margin-right: 30px;
+	padding: 10px;
+	padding-top: 0;
 }
