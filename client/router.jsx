@@ -5,6 +5,7 @@ import Login from './views/login/Login.jsx';
 import FeedContainer from './views/feed/FeedContainer.jsx';
 import BetContainer from './views/place_bet/BetContainer.jsx'
 import Camera from './views/camera/Camera.jsx'
+import Store from './views/store/store.jsx'
 
 // The default route for a logged out user (e.g. where a user will be redirected on logout)
 const loggedOutDefault = 'App.login';
@@ -85,6 +86,15 @@ loggedInRoutes.route('/camera', {
 	action() {
 		mount(Camera, {
 			main: () => <Camera />,
+		});
+	},
+});
+
+loggedInRoutes.route('/store', {
+	name: 'App.store',
+	action() {
+		mount(Store, {
+			main: () => <Store />,
 		});
 	},
 });

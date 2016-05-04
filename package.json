@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JustinBis/Face-Off#readme",
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "~15.0.1",
     "react-addons-pure-render-mixin": "~15.0.1",
     "react-dom": "~15.0.1",
