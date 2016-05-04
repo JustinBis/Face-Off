@@ -3,7 +3,7 @@ import React from 'react';
 export default class Cart extends React.Component {
 
 	render() {
-		var visibility = this.props.isEmpty ? 'invisible' : 'visible';
+		var visibility = this.props.isEmpty ? 'invisible' : '';
 		console.log(visibility);
 		return (
 			<div>
