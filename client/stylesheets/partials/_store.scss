@@ -2,6 +2,9 @@
 
 body {
 	margin: 0;
+	font-family: monospace;
+	font-size: 30px;
+	color: rgb(35,35,35);
 }
 
 #outer-container {
@@ -41,13 +44,16 @@ li {
 .item {
 	position: relative;
 	height: 120px;
+	text-align: center;
+}
+
+.item, .money-tag, #insufficient-funds {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 	border-color: rgb(175,170,185);
 	background-color: rgb(225,220,235);
 	text-align: center;
-	color: rgb(35,35,35);
 }
 
 .price {
@@ -56,26 +62,23 @@ li {
 	left: 20px;
 }
 
-.price p, .money-tag p {
+p {
 	display: inline;
-	font-size: 30px;
-	font-family: monospace;
 	position: relative;
-	bottom: -5px;
-	color: rgb(35,35,35);
+	bottom: -4px;
 }
 
 .money-tag {
 	display: inline-block;
 	margin-top: 20%;
-	border-style: solid;
-	border-width: 3px;
-	border-radius: 10px;
-	border-color: rgb(175,170,185);
-	background-color: rgb(225,220,235);
 	padding: 3px;
 	height: 30px;
 	border-radius: 5px;
+}
+
+#cart .money-tag {
+	margin-right: 40px;
+	margin-top: 27%;
 }
 
 #item-list {
@@ -90,7 +93,7 @@ li {
 }
 
 #money-pile {
-	background-image: url('http://images.clipartpanda.com/money-clipart-7TaR887TA.jpeg');
+	background-image: url('http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Money.PNG/Pile_of_Coins_PNG_Picture.png?m=1399672800');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	width: 165px;
@@ -124,7 +127,6 @@ li {
 	position: absolute;
 	bottom: 45%;
 	font-size: 50px;
-	font-family: monospace;
 	padding: 20px;
 	background-color: rgb(150,200,150);
 	border-radius: 10px;
@@ -134,13 +136,15 @@ li {
 	color: rgb(238,255,238);
 }
 
+#checkout:active {
+	border-style: inset;
+}
+
 .invisible {
 	display: none;
 }
 
 #insufficient-funds {
-	font-size: 30px;
-	font-family: monospace;
 	padding: 10px;
 	line-height: 35px;
 	position: fixed;
@@ -148,21 +152,17 @@ li {
 	text-align: center;
 	top: 30%;
 	left: 31%;
-	border-style: solid;
-	border-width: 3px;
-	border-radius: 10px;
-	border-color: rgb(175,170,185);
-	background-color: rgb(225,220,235);
 }
 
-#funds-info {
-	display: inline;
+#curr-funds-p {
 	padding-right: 30px;
 }
 
+#funds-info-p {
+	display: block;
+}
+
 #ok {
-	font-family: monospace;
-	font-size: 30px;
 	background-color: rgb(175,170,185);
 	border-width: 3px;
 	border-radius: 10px;
