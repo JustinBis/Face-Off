@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import HashMap from 'hashmap';
 
 import Item from './item.jsx';
 import Cart from './cart.jsx';
@@ -11,7 +12,7 @@ export default class Store extends React.Component {
 		super(props);
 		this.state = {total: 0, emptyCart: 1, sufficientFunds: 1, purchasing: 0};
 		this.funds = 247;
-		this.toBuy = [];
+		this.toBuy = new HashMap();
 	}
 
 	getItems() {
@@ -35,11 +36,11 @@ export default class Store extends React.Component {
 		var total;
 		if (add) {
 			total = this.state.total + item.price;
-			this.toBuy.push(item);
+			this.toBuy.set(item._id, item);
 		}
 		else {
 			total = this.state.total - item.price;
-			this.toBuy.splice(this.toBuy.indexOf(item), 1);
+			this.toBuy.remove(item._id);
 		}
 		this.setState({total: total});
 		if (this.state.emptyCart && total){
@@ -77,7 +78,8 @@ export default class Store extends React.Component {
 	}
 
 	renderCartItems() {
-		return this.toBuy.map((item) => (
+		var items = this.toBuy.values();
+		return items.map((item) => (
 				<li key={item._id}>
 					<ItemCard item={item} />
 				</li>
@@ -88,7 +90,6 @@ export default class Store extends React.Component {
 	render() {
 		var insufficientFundsVisibility = this.state.sufficientFunds ? 'invisible' : '';
 		var purchasingVisibility = this.state.purchasing ? '' : 'invisible';
-		var tagVisibility = (this.toBuy.length - 1) ? '' : 'invisible';
 		return (
 			<div id='outer-container'>
 				<div id='contents'>
