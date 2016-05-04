@@ -56,7 +56,7 @@ li {
 	left: 20px;
 }
 
-p {
+.price p, .money-tag p {
 	display: inline;
 	font-size: 30px;
 	font-family: monospace;
@@ -67,8 +67,7 @@ p {
 
 .money-tag {
 	display: inline-block;
-	margin-top: 28%;
-	margin-left: 3%;
+	margin-top: 20%;
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
@@ -98,11 +97,7 @@ p {
 	height: 122px;
 	position: absolute;
 	top: 12%;
-}
-
-#money-pile .money-tag {
-	margin-top: 25%;
-	margin-left: 5%;
+	text-align: center;
 }
 
 #cart {
@@ -113,6 +108,7 @@ p {
 	height: 139px;
 	position: absolute;
 	bottom: 12%;
+	text-align: center;
 }
 
 .selected {
@@ -140,4 +136,35 @@ p {
 
 .invisible {
 	display: none;
+}
+
+#insufficient-funds {
+	font-size: 30px;
+	font-family: monospace;
+	padding: 10px;
+	line-height: 35px;
+	position: fixed;
+	width: 350px;
+	text-align: center;
+	top: 30%;
+	left: 31%;
+	border-style: solid;
+	border-width: 3px;
+	border-radius: 10px;
+	border-color: rgb(175,170,185);
+	background-color: rgb(225,220,235);
+}
+
+#funds-info {
+	display: inline;
+	padding-right: 30px;
+}
+
+#ok {
+	font-family: monospace;
+	font-size: 30px;
+	background-color: rgb(175,170,185);
+	border-width: 3px;
+	border-radius: 10px;
+	border-color: rgb(225,220,235);
 }

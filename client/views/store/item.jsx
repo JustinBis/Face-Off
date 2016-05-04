@@ -9,9 +9,11 @@ export default class Item extends React.Component {
 	}
 
 	onClick() {
-		var isSelected = !this.state.isSelected;
-		this.setState({isSelected: isSelected});
-		this.props.increaseAmount.updateCart((2 * isSelected - 1) * this.props.item.price);
+		if (this.props.sufficientFunds) {
+			var isSelected = !this.state.isSelected;
+			this.setState({isSelected: isSelected});
+			this.props.increaseAmount.updateCart((2 * isSelected - 1) * this.props.item.price);
+		}
 	}
 
 	render() {

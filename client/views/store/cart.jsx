@@ -4,10 +4,9 @@ export default class Cart extends React.Component {
 
 	render() {
 		var visibility = this.props.isEmpty ? 'invisible' : '';
-		console.log(visibility);
 		return (
 			<div>
-				<button id='checkout' type='button' className={visibility}>BUY</button>
+				<button id='checkout' type='button' className={visibility} onClick={this.props.checkout.purchaseItems}>BUY</button>
 				<div id='cart' >
 					<div className='money-tag'>
 						<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
