@@ -48,6 +48,10 @@ li {
 	text-align: center;
 }
 
+#door {
+	height: 120px;
+}
+
 .item, .money-tag, #insufficient-funds, #purchasing {
 	border-style: solid;
 	border-width: 3px;
@@ -78,12 +82,13 @@ p {
 }
 
 #cart .money-tag {
-	margin-right: 40px;
 	margin-top: 27%;
+	position: relative;
+	left: -20px;
 }
 
 #item-list {
-	width: 260px;
+	width: 240px;
 	display: inline-block;
 }
 
@@ -91,6 +96,12 @@ p {
 	display: inline-block;
 	height: 100%;
 	position: fixed;
+	padding: 0;
+}
+
+#right-content li {
+	display: block;
+	margin-top: 18%;
 }
 
 #money-pile {
@@ -99,8 +110,6 @@ p {
 	background-repeat: no-repeat;
 	width: 165px;
 	height: 122px;
-	position: absolute;
-	top: 12%;
 	text-align: center;
 }
 
@@ -108,10 +117,12 @@ p {
 	background-image: url('http://www.clker.com/cliparts/V/o/l/z/d/6/shopping-cart-md.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
+	position: relative;
+	left: 20px;
+	margin-top: -20%;
+	margin-bottom: 23%;
 	width: 145px;
 	height: 139px;
-	position: absolute;
-	bottom: 12%;
 	text-align: center;
 }
 
@@ -125,8 +136,6 @@ p {
 }
 
 #checkout {
-	position: absolute;
-	bottom: 45%;
 	font-size: 50px;
 	padding: 20px;
 	background-color: rgb(150,200,150);
@@ -197,5 +206,5 @@ p {
 	bottom: 5px;
 	margin-right: 30px;
 	padding: 10px;
-	padding-top: 0;
+	padding-top: 0px;
 }

@@ -11,7 +11,7 @@ export default class Item extends React.Component {
 	}
 
 	onClick() {
-		if (this.props.sufficientFunds) {
+		if (this.props.ready) {
 			var isSelected = !this.state.isSelected;
 			this.setState({isSelected: isSelected});
 			this.props.increaseAmount.updateCart(isSelected, this.props.item);

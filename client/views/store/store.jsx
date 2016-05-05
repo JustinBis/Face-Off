@@ -52,7 +52,7 @@ export default class Store extends React.Component {
 	}
 
 	purchaseItems() {
-		if (this.state.sufficientFunds) {
+		if (this.state.sufficientFunds && !this.state.purchasing) {
 			if (this.state.total > this.funds) {
 				this.setState({sufficientFunds: 0});
 			}
@@ -70,9 +70,15 @@ export default class Store extends React.Component {
 		this.setState({purchasing: 0});
 	}
 
+	toFeed() {
+		if (this.state.sufficientFunds && !this.state.purchasing) {
+			FlowRouter.go('App.feed');
+		}
+	}
+
 	renderItems() {
 		return this.getItems().map((item) => (
-				<Item key={item._id} item={item} increaseAmount={{updateCart: this.updateCart.bind(this)}} sufficientFunds={this.state.sufficientFunds}/>
+				<Item key={item._id} item={item} increaseAmount={{updateCart: this.updateCart.bind(this)}} ready={this.state.sufficientFunds && !this.state.purchasing}/>
 			)
 		);
 	}
@@ -90,6 +96,7 @@ export default class Store extends React.Component {
 	render() {
 		var insufficientFundsVisibility = this.state.sufficientFunds ? 'invisible' : '';
 		var purchasingVisibility = this.state.purchasing ? '' : 'invisible';
+		var buyButtonVisibility = this.state.emptyCart ? 'invisible' : '';
 		return (
 			<div id='outer-container'>
 				<div id='contents'>
@@ -98,15 +105,17 @@ export default class Store extends React.Component {
 							{this.renderItems()}
 						</ul>
 					</div>
-					<div id='right-content'>
-						<div id='money-pile'>
+					<ul id='right-content'>
+						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toFeed.bind(this)} /></li>
+						<li><div id='money-pile'>
 							<div className='money-tag'>
 								<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
 								<p>{this.funds.toLocaleString()}</p>
 							</div>
-						</div>
-						<Cart price={this.state.total.toLocaleString()} isEmpty={this.state.emptyCart} checkout={{purchaseItems: this.purchaseItems.bind(this)}}/>
-					</div>
+						</div></li>
+						<li><Cart price={this.state.total.toLocaleString()} /></li>
+						<li><button id='checkout' type='button' className={buyButtonVisibility} onClick={this.purchaseItems.bind(this)}>BUY</button></li>
+					</ul>
 					<div id='insufficient-funds' className={insufficientFundsVisibility}>
 						<p id='funds-info-p'>You don't have enough coins. Earn coins by making bets.</p>
 						<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
