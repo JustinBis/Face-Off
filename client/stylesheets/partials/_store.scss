@@ -1,210 +1,212 @@
-/* CSS declarations go here */
+#store{
+	/* CSS declarations go here */
 
-body {
-	margin: 0;
-	font-family: monospace;
-	font-size: 30px;
-	color: rgb(35,35,35);
-}
+	body {
+		margin: 0;
+		font-family: monospace;
+		font-size: 30px;
+		color: rgb(35,35,35);
+	}
 
-#outer-container {
-	background-color: $primary-color;
-}
+	#outer-container {
+		background-color: $primary-color;
+	}
 
-#contents {
-	width: 450px;
-	margin: auto;
-	position: relative;
-}
+	#contents {
+		width: 450px;
+		margin: auto;
+		position: relative;
+	}
 
-#items {
-	padding-left: 0;
-	margin: 0;
-}
+	#items {
+		padding-left: 0;
+		margin: 0;
+	}
 
-.item-pic {
-	width: 100px;
-	height: auto;
-	padding: 10px;
-	padding-bottom: 0;
-	display: block;
-}
+	.item-pic {
+		width: 100px;
+		height: auto;
+		padding: 10px;
+		padding-bottom: 0;
+		display: block;
+	}
 
-.coin {
-	width: 30px;
-	height: auto;
-	padding-right: 10px;
-}
+	.coin {
+		width: 30px;
+		height: auto;
+		padding-right: 10px;
+	}
 
-li {
-	display: inline-block;
-	padding-left: 10px;
-	padding-top: 10px;
-}
+	li {
+		display: inline-block;
+		padding-left: 10px;
+		padding-top: 10px;
+	}
 
-.item {
-	position: relative;
-	height: 120px;
-	text-align: center;
-}
+	.item {
+		position: relative;
+		height: 120px;
+		text-align: center;
+	}
 
-#door {
-	height: 120px;
-}
+	#door {
+		height: 120px;
+	}
 
-.item, .money-tag, #insufficient-funds, #purchasing {
-	border-style: solid;
-	border-width: 3px;
-	border-radius: 10px;
-	border-color: rgb(175,170,185);
-	background-color: rgb(225,220,235);
-	text-align: center;
-}
+	.item, .money-tag, #insufficient-funds, #purchasing {
+		border-style: solid;
+		border-width: 3px;
+		border-radius: 10px;
+		border-color: rgb(175,170,185);
+		background-color: rgb(225,220,235);
+		text-align: center;
+	}
 
-.price {
-	position: absolute;
-	bottom: 10px;
-	left: 20px;
-}
+	.price {
+		position: absolute;
+		bottom: 10px;
+		left: 20px;
+	}
 
-p {
-	display: inline;
-	position: relative;
-	bottom: -4px;
-}
+	p {
+		display: inline;
+		position: relative;
+		bottom: -4px;
+	}
 
-.money-tag {
-	display: inline-block;
-	margin-top: 20%;
-	padding: 3px;
-	height: 30px;
-	border-radius: 5px;
-}
+	.money-tag {
+		display: inline-block;
+		margin-top: 20%;
+		padding: 3px;
+		height: 30px;
+		border-radius: 5px;
+	}
 
-#cart .money-tag {
-	margin-top: 27%;
-	position: relative;
-	left: -20px;
-}
+	#cart .money-tag {
+		margin-top: 27%;
+		position: relative;
+		left: -20px;
+	}
 
-#item-list {
-	width: 240px;
-	display: inline-block;
-}
+	#item-list {
+		width: 240px;
+		display: inline-block;
+	}
 
-#right-content {
-	display: inline-block;
-	height: 100%;
-	position: fixed;
-	padding: 0;
-}
+	#right-content {
+		display: inline-block;
+		height: 100%;
+		position: fixed;
+		padding: 0;
+	}
 
-#right-content li {
-	display: block;
-	margin-top: 18%;
-}
+	#right-content li {
+		display: block;
+		margin-top: 18%;
+	}
 
-#money-pile {
-	background-image: url('http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Money.PNG/Pile_of_Coins_PNG_Picture.png?m=1399672800');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	width: 165px;
-	height: 122px;
-	text-align: center;
-}
+	#money-pile {
+		background-image: url('http://gallery.yopriceville.com/var/albums/Free-Clipart-Pictures/Money.PNG/Pile_of_Coins_PNG_Picture.png?m=1399672800');
+		background-size: 100%;
+		background-repeat: no-repeat;
+		width: 165px;
+		height: 122px;
+		text-align: center;
+	}
 
-#cart {
-	background-image: url('http://www.clker.com/cliparts/V/o/l/z/d/6/shopping-cart-md.png');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	position: relative;
-	left: 20px;
-	margin-top: -20%;
-	margin-bottom: 23%;
-	width: 145px;
-	height: 139px;
-	text-align: center;
-}
+	#cart {
+		background-image: url('http://www.clker.com/cliparts/V/o/l/z/d/6/shopping-cart-md.png');
+		background-size: 100%;
+		background-repeat: no-repeat;
+		position: relative;
+		left: 20px;
+		margin-top: -20%;
+		margin-bottom: 23%;
+		width: 145px;
+		height: 139px;
+		text-align: center;
+	}
 
-.selected {
-	background-color: rgb(150,200,150);
-	border-color: rgb(100, 150, 100);
-}
+	.selected {
+		background-color: rgb(150,200,150);
+		border-color: rgb(100, 150, 100);
+	}
 
-.selected .price p {
-	color: rgb(130,130,130);
-}
+	.selected .price p {
+		color: rgb(130,130,130);
+	}
 
-#checkout {
-	font-size: 50px;
-	padding: 20px;
-	background-color: rgb(150,200,150);
-	border-radius: 10px;
-	border-style: outset;
-	border-width: 6px;
-	border-color: rgb(100,150,100);
-	color: rgb(238,255,238);
-}
+	#checkout {
+		font-size: 50px;
+		padding: 20px;
+		background-color: rgb(150,200,150);
+		border-radius: 10px;
+		border-style: outset;
+		border-width: 6px;
+		border-color: rgb(100,150,100);
+		color: rgb(238,255,238);
+	}
 
-#checkout:active {
-	border-style: inset;
-}
+	#checkout:active {
+		border-style: inset;
+	}
 
-.invisible {
-	display: none;
-}
+	.invisible {
+		display: none;
+	}
 
-#insufficient-funds, #purchasing {
-	padding: 10px;
-	line-height: 35px;
-	position: fixed;
-	width: 350px;
-	margin: auto;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
+	#insufficient-funds, #purchasing {
+		padding: 10px;
+		line-height: 35px;
+		position: fixed;
+		width: 350px;
+		margin: auto;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
 
-#curr-funds-p {
-	padding-right: 30px;
-}
+	#curr-funds-p {
+		padding-right: 30px;
+	}
 
-#funds-info-p {
-	display: block;
-}
+	#funds-info-p {
+		display: block;
+	}
 
-.pop-up-button {
-	background-color: rgb(175,170,185);
-	border-width: 3px;
-	border-radius: 10px;
-	border-color: rgb(225,220,235);
-}
+	.pop-up-button {
+		background-color: rgb(175,170,185);
+		border-width: 3px;
+		border-radius: 10px;
+		border-color: rgb(225,220,235);
+	}
 
-#purchasing {
-	padding-bottom: 25px;
-}
+	#purchasing {
+		padding-bottom: 25px;
+	}
 
-#checkout-list {
-	margin-top: 0;
-	padding: 0;
-}
+	#checkout-list {
+		margin-top: 0;
+		padding: 0;
+	}
 
-#checkout-list li {
-	padding: 0;
-	padding-bottom: 10px;
-}
+	#checkout-list li {
+		padding: 0;
+		padding-bottom: 10px;
+	}
 
-#checkout-list li .price {
-	position: relative;
-	bottom: 0;
-	left: 0;
-}
+	#checkout-list li .price {
+		position: relative;
+		bottom: 0;
+		left: 0;
+	}
 
-#confirm-button {
-	position: relative;
-	bottom: 5px;
-	margin-right: 30px;
-	padding: 10px;
-	padding-top: 0px;
+	#confirm-button {
+		position: relative;
+		bottom: 5px;
+		margin-right: 30px;
+		padding: 10px;
+		padding-top: 0px;
+	}
 }

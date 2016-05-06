@@ -98,7 +98,7 @@ export default class Store extends React.Component {
 		var purchasingVisibility = this.state.purchasing ? '' : 'invisible';
 		var buyButtonVisibility = this.state.emptyCart ? 'invisible' : '';
 		return (
-			<div id='outer-container'>
+			<div id='store outer-container'>
 				<div id='contents'>
 					<div id='item-list'>
 						<ul id='items'>
