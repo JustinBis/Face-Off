@@ -3,6 +3,7 @@ import CountdownTimer from '../../../imports/ui/CountdownTimer.jsx';
 import {formatFunc, getTimeRemaining} from '../../../imports/ui/countdown-util.js';
 import BetLink from './BetLink.jsx';
 import reportError from '../../../imports/ui/report-error';
+import CameraTile from './CameraTile.jsx';
 
 /**
 	List of images to present in feed
@@ -19,6 +20,7 @@ export default class ImageList extends React.Component {
 		});
 		return (
 			<div className="uk-grid">
+				<CameraTile />
 				{imageComps}	
 			</div>
 		);
@@ -40,11 +42,11 @@ export class Image extends React.Component {
 					reportError(err);
 				} 
 				if (correct) {
-					this.setState({betStatusImage: 'images/green-checkmark.png',
+					this.setState({betStatusImage: 'images/checkmark.svg',
 								   inset: 'inset-green'
 				});
 				} else {
-					this.setState({betStatusImage: 'images/red-x.png',
+					this.setState({betStatusImage: 'images/letter-x.svg',
 								   inset: 'inset-red'
 				});
 				}
@@ -68,7 +70,6 @@ export class Image extends React.Component {
                         <img className="pot" src={this.state.betStatusImage} />
                         
                         <div className="countdown-container">
-                        	<span> Time Left: </span>
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
                         					formatFunc={formatFunc} />
                         </div>

@@ -79,8 +79,8 @@ $image-size: 250px;
 
 	.fixed-container {
 		position: fixed;
-		bottom: 10%;
-		right: 10%;
+		top: 0%;
+		left: 0%;
 	}
 
 	.score {
@@ -103,9 +103,18 @@ $image-size: 250px;
 	    bottom: 10%;
 	    right: 10%;
 	    color: #E0E0E0;
-	    font-size: 100%;
 	    div {
 	    	display: inline-block;
 	    }
+	    font-family: monospace;
+    	font-size: 150%;
+	}
+
+	button {
+		padding: 0;
+		border: 0;
+		&:hover {
+			opacity: .6;
+		}
 	}
 }
