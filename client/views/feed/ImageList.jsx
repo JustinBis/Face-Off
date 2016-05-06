@@ -35,7 +35,7 @@ export class Image extends React.Component {
 		super(props);
 
 		//Set state of pot of gold, checkmark, or x based on whether the user has bet or not
-		this.state = {betStatusImage: 'images/potogold.png', inset:''}
+		this.state = {betStatusImage: 'images/potogold.png', inset:''};
 		if (props.alreadyBet) {
 			Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, correct) => {
 				if (err) {
@@ -51,23 +51,32 @@ export class Image extends React.Component {
 				});
 				}
 			})
-		}		
+		} else {
+			this.setState({betStatusImage: 'images/potogold.png', inset:''});
+		}	
 	}
 
 	render() {
 		var betLink;
+		var inset = this.state.inset;
+		var betStatusImage = this.state.betStatusImage;
+		var imageClass = 'picture-visited';
 		if(!this.props.alreadyBet) {
 			betLink = <BetLink id={this.props.picture._id}/>
+			inset = '';
+			betStatusImage = 'images/potogold.png';
+			imageClass = 'picture';
 		} else {
 			betLink = "";
 		}
+
 		return (
 			<div className="grid-item"> 
 				<div className="uk-thumbnail">
-					<figure className={"uk-overlay "+this.state.inset}>
-                       	<img className={this.props.alreadyBet ? "picture-visited" : "picture" } 
+					<figure className={"uk-overlay "+inset}>
+                       	<img className={imageClass} 
                        		 src={this.props.picture.pictureData} />
-                        <img className="pot" src={this.state.betStatusImage} />
+                        <img className="pot" src={betStatusImage} />
                         
                         <div className="countdown-container">
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
