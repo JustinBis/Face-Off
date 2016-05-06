@@ -49,7 +49,7 @@ li {
 }
 
 #door {
-	height: 120px;
+	height: 140px;
 }
 
 .item, .money-tag, #insufficient-funds, #purchasing {
@@ -202,9 +202,10 @@ p {
 }
 
 #confirm-button {
-	position: relative;
-	bottom: 5px;
 	margin-right: 30px;
-	padding: 10px;
-	padding-top: 0px;
+}
+
+#price-confirm {
+	position: relative;
+	bottom: 4px;
 }

@@ -2,9 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import HashMap from 'hashmap';
 
-import Item from './item.jsx';
-import Cart from './cart.jsx';
-import ItemCard from './item-card.jsx';
+import Item from './Item.jsx';
+import ItemCard from './ItemCard.jsx';
+import MoneyTag from './MoneyTag.jsx';
+import reportError from '../../../imports/ui/report-error';
 
 export default class Store extends React.Component {
 
@@ -13,23 +14,6 @@ export default class Store extends React.Component {
 		this.state = {total: 0, emptyCart: 1, sufficientFunds: 1, purchasing: 0};
 		this.funds = 247;
 		this.toBuy = new HashMap();
-	}
-
-	getItems() {
-		return [
-			{_id: 1, name: 'hat', price: 50, url: 'http://images.clipartpanda.com/hat-clip-art-nicubunu_Adventurer_hat_Vector_Clipart.png'},
-			{_id: 2, name: 'monocle', price: 60, url: 'http://worldartsme.com/images/monocle-clipart-1.jpg'},
-			{_id: 3, name: 'sunglasses', price: 20, url: 'http://images.clipartpanda.com/sunglasses-clipart-9TRBdEjTe.svg'},
-			{_id: 4, name: 'hat', price: 50, url: 'http://images.clipartpanda.com/hat-clip-art-nicubunu_Adventurer_hat_Vector_Clipart.png'},
-			{_id: 5, name: 'monocle', price: 60, url: 'http://worldartsme.com/images/monocle-clipart-1.jpg'},
-			{_id: 6, name: 'sunglasses', price: 20, url: 'http://images.clipartpanda.com/sunglasses-clipart-9TRBdEjTe.svg'},
-			{_id: 7, name: 'hat', price: 50, url: 'http://images.clipartpanda.com/hat-clip-art-nicubunu_Adventurer_hat_Vector_Clipart.png'},
-			{_id: 8, name: 'monocle', price: 60, url: 'http://worldartsme.com/images/monocle-clipart-1.jpg'},
-			{_id: 9, name: 'sunglasses', price: 20, url: 'http://images.clipartpanda.com/sunglasses-clipart-9TRBdEjTe.svg'},
-			{_id: 10, name: 'hat', price: 50, url: 'http://images.clipartpanda.com/hat-clip-art-nicubunu_Adventurer_hat_Vector_Clipart.png'},
-			{_id: 11, name: 'monocle', price: 60, url: 'http://worldartsme.com/images/monocle-clipart-1.jpg'},
-			{_id: 12, name: 'sunglasses', price: 20, url: 'http://images.clipartpanda.com/sunglasses-clipart-9TRBdEjTe.svg'},
-		]
 	}
 
 	updateCart(add, item) {
@@ -66,7 +50,20 @@ export default class Store extends React.Component {
 		this.setState({sufficientFunds: 1});
 	}
 
-	hidePuchasingPopUp() {
+	hidePurchasingPopUp() {
+		this.setState({purchasing: 0});
+	}
+
+	confirmPurchase() {
+		var toBuy = this.toBuy.values();
+		var len = toBuy.length;
+		for (i = 0; i < len; i++) {
+			Meteor.call('purchases.insert', toBuy[i]._id);
+		}
+		this.toBuy.clear();
+		this.funds = this.funds - this.state.total;
+		this.setState({total: 0});
+		this.setState({emptyCart: 1});
 		this.setState({purchasing: 0});
 	}
 
@@ -77,7 +74,7 @@ export default class Store extends React.Component {
 	}
 
 	renderItems() {
-		return this.getItems().map((item) => (
+		return this.props.available.map((item) => (
 				<Item key={item._id} item={item} increaseAmount={{updateCart: this.updateCart.bind(this)}} ready={this.state.sufficientFunds && !this.state.purchasing}/>
 			)
 		);
@@ -108,12 +105,11 @@ export default class Store extends React.Component {
 					<ul id='right-content'>
 						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toFeed.bind(this)} /></li>
 						<li><div id='money-pile'>
-							<div className='money-tag'>
-								<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
-								<p>{this.funds.toLocaleString()}</p>
-							</div>
+							<MoneyTag price={this.funds} />
 						</div></li>
-						<li><Cart price={this.state.total.toLocaleString()} /></li>
+						<li><div id='cart' >
+							<MoneyTag price={this.state.total} />
+						</div></li>
 						<li><button id='checkout' type='button' className={buyButtonVisibility} onClick={this.purchaseItems.bind(this)}>BUY</button></li>
 					</ul>
 					<div id='insufficient-funds' className={insufficientFundsVisibility}>
@@ -126,14 +122,35 @@ export default class Store extends React.Component {
 						<ul id='checkout-list'>
 							{this.renderCartItems()}
 						</ul>
-						<button id='confirm-button' className='pop-up-button' type='button' onClick={this.hidePuchasingPopUp.bind(this)}>
-							<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
-							<p>{this.state.total.toLocaleString()}</p>
+						<button id='confirm-button' className='pop-up-button' type='button' onClick={this.confirmPurchase.bind(this)}>
+							<div id='price-confirm'>
+								<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
+								<p>{this.state.total.toLocaleString()}</p>
+							</div>
 						</button>
-						<button className='pop-up-button' type='button' onClick={this.hidePuchasingPopUp.bind(this)}>CANCEL</button>
+						<button className='pop-up-button' type='button' onClick={this.hidePurchasingPopUp.bind(this)}>CANCEL</button>
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+Store.propTypes = {
+  available: React.PropTypes.array.isRequired,
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import ItemCard from './item-card.jsx';
+import ItemCard from './ItemCard.jsx';
 
 export default class Item extends React.Component {
 
