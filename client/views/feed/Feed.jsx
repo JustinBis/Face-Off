@@ -1,6 +1,8 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
 import CameraButton from './CameraButton.jsx';
+import reportError from '../../../imports/ui/report-error';
+import users from '../../../imports/api/users';
 
 /**
 	Root class for Image feed, responsible for creating an image list
@@ -9,6 +11,9 @@ import CameraButton from './CameraButton.jsx';
 export default class Feed extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {};
+
+		Meteor.subscribe('userData');
 
 	}
 
@@ -16,7 +21,10 @@ export default class Feed extends React.Component {
 		return (
 			<div id="feed">
 				<ImageList images={this.props.images} />
-				<CameraButton />
+				<div className="fixed-container">
+					<CameraButton />
+					
+				</div>
 			</div>
 		);
 	}

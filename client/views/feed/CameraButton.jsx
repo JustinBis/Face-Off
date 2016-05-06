@@ -18,9 +18,15 @@ class CameraButton extends React.Component {
 
     render() {
         return (
-        	<div id="camera-button">
-        		<button onClick={this.onClick}><i className="uk-icon-camera uk-icon-medium"></i></button>
-        	</div>);
+            <div className="score">
+                
+        	   <div id="camera-button">
+        		  Camera: <button onClick={this.onClick}><i className="uk-icon-camera uk-icon-medium"></i></button>
+        	   </div>
+               <span>
+                    Facebucks: {Meteor.user() && Meteor.user().score}
+               </span>
+            </div>);
     }
 }
 

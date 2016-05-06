@@ -31,10 +31,14 @@ $button-max-width: $image-max-width/2;
 		right: 0%;
 	}
 
-
-	.response-enter.response-enter-active, .bet-response {
+	.response-correct.response-enter.response-enter-active{
 		color: #ffffff;
-		background-color: green;
+		background-color: $bet-correct-color;
+	}
+
+	.response-incorrect.response-enter.response-enter-active{
+		color: #ffffff;
+		background-color: $bet-incorrect-color;
 	}
 
 	.response-enter {
