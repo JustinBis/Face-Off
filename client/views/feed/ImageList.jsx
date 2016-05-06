@@ -36,7 +36,11 @@ export class Image extends React.Component {
 
 		//Set state of pot of gold, checkmark, or x based on whether the user has bet or not
 		this.state = {betStatusImage: 'images/potogold.png', inset:''};
-		if (props.alreadyBet) {
+		
+	}
+
+	componentDidMount() {
+		if (this.props.alreadyBet) {
 			Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, correct) => {
 				if (err) {
 					reportError(err);
