@@ -2,6 +2,9 @@ import React from 'react';
 import CountdownTimer from '../../../imports/ui/CountdownTimer.jsx';
 import {formatFunc, getTimeRemaining} from '../../../imports/ui/countdown-util.js';
 import BetLink from './BetLink.jsx';
+import reportError from '../../../imports/ui/report-error';
+import CameraTile from './CameraTile.jsx';
+
 /**
 	List of images to present in feed
 */
@@ -17,6 +20,7 @@ export default class ImageList extends React.Component {
 		});
 		return (
 			<div className="uk-grid">
+				<CameraTile />
 				{imageComps}	
 			</div>
 		);
@@ -29,9 +33,25 @@ export default class ImageList extends React.Component {
 export class Image extends React.Component {
 	constructor(props) {
 		super(props);
+
+		//Set state of pot of gold, checkmark, or x based on whether the user has bet or not
+		this.state = {betStatusImage: 'images/potogold.png', inset:''}
 		if (props.alreadyBet) {
-			console.log("Already bet");
-		}
+			Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, correct) => {
+				if (err) {
+					reportError(err);
+				} 
+				if (correct) {
+					this.setState({betStatusImage: 'images/checkmark.svg',
+								   inset: 'inset-green'
+				});
+				} else {
+					this.setState({betStatusImage: 'images/letter-x.svg',
+								   inset: 'inset-red'
+				});
+				}
+			})
+		}		
 	}
 
 	render() {
@@ -44,13 +64,12 @@ export class Image extends React.Component {
 		return (
 			<div className="grid-item"> 
 				<div className="uk-thumbnail">
-					<figure className="uk-overlay">
+					<figure className={"uk-overlay "+this.state.inset}>
                        	<img className={this.props.alreadyBet ? "picture-visited" : "picture" } 
                        		 src={this.props.picture.pictureData} />
-                        <img className="pot" src={this.props.alreadyBet ? 'images/green-checkmark.png' : 'images/potogold.png'} />
+                        <img className="pot" src={this.state.betStatusImage} />
                         
                         <div className="countdown-container">
-                        	<span> Time Left: </span>
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
                         					formatFunc={formatFunc} />
                         </div>
