@@ -36,19 +36,21 @@ export default class Bet extends React.Component {
 			//Render "correct" transition
 			if(correct) {
 				this.setState(
-					{ betTransition: (<div key="ayy" className="bet-response response-correct" >
-          				<i className="uk-icon-check"></i>
-          				<div> Correct!</div>
-      				</div>)
+					{ betTransition: (
+						<div key="1" className="bet-response response-correct" >
+          					<i className="uk-icon-check"></i>
+          					<div> Correct!</div>
+      					</div>)
 				});
 			} 
 			//Render "incorrect" transition
 			else {
 				this.setState( 
-					{ betTransition : (<div key="ayy" className="bet-response response-incorrect" >
-          				<i className="uk-icon-times"></i>
-          				<div> Wrong </div>
-      				</div>) 
+					{ betTransition : (
+						<div key="2" className="bet-response response-incorrect" >
+          					<i className="uk-icon-times"></i>
+          					<div> Wrong </div>
+      					</div>) 
 				}); 
 			}
 		}.bind(this));

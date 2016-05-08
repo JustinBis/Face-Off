@@ -16,7 +16,7 @@ export default class CameraTile extends React.Component {
             <div id="camera-tile" className="grid-item"> 
                     <div className="uk-thumbnail">
                         <figure className="uk-overlay">
-                            <button onClick={this.onClick}><img src="http://simpleicon.com/wp-content/uploads/camera.png" /></button>
+                            <button onClick={this.onClick}><img src="images/camera.png" /></button>
                         </figure>
                     </div>          
                </div>
