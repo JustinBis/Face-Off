@@ -20,6 +20,7 @@ $image-height: 250px;
 	.uk-thumbnail {
 		padding: 0;
 		border: 0;
+		box-shadow: 2px 2px 5px 0px rgb(68, 65, 68);
 		&:hover {
 				@include animate(pulse, 1s, infinite, linear);
 		}
