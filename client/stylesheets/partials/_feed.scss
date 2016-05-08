@@ -27,6 +27,9 @@ $image-size: 250px;
 		img {
 			height: $image-size * .75;
 		}
+		.camera-tile {
+			display: none;
+		}
 	}
 
 
@@ -113,8 +116,5 @@ $image-size: 250px;
 	button {
 		padding: 0;
 		border: 0;
-		&:hover {
-			opacity: .6;
-		}
 	}
 }
