@@ -15,7 +15,7 @@ var fakeUser = function() {
 		return;
 	}
 	//Choose random pic
-	var pic = pics[_.random(0,pics.length-1)];
+	var pic = pics[_.random(0,pics.length-1)]; 
 
 	//Update pictures createdAt time
 	var now = new Date();
@@ -26,7 +26,7 @@ var fakeUser = function() {
 	Bets.remove({pictureId:pic._id});
 	console.log("Revived picture:",pic._id);
 }
-
+ 
 var revives = 10;
 for(var i = 0; i < revives; i ++) {
 	fakeUser();

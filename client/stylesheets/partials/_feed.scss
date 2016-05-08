@@ -1,83 +1,69 @@
 
+$feed-primary-color: coral;
 $thumbnail-size: 100%;
-$image-size: 250px;
+$image-height: 250px;
 
 #feed {
-	background-color: $primary-color;
+	height: 100%;
+	background-color: $feed-primary-color;
+	.uk-grid {
+		background-color: $feed-primary-color;
+		padding: 1%;
+		box-sizing: border-box;
+	}
 
 	img {
 		width: 100%;
-		height: $image-size;
-	}
-
-	.grid-item {
-		width: 25%;
-	}
-
-	@media (max-width: $large-device) {
-		.grid-item {
-			width: 33%;
-		}
-	}
-
-	@media (max-width: $medium-device) {
-		.grid-item {
-			width: 50%;
-		}
-		img {
-			height: $image-size * .75;
-		}
-		.camera-tile {
-			display: none;
-		}
-	}
-
-
-	.uk-grid { 
-		margin: 0;
-	}
-
-	.uk-grid > * {
-		background-color: $primary-color;
-		padding: 0;
+		height: $image-height;
 	}
 
 	.uk-thumbnail {
 		padding: 0;
+		border: 0;
+		&:hover {
+				@include animate(pulse, 1s, infinite, linear);
+		}
+	}
+
+	.thumbnail-visited {
+		&:hover {
+			animation: none;
+		}
 	}
 
 	.uk-overlay {
 		background-color: #000;
+		border: 3px solid #E0E0E0;
 		.picture {
 			opacity: .6;
 			-webkit-filter: blur(5px);
 			-moz-filter: blur(5px);
 			-o-filter: blur(5px);
 			-ms-filter: blur(5px);
-			filter: blur(5px);
+			filter: blur(5px);	
 		}
+
 		&:hover {
 			.picture {
 				opacity: .4;
 			}
 		}
 
-		.pot {
+		.bet-response {
 			position: absolute;
-    		bottom: 10%;
-    		left: 10%;
-    		width: 15%;
-    		height: 15%;
-    		opacity: 1;
+			width: 50%;
+    		height: 50%;
+    		top: 25%;
+    		left: 25%;
 		}
 	}
 
-	.inset-green {
-		box-shadow: inset 0px 0px 6px 5px rgb(110, 245, 133);
+	.inset-bet-correct {
+		border: 3px solid #4CAF50;
 	}
 
-	.inset-red {
-		box-shadow: inset 0px 0px 6px 5px rgba(242,78,111,1);
+	.inset-bet-incorrect {
+    	border: 3px solid #F44336;
 	}
 
 	.fixed-container {
@@ -95,7 +81,6 @@ $image-size: 250px;
 		padding: 6px;
 		border-radius: 4px;
 	}
-
 
 	.picture-visited {
 		opacity: .4;
@@ -116,5 +101,29 @@ $image-size: 250px;
 	button {
 		padding: 0;
 		border: 0;
+	}
+
+	@media (max-width: $small-device) {
+		img {
+			height: $image-height * .75;
+		}
+		.uk-grid, .uk-grid > * {
+			padding: 0%;
+		}
+		.camera-tile {
+			display: none;
+		}
+		.uk-overlay, .inset-green, .inset-red {
+			border: 0;
+		}
+		.uk-thumbnail {
+			border: .5px solid #eee;
+		}
+		.inset-bet-correct {
+			box-shadow: inset 0px 0px 6px 5px rgb(110, 245, 133);
+		}
+		.inset-bet-incorrect {
+			box-shadow: inset 0px 0px 6px 5px rgba(242,78,111,1);
+		}
 	}
 }
