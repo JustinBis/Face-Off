@@ -22,13 +22,17 @@ $image-height: 250px;
 		border: 0;
 		box-shadow: 2px 2px 5px 0px rgb(68, 65, 68);
 		&:hover {
-				@include animate(pulse, 1s, infinite, linear);
-		}
+			.bet-marker {
+    			@include animate(tilt, 1s, infinite, linear);
+			}
+    	} 
 	}
 
 	.thumbnail-visited {
 		&:hover {
-			animation: none;
+			.bet-marker{
+				animation: none;
+			}
 		}
 	}
 
@@ -50,14 +54,22 @@ $image-height: 250px;
 			}
 		}
 
-		.bet-response {
+		.bet-marker {
 			position: absolute;
 			width: 50%;
     		height: 50%;
     		top: 25%;
     		left: 25%;
 		}
+		
+		.pot {
+			width: 20%;
+			height: 20%;
+			top: 70%;
+			left: 10%;
+		}
 	}
+
 
 	.inset-bet-correct {
 		border: 3px solid #4CAF50;

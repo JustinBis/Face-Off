@@ -34,6 +34,13 @@
 	100% {transform: scale(1);}
 }
 
+@keyframes tilt {
+	0% {transform: rotate(0);}
+	25% {transform: rotate(-30deg);}
+	75% {transform: rotate(30deg);}
+	100% {transform: rotate(0);}
+}
+
 .pulse {
 	@include animate(pulse, 1s, infinite, linear);
 }
