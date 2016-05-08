@@ -1,5 +1,4 @@
 
-$feed-primary-color: coral;
 $thumbnail-size: 100%;
 $image-height: 250px;
 #feed {
@@ -7,9 +6,6 @@ $image-height: 250px;
 	.uk-grid {
 		background-color: $background-color;
 		background-image: url("images/background.png");
-		/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-
-
 		padding: 1%;
 		box-sizing: border-box;
 	}
@@ -24,6 +20,8 @@ $image-height: 250px;
 		border: 0;
 		box-shadow: 2px 2px 5px 0px rgb(68, 65, 68);
 		&:hover {
+			transform: scale(1.1);
+			transition: all .2s ease;
 			.bet-marker {
     			@include animate(tilt, .2s, infinite, linear);
 			}
@@ -32,6 +30,7 @@ $image-height: 250px;
 
 	.thumbnail-visited {
 		&:hover {
+			transform: none;
 			.bet-marker{
 				animation: none;
 			}
