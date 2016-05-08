@@ -2,12 +2,14 @@
 $feed-primary-color: coral;
 $thumbnail-size: 100%;
 $image-height: 250px;
-
 #feed {
 	height: 100%;
-	background-color: $feed-primary-color;
 	.uk-grid {
-		background-color: $feed-primary-color;
+		background-color: $background-color;
+		background-image: url("images/background.png");
+		/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+
 		padding: 1%;
 		box-sizing: border-box;
 	}
@@ -23,7 +25,7 @@ $image-height: 250px;
 		box-shadow: 2px 2px 5px 0px rgb(68, 65, 68);
 		&:hover {
 			.bet-marker {
-    			@include animate(tilt, 1s, infinite, linear);
+    			@include animate(tilt, .2s, infinite, linear);
 			}
     	} 
 	}
@@ -61,7 +63,7 @@ $image-height: 250px;
     		top: 25%;
     		left: 25%;
 		}
-		
+
 		.pot {
 			width: 20%;
 			height: 20%;
@@ -122,9 +124,6 @@ $image-height: 250px;
 		}
 		.uk-grid, .uk-grid > * {
 			padding: 0%;
-		}
-		.camera-tile {
-			display: none;
 		}
 		.uk-overlay, .inset-green, .inset-red {
 			border: 0;
