@@ -6,6 +6,9 @@ import {IMAGE_DURATION_MILLIS} from '../api/pictures.js';
  * @return String              Formatted countdown string
  */
 export function formatFunc(milliseconds) {
+  if(milliseconds < 0){
+  	milliseconds = 0;
+  }
   var totalSeconds = Math.round(milliseconds / 1000);
 
   var seconds = parseInt(totalSeconds % 60, 10);
