@@ -17,7 +17,7 @@ export default class BetLink extends React.Component {
 	render() {
 		return (
 			<div>
-				<a className="uk-position-cover" onClick={this.onClick} onTouchStart={this.onClick}></a>
+				<a className="uk-position-cover" onClick={this.onClick} onTap={this.onClick}></a>
 			</div>
 		);
 	}
