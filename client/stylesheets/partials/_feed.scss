@@ -89,7 +89,7 @@ $image-height: 250px;
 		left: 0;
 	 	right: 0;
 	 	background-size: 100%;
-	
+		
 
 	}
 
@@ -100,13 +100,15 @@ $image-height: 250px;
 		color: white;
 		text-align: right;
 		display: inline;
+		
+
 	
 	}
 
 	.facebucks-text {
 		line-height: 55px;
 		padding-left: 25px;
-		background-color: #48a1a1;
+		background-color: rgba(72,161,161,0.5); 
 		padding: 8px;
 		padding-top: 5px;
 		padding-bottom: 5px;
