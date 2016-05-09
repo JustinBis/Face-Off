@@ -12,7 +12,8 @@ export default class Item extends React.Component {
 		this.state = {isSelected: false};
 	}
 
-	onClick() {
+	selectItem() {
+			console.log(this.state.isSelected);
 		if (this.props.ready) {
 			var isSelected = !this.state.isSelected;
 			this.setState({isSelected: isSelected});
@@ -25,7 +26,7 @@ export default class Item extends React.Component {
 		var classes = classNames('item', selected);
 		return (
 			<li>
-				<div className={classes} onClick={this.onClick.bind(this)} >
+				<div className={classes} onClick={this.selectItem.bind(this)} >
 					<ItemCard item={this.props.item} />
 				</div>
 			</li>
