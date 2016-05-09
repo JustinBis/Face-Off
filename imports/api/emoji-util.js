@@ -20,8 +20,23 @@ export function getRandomEmoji() {
 export function getOptions(emoji) {
 	var options = [emoji];
 	for(var i = 0; i < 3; i++) {
-		options.push( getRandomEmoji() );
+		//Ensure unique emoji selected
+		var randEmoji = getRandomEmoji();
+		if(!randEmoji || options.indexOf(randEmoji) !== -1) {
+			i--;
+			console.log(randEmoji, emoji);
+		} else {	
+			options.push( randEmoji );
+		}
 	}
+	//Shuffle emojis
+	for(var i = options.length-1; i > 0; i--) {
+		var randInd = Math.floor(Math.random() * (i-1));
+		var temp = options[randInd]
+		options[randInd] = options[i];
+		options[i] = temp;
+	}
+
 	return options;
 }
 
