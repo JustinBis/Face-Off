@@ -85,16 +85,15 @@ $image-height: 250px;
 	.fixed-container {
 		position: fixed;
 		top: 0%;
-		left: 0%;
+	 	left: 0%;
 	}
 
 	.score {
-		text-align: right;
-		font-size: 150%;
-		font-weight: 100;
+		font-size: 300%;
+		font-weight: 300;
 		color: white;
 		background-color:rgba(0,0,0,0.7);
-		padding: 6px;
+		padding: 14px;
 		border-radius: 4px;
 	}
 
