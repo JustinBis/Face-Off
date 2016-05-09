@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	
-	'purchases.insert'(itemId) {
+	'purchases.insert'(itemId, price) {
 
 		check(itemId, String);
 
@@ -25,6 +25,9 @@ Meteor.methods({
 			itemId: itemId, 
 			user: Meteor.userId()
 		});
+
+		Meteor.users.update({_id: Meteor.userId()}, {$inc:{score: -1 * price}});
+
 	},
 
 	'purchases.removeAll'() {

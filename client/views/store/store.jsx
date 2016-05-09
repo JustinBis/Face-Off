@@ -18,7 +18,6 @@ export default class Store extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {total: 0, emptyCart: 1, sufficientFunds: 1, purchasing: 0};
-		this.funds = 247;
 		this.cart = new HashMap();
 	}
 
@@ -46,7 +45,7 @@ export default class Store extends React.Component {
 	accordingly so the correct pop up appears */
 	purchaseItems() {
 		if (this.state.sufficientFunds && !this.state.purchasing) {
-			if (this.state.total > this.funds) {
+			if (this.state.total > this.props.funds) {
 				this.setState({sufficientFunds: 0});
 			}
 			else {
@@ -60,10 +59,10 @@ export default class Store extends React.Component {
 		var toBuy = this.cart.values();
 		var len = toBuy.length;
 		for (i = 0; i < len; i++) {
-			Meteor.call('purchases.insert', toBuy[i]._id);
+			Meteor.call('purchases.insert', toBuy[i]._id, toBuy[i].price);
 		}
 		this.cart.clear();
-		this.funds = this.funds - this.state.total;
+		this.props.funds = this.props.funds - this.state.total;
 		this.setState({total: 0});
 		this.setState({emptyCart: 1});
 		this.setState({purchasing: 0});
@@ -76,10 +75,12 @@ export default class Store extends React.Component {
 		}
 	}
 
+	/* Hide pop up for insufficient funds */
 	hideInsufficientFunds() {
 		this.setState({sufficientFunds: 1});
 	}
 
+	/* Hide pop up for purchase confirmation */
 	hidePurchasing() {
 		this.setState({purchasing: 0});
 	}
@@ -118,7 +119,7 @@ export default class Store extends React.Component {
 					<ul id='right-content'>
 						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toFeed.bind(this)} /></li>
 						<li><div id='money-pile'>
-							<MoneyTag price={this.funds} />
+							<MoneyTag price={this.props.funds} />
 						</div></li>
 						<li><div id='cart' >
 							<MoneyTag price={this.state.total} />
@@ -128,7 +129,7 @@ export default class Store extends React.Component {
 					<div id='insufficient-funds' className={insufficientFundsVisibility}>
 						<p id='funds-info-p'>You don't have enough coins. Earn coins by making bets.</p>
 						<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
-						<p id='curr-funds-p'>{this.funds.toLocaleString()}</p>
+						<p id='curr-funds-p'>{this.props.funds.toLocaleString()}</p>
 						<button className='pop-up-button' type='button' onClick={this.hideInsufficientFunds.bind(this)}>OK</button>
 					</div>
 					<div id='purchasing' className={purchasingVisibility}>
@@ -151,6 +152,7 @@ export default class Store extends React.Component {
 
 Store.propTypes = {
   available: React.PropTypes.array.isRequired,
+  funds: React.PropTypes.number.isRequired
 };
 
 

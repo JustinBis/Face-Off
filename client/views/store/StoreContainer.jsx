@@ -1,6 +1,7 @@
 
 import { Purchases } from '../../../imports/api/purchases.js';
 import { Items } from '../../../imports/api/items.js';
+import { users } from '../../../imports/api/users.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import Store from './store.jsx';
 
@@ -10,7 +11,6 @@ import Store from './store.jsx';
  */
 
 export default createContainer(() => {
-  Meteor.subscribe('purchases');
   var len = Items.length;
   var available = [];
   for (i = 0; i < len; i++) {
@@ -19,6 +19,7 @@ export default createContainer(() => {
   	}
   }
   return {
-    available: available
+    available: available,
+    funds: ((Meteor.user() && Meteor.user().score) || 0)
   };
 }, Store);
