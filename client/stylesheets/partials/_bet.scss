@@ -15,7 +15,7 @@ $button-max-width: $image-max-width/2;
 	display: flex;
 	flex-flow: column;
 	position: relative;
-	border: 2px solid #000;
+
 
 	.bet-response {
 		position: absolute;
@@ -39,19 +39,19 @@ $button-max-width: $image-max-width/2;
 	.response-correct.response-enter.response-enter-active{
 		color: #ffffff;
 		background-color: $bet-correct-color;
-		border: 2px solid #000;
+
 	}
 
 	.response-incorrect.response-enter.response-enter-active{
 		color: #ffffff;
 		background-color: $bet-incorrect-color;
-		border: 2px solid #000;
+
 	}
 
 	.response-enter {
 		background-color: transparent;
 		color: transparent;
-		border: 2px solid #000;
+
 		transition: all .3s ease-out, color 0.4s linear .4s;
 	}
 

@@ -18,12 +18,13 @@ export default class Feed extends React.Component {
 				<ImageList images={this.props.images} />
 				<div className="fixed-container">
 					 <div className="score">
-		               <span>
+					 <CameraButton />
+		               <span className='facebucks-text'>
 		                    Facebucks: {Meteor.user() && Meteor.user().score}
 		               </span>
 		            </div>
 				</div>
-				<CameraButton />
+				
 			</div>
 		);
 	}
