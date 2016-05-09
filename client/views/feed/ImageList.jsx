@@ -41,7 +41,6 @@ export class Image extends React.Component {
 
 	componentWillMount() {
 		Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, status) => {
-			console.log(err, status)
 			if (err) {
 				reportError(err);
 			} 
@@ -54,7 +53,6 @@ export class Image extends React.Component {
 		//If a given image has been visited, stop animation / eliminate blur
 		var visitedClass = this.props.alreadyBet ? '-visited' : '';
 		var betLink = !this.props.alreadyBet ? <BetLink id={this.props.picture._id} /> : '';
-		console.log(this.state.betStatus)
 		return (
 			<div className="grid-item uk-container-center"> 
 				<div className={"uk-thumbnail thumbnail"+visitedClass}>

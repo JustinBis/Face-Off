@@ -41,7 +41,7 @@ class Choice extends React.Component {
 	render() {
 		emoji_html = {__html:emojiStringToHTML(this.props.emoji)};
 		return (
-			<div className="choice" onClick={this.placeBet}>
+			<div className="choice" onClick={this.placeBet} onTap={this.placeBet}>
 				<div dangerouslySetInnerHTML={emoji_html}>
 				</div>
 			</div>
