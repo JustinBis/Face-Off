@@ -8,14 +8,13 @@ import { Bets } from '../../api/bets.js';
  * so as to simulate an active "feed" even when images are expiring.
  * 
  */
-var fakeUser = function() {
+var fakeUserActivity = function(id) {
 	//Retrieve 20 pictures
-	var pics = Pictures.find({ },{limit:20}).fetch();
-	if(!pics.length) {
+	var pic = Pictures.findOne({_id:id});
+	if(!pic) {
 		return;
 	}
 	//Choose random pic
-	var pic = pics[_.random(0,pics.length-1)]; 
 	var pictureData = pic.pictureData;
 	var emoji = pic.emoji;
 	var userId = "ROBOTUSER";
@@ -25,14 +24,36 @@ var fakeUser = function() {
 	Bets.remove({pictureId:pic._id});
 	insertPicture(pictureData, emoji, userId);
 
-
 	//Clear bets that were on the given image
 	console.log("Revived picture:",pic._id);
 }
- 
-var revives = 10;
-for(var i = 0; i < revives; i ++) {
-	fakeUser();
+
+/**
+ * Gets numIds number of ids from the pictures collection
+ * selected randomly from all ids in the db
+ * @param  number 	numIds 
+ * @return ["id"]       
+ */ 
+var getRandomIds = function(numIds){
+	var ids = Pictures.find({},{fields:{_id:1}}).fetch();
+	if(ids.length <= numIds) {
+		return ids;
+	}
+	var randIds = [];
+	for(var i=0; i<numIds; i++) {
+		var randInd = Math.floor(Math.random() * ids.length);
+		randIds.push( ids.splice(randInd,1)[0]._id );
+	}
+	return randIds;
+}
+var fakeOnePicture = function() {
+	var ids = getRandomIds(1);
+	fakeUserActivity(ids[0]);
 }
 
-Meteor.setInterval(fakeUser, 60*1000*1);
+var revives = 10;
+var ids = getRandomIds(revives);
+for(var i = 0; i < revives; i ++) {
+	fakeUserActivity(ids[i]);
+}
+Meteor.setInterval(fakeOnePicture, 60*1000*1);
