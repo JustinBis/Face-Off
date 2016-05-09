@@ -102,10 +102,10 @@ export default class Camera extends React.Component {
 		{
 			view = (
 				<div className='viewfinder'>
-					<img src="/img/buttons/apple_thumbs_down.png" onClick={this.takePictureCordova} />
+					<img src="/img/buttons/apple_thumbs_down.png" onClick={this.takePicture} />
 					<CameraOverlay
 						emojiString={this.state.selectedEmoji}
-						takePicture={this.takePictureCordova}
+						takePicture={this.takePicture}
 						newRandomEmoji={this.newRandomEmoji}
 						openItems={this.openItems}
 						exitButtonClicked={this.exitButtonClicked}
