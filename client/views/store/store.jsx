@@ -119,10 +119,10 @@ export default class Store extends React.Component {
 					<ul id='right-content'>
 						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toCamera.bind(this)} /></li>
 						<li><div id='money-pile'>
-							<MoneyTag price={this.props.funds} />
+							<MoneyTag price={this.props.funds.toLocaleString()} />
 						</div></li>
 						<li><div id='cart' >
-							<MoneyTag price={this.state.total} />
+							<MoneyTag price={this.state.total.toLocaleString()} />
 						</div></li>
 						<li><button id='checkout' type='button' className={buyButtonVisibility} onClick={this.purchaseItems.bind(this)}>BUY</button></li>
 					</ul>
