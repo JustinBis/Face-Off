@@ -266,7 +266,7 @@ export default class Camera extends React.Component {
 			var dataURL = "data:image/jpeg;base64," + data;
 
 			// Save the picture immediately
-			Meteor.call('pictures.insert', this.state.pictureData, this.state.selectedEmoji, (err) => {
+			Meteor.call('pictures.insert', dataURL, this.state.selectedEmoji, (err) => {
 			if(err)
 			{
 				reportError(err, "Error saving picture:");
