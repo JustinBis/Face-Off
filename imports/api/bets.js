@@ -58,7 +58,6 @@ Meteor.methods({
 		if (!userId) {
 			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
 		}
-		console.log("Guess?",pictureId)
 		const bet = Bets.findOne({userId, pictureId});
 		if (!bet) {
 			return 'not-bet';
