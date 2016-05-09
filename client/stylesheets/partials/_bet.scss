@@ -69,10 +69,10 @@ $button-max-width: $image-max-width/2;
 		width: 25%;
 		div {
 			margin: 10%;
+			transition: scale .2s ease-in;
 		}
 		div:hover {
-			border-radius: 50%;
-            box-shadow: 0px 0px 41px -2px #c7d141;
+			transform: scale(1.1);
 		}
 		
 	}
