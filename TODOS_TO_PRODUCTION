@@ -1,16 +1,16 @@
 J: Server side debouncing of take-picture
-
-J: Icon / splash screen for phones / splash screen loading subscriptions
+J: Icon / splash screen for phones / splash screen loading subscriptions 
 
 M: Better loading screen for bet photos
-
-?: Add friends via Facebook --> Send photo to friends?
-
-M: Make check/x on overlay feed reactive
-
 M: Animation on feed item enter
+M: why is loading bet so slow if already have image?
 
 DONE M: Fake user - select all ID's from mongo instance, then re-select randomly from id's
+DONE M: Make check/x on overlay feed reactive
+
+?: Add friends via Facebook --> Send photo to friends?
+?: Points / Notifications for other users getting your faces right?
+	- Limit amount of times they can use one emoji
 
 ????
 

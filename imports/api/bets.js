@@ -4,6 +4,13 @@ import { check } from 'meteor/check';
 import { Pictures } from './pictures.js';
 //TODO make sure "correct answer" field of pictures not accessible client side (not published)
 export const Bets = new Mongo.Collection('bets');
+
+if (Meteor.isServer) {
+	Meteor.publish('bets', function betsPublication (){
+		return Bets.find();
+	});
+}
+
 Meteor.methods({
 
 	/**
@@ -28,12 +35,14 @@ Meteor.methods({
 		}
 		const pic = Pictures.findOne({_id: pictureId});
 		const emojiActual = pic.emoji;
+		const createdAt = new Date();
 		Bets.insert({
 			userId,
 			pictureId,
 			emojiActual,
 			emojiGuessed,
-			stake
+			stake,
+			createdAt
 		});
 
 		//Update user's score based on correctness/incorrectness

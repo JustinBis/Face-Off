@@ -15,7 +15,7 @@ export default class Feed extends React.Component {
 	render() {
 		return (
 			<div id="feed">
-				<ImageList images={this.props.images} />
+				<ImageList userBets={this.props.userBets} images={this.props.images} />
 				<div className="fixed-container">
 					 <div className="score">
 					 <CameraButton />
@@ -24,7 +24,7 @@ export default class Feed extends React.Component {
 		               </span>
 		            </div>
 				</div>
-				
+				{"hey" +this.props.userBets}
 			</div>
 		);
 	}

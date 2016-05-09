@@ -8,10 +8,10 @@ export default class BetStatusMarker extends React.Component {
 
     render() {
     	var betStatusImage = 'potogold.png'
-    	if(this.props.betStatus === 'bet-correct') {
+    	if(this.props.betStatus === 'correct-bet') {
         	betStatusImage = 'checkmark.svg';
         }
-        if(this.props.betStatus === 'bet-incorrect') {
+        if(this.props.betStatus === 'incorrect-bet') {
         	betStatusImage = 'letter-x.svg';
         }
         var potClass = this.props.betStatus === 'not-bet' ? 'pot': '';

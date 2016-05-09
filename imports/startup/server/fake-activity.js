@@ -51,7 +51,7 @@ var fakeOnePicture = function() {
 	fakeUserActivity(ids[0]);
 }
 
-var revives = 10;
+var revives = 20;
 var ids = getRandomIds(revives);
 for(var i = 0; i < revives; i ++) {
 	fakeUserActivity(ids[i]);

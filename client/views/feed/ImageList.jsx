@@ -11,11 +11,18 @@ import CameraTile from './CameraTile.jsx';
 */
 export default class ImageList extends React.Component {
 	render() {
+		console.log(this.props.userBets)
 		//Generate image components using Image class
 		var imageComps = this.props.images.map((image, ind) => {
 			//See if user already bet on this image
-			var alreadyBet = image.usersBet.indexOf( Meteor.userId() ) !== -1;
 			var betStatus = 'not-bet';
+			var alreadyBet = false;
+			this.props.userBets.forEach((bet) => {
+				if(bet.pictureId === image._id) {
+					alreadyBet = true;
+					betStatus = bet.emojiActual === bet.emojiGuessed ? 'correct-bet' : 'incorrect-bet';
+				}
+			});
 			return (
 				<Image key={image._id} picture={image} alreadyBet={alreadyBet} betStatus={betStatus} />
 			);
@@ -35,17 +42,6 @@ export default class ImageList extends React.Component {
 export class Image extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {betStatus: 'not-bet'};
-	}
-
-
-	componentWillMount() {
-		Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, status) => {
-			if (err) {
-				reportError(err);
-			} 
-			this.setState({betStatus: status});
-		});
 	}
 
 	render() {
@@ -56,10 +52,10 @@ export class Image extends React.Component {
 		return (
 			<div className="grid-item uk-container-center"> 
 				<div className={"uk-thumbnail thumbnail"+visitedClass}>
-					<figure className={"uk-overlay inset-"+this.state.betStatus}>
+					<figure className={"uk-overlay inset-"+this.props.betStatus}>
                        	<img className={"picture"+visitedClass} 
                        		 src={this.props.picture.pictureData} />
-                       	<BetStatusMarker betStatus={this.state.betStatus}/>
+                       	<BetStatusMarker betStatus={this.props.betStatus}/>
                         <div className="countdown-container">
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
                         					formatFunc={formatFunc} />
