@@ -58,14 +58,11 @@ Meteor.methods({
 		if (!userId) {
 			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
 		}
-
 		const bet = Bets.findOne({userId, pictureId});
-		if (!Meteor.isServer) {
-			if (!bet) {
-				throw new Meteor.Error('not-bet', 'User'+userId+' has not bet on'+pictureId);
-			}
+		if (!bet) {
+			return 'not-bet';
 		}
-		return bet.emojiActual === bet.emojiGuessed;
+		return bet.emojiActual === bet.emojiGuessed ? 'bet-correct' : 'bet-incorrect';
 	}
 });
 

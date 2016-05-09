@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageList from './ImageList.jsx';
+import CameraButton from './CameraButton.jsx';
 import reportError from '../../../imports/ui/report-error';
 
 /**
@@ -22,6 +23,7 @@ export default class Feed extends React.Component {
 		               </span>
 		            </div>
 				</div>
+				<CameraButton />
 			</div>
 		);
 	}

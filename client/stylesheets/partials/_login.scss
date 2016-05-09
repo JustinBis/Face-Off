@@ -9,8 +9,6 @@ $red: #CC1437;
 
 
 #login {
-	background-color: $blue;
-
 	text-align: center;
 
 	height: 100%;
@@ -24,10 +22,10 @@ $red: #CC1437;
 
 	flex-direction: column;
 
-	h1 {
-		margin: 0 auto 2em;
-		color: $yellow;
-	}
+img {
+    
+    background:url(homepage.png) no-repeat;
+}
 
 	.login-with-facebook-button {
 		background: url('/img/buttons/login-with-facebook.png');

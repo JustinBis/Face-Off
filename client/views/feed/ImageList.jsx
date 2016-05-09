@@ -2,6 +2,7 @@ import React from 'react';
 import CountdownTimer from '../../../imports/ui/CountdownTimer.jsx';
 import {formatFunc, getTimeRemaining} from '../../../imports/ui/countdown-util.js';
 import BetLink from './BetLink.jsx';
+import BetStatusMarker from './BetStatusMarker.jsx';
 import reportError from '../../../imports/ui/report-error';
 import CameraTile from './CameraTile.jsx';
 
@@ -14,14 +15,15 @@ export default class ImageList extends React.Component {
 		var imageComps = this.props.images.map((image, ind) => {
 			//See if user already bet on this image
 			var alreadyBet = image.usersBet.indexOf( Meteor.userId() ) !== -1;
+			var betStatus = 'not-bet';
 			return (
-				<Image key={image._id} picture={image} alreadyBet={alreadyBet} />
+				<Image key={image._id} picture={image} alreadyBet={alreadyBet} betStatus={betStatus} />
 			);
 		});
 		return (
 			<div className="uk-grid">
-				<CameraTile />
-				{imageComps}	
+					<CameraTile />
+					{imageComps}	
 			</div>
 		);
 	}
@@ -33,55 +35,31 @@ export default class ImageList extends React.Component {
 export class Image extends React.Component {
 	constructor(props) {
 		super(props);
-
-		//Set state of pot of gold, checkmark, or x based on whether the user has bet or not
-		this.state = {betStatusImage: 'images/potogold.png', inset:''};
-		
+		this.state = {betStatus: 'not-bet'};
 	}
 
-	componentDidMount() {
-		if (this.props.alreadyBet) {
-			Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, correct) => {
-				if (err) {
-					reportError(err);
-				} 
-				if (correct) {
-					this.setState({betStatusImage: 'images/checkmark.svg',
-								   inset: 'inset-green'
-				});
-				} else {
-					this.setState({betStatusImage: 'images/letter-x.svg',
-								   inset: 'inset-red'
-				});
-				}
-			})
-		} else {
-			this.setState({betStatusImage: 'images/potogold.png', inset:''});
-		}	
+
+	componentWillMount() {
+		Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, status) => {
+			if (err) {
+				reportError(err);
+			} 
+			this.setState({betStatus: status});
+		});
 	}
 
 	render() {
 		var betLink;
-		var inset = this.state.inset;
-		var betStatusImage = this.state.betStatusImage;
-		var imageClass = 'picture-visited';
-		if(!this.props.alreadyBet) {
-			betLink = <BetLink id={this.props.picture._id}/>
-			inset = '';
-			betStatusImage = 'images/potogold.png';
-			imageClass = 'picture';
-		} else {
-			betLink = "";
-		}
-
+		//If a given image has been visited, stop animation / eliminate blur
+		var visitedClass = this.props.alreadyBet ? '-visited' : '';
+		var betLink = !this.props.alreadyBet ? <BetLink id={this.props.picture._id} /> : '';
 		return (
-			<div className="grid-item"> 
-				<div className="uk-thumbnail">
-					<figure className={"uk-overlay "+inset}>
-                       	<img className={imageClass} 
+			<div className="grid-item uk-container-center"> 
+				<div className={"uk-thumbnail thumbnail"+visitedClass}>
+					<figure className={"uk-overlay inset-"+this.state.betStatus}>
+                       	<img className={"picture"+visitedClass} 
                        		 src={this.props.picture.pictureData} />
-                        <img className="pot" src={betStatusImage} />
-                        
+                       	<BetStatusMarker betStatus={this.state.betStatus}/>
                         <div className="countdown-container">
                         	<CountdownTimer initialTimeRemaining={getTimeRemaining(this.props.picture.createdAt)} 
                         					formatFunc={formatFunc} />
@@ -93,3 +71,20 @@ export class Image extends React.Component {
 		);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

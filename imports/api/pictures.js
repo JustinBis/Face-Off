@@ -28,21 +28,12 @@ if (Meteor.isServer) {
 	});
 }
 
-Meteor.methods({
-	'pictures.insert'(pictureData, emoji) {
-		check(pictureData, String);
-		check(emoji, String);
-
-		if(!Meteor.userId())
-		{
-			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
-		}
-
-		Pictures.insert({
+export function insertPicture (pictureData, emoji, userId) {
+	Pictures.insert({
 			pictureData,
 			emoji,
 			createdAt: new Date(),
-			owner: Meteor.userId(),
+			owner:userId,
 			options: getOptions(emoji),
 			usersBet: [],
 			expired: false
@@ -55,7 +46,20 @@ Meteor.methods({
 					handleExpire(IMAGE_DURATION_MILLIS, docsInserted)
 				}
 			}
-		});
+	});
+}
+
+Meteor.methods({
+	'pictures.insert'(pictureData, emoji) {
+		check(pictureData, String);
+		check(emoji, String);
+
+		if(!Meteor.userId())
+		{
+			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
+		}
+
+		insertPicture(pictureData, emoji, Meteor.userId());
 
 	},
 	/**

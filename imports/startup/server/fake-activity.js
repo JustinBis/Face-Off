@@ -1,6 +1,6 @@
 
 
-import { Pictures, handleExpire, IMAGE_DURATION_MILLIS } from '../../api/pictures.js';
+import { Pictures, handleExpire, IMAGE_DURATION_MILLIS, insertPicture } from '../../api/pictures.js';
 import { Bets } from '../../api/bets.js';
 /**
  * Fakes user activity.
@@ -15,18 +15,21 @@ var fakeUser = function() {
 		return;
 	}
 	//Choose random pic
-	var pic = pics[_.random(0,pics.length-1)];
+	var pic = pics[_.random(0,pics.length-1)]; 
+	var pictureData = pic.pictureData;
+	var emoji = pic.emoji;
+	var userId = "ROBOTUSER";
 
-	//Update pictures createdAt time
-	var now = new Date();
-	Pictures.update({_id:pic._id}, {$set: {createdAt:now, usersBet:[], expired:false}} );
-	handleExpire(IMAGE_DURATION_MILLIS, pic._id);
+	//Remove old picture/bets, reinsert as new picture
+	Pictures.remove({_id:pic._id});
+	Bets.remove({pictureId:pic._id});
+	insertPicture(pictureData, emoji, userId);
+
 
 	//Clear bets that were on the given image
-	Bets.remove({pictureId:pic._id});
 	console.log("Revived picture:",pic._id);
 }
-
+ 
 var revives = 10;
 for(var i = 0; i < revives; i ++) {
 	fakeUser();

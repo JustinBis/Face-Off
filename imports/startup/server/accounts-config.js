@@ -1,4 +1,3 @@
-
 /**
  * Responsible for handling additional fields ( on top of the ones created by Facebook) when an account is created
  * Currently the only custom behavior is the addition of a "score" field

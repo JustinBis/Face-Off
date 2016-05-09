@@ -3,9 +3,10 @@
 
 @import 'login';
 @import 'camera';
-@import "feed";
 @import "bet";
-@import "camera-button";
+@import "feed";
+@import "feed-camera-button";
+@import "feed-camera-tile";
 @import "store";
 
 button:focus {

@@ -7,14 +7,17 @@ import React from 'react';
 export default class BetLink extends React.Component {
 	constructor(props) {
 		super(props);
-		var id = this.props.id;
-		this.betPath = FlowRouter.path('App.bet',{},{id:id});
+		this.onClick = this.onClick.bind(this);
+	}
+
+	onClick() {
+		FlowRouter.go('App.bet',{},{id:this.props.id});
 	}
 
 	render() {
 		return (
 			<div>
-				<a className="uk-position-cover" href={this.betPath}></a>
+				<a className="uk-position-cover" onClick={this.onClick} onTouchStart={this.onClick}></a>
 			</div>
 		);
 	}

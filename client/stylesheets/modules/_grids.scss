@@ -1,0 +1,30 @@
+
+
+
+.uk-grid { 
+	margin: 0;
+}
+
+.uk-grid > * {
+	padding: 1%;
+	box-sizing: border-box;
+}
+
+.grid-item {
+	width: 25%;
+	max-width: 300px
+}
+
+
+@media (max-width: $large-device) {
+	.grid-item {
+		width: 33%;
+	}
+}
+
+
+@media (max-width: $small-device) {
+		.grid-item {
+			width: 50%;
+		}
+}

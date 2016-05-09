@@ -25,3 +25,4 @@ react-meteor-data
 accounts-facebook
 service-configuration
 practicalmeteor:mocha
+force-ssl
