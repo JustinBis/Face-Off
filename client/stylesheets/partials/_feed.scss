@@ -85,11 +85,11 @@ $image-height: 250px;
 
 	.fixed-container {
 		position: fixed;
-		top: 0;
+		top: 2%;
 		left: 0;
 	 	right: 0;
-	 	background-color: transparent;
 	 	background-size: 100%;
+	
 
 	}
 
@@ -100,16 +100,29 @@ $image-height: 250px;
 		color: white;
 		text-align: right;
 		display: inline;
-		border-radius: 4px;
-	}
+		
 
-	.picture-visited {
-		opacity: .4;
+	
 	}
 
 	.facebucks-text {
 		line-height: 55px;
-		padding-left: 10px;
+		padding-left: 25px;
+		background-color: #48a1a1;
+		padding: 8px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		margin-left: 10px;
+		border-radius: 10px;
+				@media all and (max-width) and ($large-device){
+				transform: scale(3.1);
+				
+				text-size: 3em;
+				}
+	}	
+
+	.picture-visited {
+		opacity: .4;
 	}
 
 	.countdown-container {
