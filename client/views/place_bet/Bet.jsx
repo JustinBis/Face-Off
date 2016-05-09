@@ -29,34 +29,34 @@ export default class Bet extends React.Component {
 				reportError(err);
 			}
 		});
-		var self = this;
 		Meteor.call('bets.insert', pictureId, emojiId, function (err, correct) {
 			if (!this.isSimulation){
 				if (err) {
 					reportError(err);
 				}
-				//Render "correct" transition
-				if(correct) {
-					self.setState(
-						{ betTransition: (
-							<div key="correct" className="bet-response response-correct" >
-	          					<i className="uk-icon-check"></i>
-	          					<div> Correct!</div>
-	      					</div>)
-					});
-				} 
-				//Render "incorrect" transition
-				else {
-					self.setState( 
-						{ betTransition : (
-							<div key="incorrect" className="bet-response response-incorrect" >
-	          					<i className="uk-icon-times"></i>
-	          					<div> Wrong </div>
-	      					</div>) 
-					}); 
-				}
 			}
 		});
+
+		//Render "correct" transition
+		if(this.props.image.emoji === emojiId) {
+			this.setState(
+				{ betTransition: (
+					<div key="correct" className="bet-response response-correct" >
+      					<i className="uk-icon-check"></i>
+      					<div> Correct!</div>
+  					</div>)
+			});
+		} 
+		//Render "incorrect" transition
+		else {
+			this.setState( 
+				{ betTransition : (
+					<div key="incorrect" className="bet-response response-incorrect" >
+      					<i className="uk-icon-times"></i>
+      					<div> Wrong </div>
+  					</div>) 
+			}); 
+		}
 
 		this.setState({betPlaced:true});
 
