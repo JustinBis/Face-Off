@@ -28,6 +28,11 @@ export default class Camera extends React.Component {
 		this.savePicture = this.savePicture.bind(this);
 		this.clearPictureData = this.clearPictureData.bind(this);
 		this.openItems = this.openItems.bind(this);
+
+		if(Meteor.isCordova)
+		{
+			this.takePicture = this.takePictureCordova.bind(this);
+		}
   	}
 
   	componentDidMount() {
@@ -93,7 +98,22 @@ export default class Camera extends React.Component {
 	render() {
 		// TODO: Make these individual react components for better organization
 		var view;
-		if(this.state.notSupported)
+		if(Meteor.isCordova)
+		{
+			view = (
+				<div className='viewfinder'>
+					<img src="/img/buttons/apple_thumbs_down.png" onClick={this.takePictureCordova} />
+					<CameraOverlay
+						emojiString={this.state.selectedEmoji}
+						takePicture={this.takePictureCordova}
+						newRandomEmoji={this.newRandomEmoji}
+						openItems={this.openItems}
+						exitButtonClicked={this.exitButtonClicked}
+					/>
+				</div>
+			);
+		}
+		else if(this.state.notSupported)
 		{
 			// TODO: Make this message not so crappy
 			view = (
@@ -156,6 +176,7 @@ export default class Camera extends React.Component {
 				</div>
 			);
 		}
+
 		return (
 			<div id='camera'>
 				{view}
@@ -235,6 +256,34 @@ export default class Camera extends React.Component {
 		var pictureData = canvas.toDataURL('image/jpeg', QUALITY);
 
 		this.setState({pictureData});
+	}
+
+	/**
+	 * Uses Cordova to take a picture
+	 * @return {null} This method returns nothing
+	 */
+	takePictureCordova() {
+		navigator.camera.getPicture((data) => {
+			var dataURL = "data:image/jpeg;base64," + data;
+
+			// Save the picture immediately
+			Meteor.call('pictures.insert', this.state.pictureData, this.state.selectedEmoji, (err) => {
+			if(err)
+			{
+				reportError(err, "Error saving picture:");
+			}
+			// Exit the camera in the same was as using the exit button
+			this.exitButtonClicked();
+		});
+
+		}, (error) => {
+			reportError(error, "Error with Cordova camera:");
+		}, {
+			quality: QUALITY,
+			targetWidth: IMAGE_WIDTH,
+			targetHeight: IMAGE_HEIGHT,
+			destinationType: Camera.DestinationType.DATA_URL
+		});
 	}
 
 
