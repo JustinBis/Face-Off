@@ -24,7 +24,7 @@ export function getOptions(emoji) {
 		var randEmoji = getRandomEmoji();
 		if(!randEmoji || options.indexOf(randEmoji) !== -1) {
 			i--;
-			console.log(randEmoji, emoji);
+			// console.log(randEmoji, emoji);
 		} else {	
 			options.push( randEmoji );
 		}
