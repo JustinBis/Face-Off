@@ -22,8 +22,8 @@ export default class ImageList extends React.Component {
 		});
 		return (
 			<div className="uk-grid">
-				<CameraTile />
-				{imageComps}	
+					<CameraTile />
+					{imageComps}	
 			</div>
 		);
 	}
@@ -56,7 +56,7 @@ export class Image extends React.Component {
 		var betLink = !this.props.alreadyBet ? <BetLink id={this.props.picture._id} /> : '';
 		console.log(this.state.betStatus)
 		return (
-			<div className="grid-item"> 
+			<div className="grid-item uk-container-center"> 
 				<div className={"uk-thumbnail thumbnail"+visitedClass}>
 					<figure className={"uk-overlay inset-"+this.state.betStatus}>
                        	<img className={"picture"+visitedClass} 

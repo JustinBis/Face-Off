@@ -13,7 +13,7 @@ export default class CameraTile extends React.Component {
     render() {
         return (
 
-            <div id="camera-tile" className="grid-item"> 
+            <div id="camera-tile" className="grid-item uk-container-center"> 
                     <div className="uk-thumbnail">
                         <figure className="uk-overlay">
                             <button onClick={this.onClick}><img src="images/camera.png" /></button>
