@@ -5,13 +5,19 @@ import BetLink from './BetLink.jsx';
 import BetStatusMarker from './BetStatusMarker.jsx';
 import reportError from '../../../imports/ui/report-error';
 import CameraTile from './CameraTile.jsx';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 /**
 	List of images to present in feed
 */
 export default class ImageList extends React.Component {
 	render() {
-		console.log(this.props.userBets)
+
+		var feedTiles = [];
+		if(this.props.images.length > 0 ){
+			feedTiles.push( <CameraTile key="CAMERA" /> )
+		}
+
 		//Generate image components using Image class
 		var imageComps = this.props.images.map((image, ind) => {
 			//See if user already bet on this image
@@ -26,11 +32,13 @@ export default class ImageList extends React.Component {
 			return (
 				<Image key={image._id} picture={image} alreadyBet={alreadyBet} betStatus={betStatus} />
 			);
-		});
+		}).reverse();
+		feedTiles = feedTiles.concat(imageComps)
 		return (
-			<div className="uk-grid">
-					<CameraTile />
-					{imageComps}	
+			<div>
+					<ReactCSSTransitionGroup className="uk-grid" transitionName="feed-image" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          				{feedTiles}	
+        			</ReactCSSTransitionGroup>
 			</div>
 		);
 	}

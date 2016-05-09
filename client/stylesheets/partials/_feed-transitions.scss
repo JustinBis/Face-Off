@@ -1,0 +1,37 @@
+
+.feed-image-enter {
+  opacity: 0.01;
+}
+
+.feed-image-enter.feed-image-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.feed-image-leave {
+  opacity: 1;
+}
+
+.feed-image-leave.feed-image-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+
+.feed-image-appear {
+  opacity: 0.01;
+}
+
+.feed-image-appear.feed-image-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.feed-image.disappear {
+  opacity: 1;
+}
+
+.feed-image.disappear.feed-image.disappear-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

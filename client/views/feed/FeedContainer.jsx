@@ -14,7 +14,7 @@ export default createContainer(() => {
   var now = new Date();
   var lastDay = now - (24*60*60*1000);
   return {
-    images: Pictures.find({expired:false }, {sort:{createdAt:-1}}).fetch(),
+    images: Pictures.find({expired:false }, {sort:{createdAt:1}}).fetch(),
     userBets: Bets.find({userId:Meteor.userId(), createdAt:{ $gte:new Date(lastDay)} }).fetch()
   };
 }, Feed);

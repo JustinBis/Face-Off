@@ -24,7 +24,6 @@ export default class Feed extends React.Component {
 		               </span>
 		            </div>
 				</div>
-				{"hey" +this.props.userBets}
 			</div>
 		);
 	}
