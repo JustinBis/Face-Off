@@ -316,7 +316,7 @@ export default class Camera extends React.Component {
 	 * @return {null} This method returns nothing
 	 */
 	openItems() {
-		reportError("Items coming soon!");
+		FlowRouter.go('App.store');
 	}
 
 	// TODO: abstract this away

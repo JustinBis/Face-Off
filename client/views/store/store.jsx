@@ -59,7 +59,7 @@ export default class Store extends React.Component {
 		var toBuy = this.cart.values();
 		var len = toBuy.length;
 		for (i = 0; i < len; i++) {
-			Meteor.call('purchases.insert', toBuy[i]._id, toBuy[i].price);
+			Meteor.call('purchases.insert', toBuy[i]._id, toBuy[i].url, toBuy[i].price);
 		}
 		this.cart.clear();
 		this.props.funds = this.props.funds - this.state.total;
@@ -69,9 +69,9 @@ export default class Store extends React.Component {
 	}
 
 	/* Return to feed */
-	toFeed() {
+	toCamera() {
 		if (this.state.sufficientFunds && !this.state.purchasing) {
-			FlowRouter.go('App.feed');
+			FlowRouter.go('App.camera');
 		}
 	}
 
@@ -117,7 +117,7 @@ export default class Store extends React.Component {
 						</ul>
 					</div>
 					<ul id='right-content'>
-						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toFeed.bind(this)} /></li>
+						<li><img id='door' src='http://images.clipartpanda.com/door-clipart-open-door.png' onClick={this.toCamera.bind(this)} /></li>
 						<li><div id='money-pile'>
 							<MoneyTag price={this.props.funds} />
 						</div></li>

@@ -13,7 +13,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	
-	'purchases.insert'(itemId, price) {
+	'purchases.insert'(itemId, url, price) {
 
 		check(itemId, String);
 
@@ -23,6 +23,7 @@ Meteor.methods({
 
 		Purchases.insert({
 			itemId: itemId, 
+			itemImage: url,
 			user: Meteor.userId()
 		});
 

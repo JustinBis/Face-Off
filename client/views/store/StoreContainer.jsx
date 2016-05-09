@@ -1,7 +1,6 @@
 
 import { Purchases } from '../../../imports/api/purchases.js';
 import { Items } from '../../../imports/api/items.js';
-import { users } from '../../../imports/api/users.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import Store from './store.jsx';
 
