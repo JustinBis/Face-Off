@@ -5,7 +5,6 @@ $image-height: 250px;
 	height: 100%;
 	.uk-grid {
 		background-color: $background-color;
-		background-image: url("images/background.png");
 		padding: 1%;
 		box-sizing: border-box;
 	}
@@ -84,21 +83,32 @@ $image-height: 250px;
 
 	.fixed-container {
 		position: fixed;
-		top: 2%;
-	 	left: 2%;
+		top: 0;
+		left: 0;
+	 	right: 0;
+	 	background-color: #777777; //transparent
+	 	padding: 10px;
+	 	background-size: 100%;
 	}
 
+
 	.score {
-		font-size: 300%;
-		font-weight: 300;
+		vertical-align: middle;
+		font-size: 250%;
+		font-weight: 200;
 		color: white;
-		background-color:rgba(0,0,0,0.7);
-		padding: 14px;
+		text-align: right;
+		display: inline;
 		border-radius: 4px;
 	}
 
 	.picture-visited {
 		opacity: .4;
+	}
+
+	.facebucks-text {
+		line-height: 55px;
+		padding-left: 10px;
 	}
 
 	.countdown-container {
@@ -141,3 +151,10 @@ $image-height: 250px;
 		}
 	}
 }
+
+
+	@media (max-width: $large-device) {
+
+}
+
+
