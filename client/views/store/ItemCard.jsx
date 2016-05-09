@@ -1,5 +1,7 @@
 import React from 'react';
 
+/* Visual representation of an item that includes a picture of the item and its price */
+
 export default class ItemCard extends React.Component {
 	render() {
 		return (

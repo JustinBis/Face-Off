@@ -2,12 +2,13 @@
 import { Purchases } from '../../../imports/api/purchases.js';
 import { Items } from '../../../imports/api/items.js';
 import { createContainer } from 'meteor/react-meteor-data';
-import Store from './Store.jsx';
+import Store from './store.jsx';
 
 /**
  * Container wrapping Store in order to first retrieve necessary information from the database 
  * to create reactive components
  */
+
 export default createContainer(() => {
   Meteor.subscribe('purchases');
   var len = Items.length;

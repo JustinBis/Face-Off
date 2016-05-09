@@ -1,5 +1,7 @@
 import React from 'react';
 
+/* Visual representation of an amount of money */
+
 export default class MoneyTag extends React.Component {
 
 	render() {

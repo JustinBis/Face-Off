@@ -69,6 +69,31 @@ $image-size: 250px;
 		}
 	}
 
+	.inset-green {
+		box-shadow: inset 0px 0px 6px 5px rgb(110, 245, 133);
+	}
+
+	.inset-red {
+		box-shadow: inset 0px 0px 6px 5px rgba(242,78,111,1);
+	}
+
+	.fixed-container {
+		position: fixed;
+		top: 0%;
+		left: 0%;
+	}
+
+	.score {
+		text-align: right;
+		font-size: 150%;
+		font-weight: 100;
+		color: white;
+		background-color:rgba(0,0,0,0.7);
+		padding: 6px;
+		border-radius: 4px;
+	}
+
+
 	.picture-visited {
 		opacity: .4;
 	}
@@ -77,10 +102,19 @@ $image-size: 250px;
 		position: absolute;
 	    bottom: 10%;
 	    right: 10%;
-	    color: white;
-	    font-size: 100%;
+	    color: #E0E0E0;
 	    div {
 	    	display: inline-block;
 	    }
+	    font-family: monospace;
+    	font-size: 150%;
+	}
+
+	button {
+		padding: 0;
+		border: 0;
+		&:hover {
+			opacity: .6;
+		}
 	}
 }

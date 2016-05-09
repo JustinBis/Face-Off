@@ -2,10 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import HashMap from 'hashmap';
 
-import Item from './Item.jsx';
+import Item from './item.jsx';
 import ItemCard from './ItemCard.jsx';
 import MoneyTag from './MoneyTag.jsx';
 import reportError from '../../../imports/ui/report-error';
+
+/**
+	Main class for the store containing the list of items that users can buy, the cart that items are added to, the 
+	button to buy an item, the door to exit back to the feed, and the pop ups to confirm purchases or notify the user
+	that they don't have enough coins to buy what's in their cart.
+**/
 
 export default class Store extends React.Component {
 
@@ -13,18 +19,19 @@ export default class Store extends React.Component {
 		super(props);
 		this.state = {total: 0, emptyCart: 1, sufficientFunds: 1, purchasing: 0};
 		this.funds = 247;
-		this.toBuy = new HashMap();
+		this.cart = new HashMap();
 	}
 
+	/* Add or remove and item from the cart */
 	updateCart(add, item) {
 		var total;
 		if (add) {
 			total = this.state.total + item.price;
-			this.toBuy.set(item._id, item);
+			this.cart.set(item._id, item);
 		}
 		else {
 			total = this.state.total - item.price;
-			this.toBuy.remove(item._id);
+			this.cart.remove(item._id);
 		}
 		this.setState({total: total});
 		if (this.state.emptyCart && total){
@@ -35,6 +42,8 @@ export default class Store extends React.Component {
 		}
 	}
 
+	/* If there is not currently a pop up, check if user has enough money to buy what's in the cart and change states 
+	accordingly so the correct pop up appears */
 	purchaseItems() {
 		if (this.state.sufficientFunds && !this.state.purchasing) {
 			if (this.state.total > this.funds) {
@@ -46,33 +55,36 @@ export default class Store extends React.Component {
 		}
 	}
 
-	hideInsufficientFundsPopUp() {
-		this.setState({sufficientFunds: 1});
-	}
-
-	hidePurchasingPopUp() {
-		this.setState({purchasing: 0});
-	}
-
+	/* Add the purchase information to the database and update variables to signify that the purchase was completed */
 	confirmPurchase() {
-		var toBuy = this.toBuy.values();
+		var toBuy = this.cart.values();
 		var len = toBuy.length;
 		for (i = 0; i < len; i++) {
 			Meteor.call('purchases.insert', toBuy[i]._id);
 		}
-		this.toBuy.clear();
+		this.cart.clear();
 		this.funds = this.funds - this.state.total;
 		this.setState({total: 0});
 		this.setState({emptyCart: 1});
 		this.setState({purchasing: 0});
 	}
 
+	/* Return to feed */
 	toFeed() {
 		if (this.state.sufficientFunds && !this.state.purchasing) {
 			FlowRouter.go('App.feed');
 		}
 	}
 
+	hideInsufficientFunds() {
+		this.setState({sufficientFunds: 1});
+	}
+
+	hidePurchasing() {
+		this.setState({purchasing: 0});
+	}
+
+	/* Create the list of available items to buy */
 	renderItems() {
 		return this.props.available.map((item) => (
 				<Item key={item._id} item={item} increaseAmount={{updateCart: this.updateCart.bind(this)}} ready={this.state.sufficientFunds && !this.state.purchasing}/>
@@ -80,8 +92,9 @@ export default class Store extends React.Component {
 		);
 	}
 
+	/* Create the visual representation of items in the cart for the confirmation pop up*/
 	renderCartItems() {
-		var items = this.toBuy.values();
+		var items = this.cart.values();
 		return items.map((item) => (
 				<li key={item._id}>
 					<ItemCard item={item} />
@@ -116,7 +129,7 @@ export default class Store extends React.Component {
 						<p id='funds-info-p'>You don't have enough coins. Earn coins by making bets.</p>
 						<img className='coin' src='http://www.clipartbest.com/cliparts/xig/oE9/xigoE9ERT.png'/>
 						<p id='curr-funds-p'>{this.funds.toLocaleString()}</p>
-						<button className='pop-up-button' type='button' onClick={this.hideInsufficientFundsPopUp.bind(this)}>OK</button>
+						<button className='pop-up-button' type='button' onClick={this.hideInsufficientFunds.bind(this)}>OK</button>
 					</div>
 					<div id='purchasing' className={purchasingVisibility}>
 						<ul id='checkout-list'>
@@ -128,7 +141,7 @@ export default class Store extends React.Component {
 								<p>{this.state.total.toLocaleString()}</p>
 							</div>
 						</button>
-						<button className='pop-up-button' type='button' onClick={this.hidePurchasingPopUp.bind(this)}>CANCEL</button>
+						<button className='pop-up-button' type='button' onClick={this.hidePurchasing.bind(this)}>CANCEL</button>
 					</div>
 				</div>
 			</div>

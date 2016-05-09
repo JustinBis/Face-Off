@@ -15,7 +15,7 @@ Meteor.methods({
 	'bets.insert'(pictureId, emojiGuessed) {
 		check(pictureId, String);
 		check(emojiGuessed, String);
-		var userId = Meteor.userId();
+		const userId = Meteor.userId();
 		//Ensure logged in
 		if (!userId) {
 			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
@@ -42,6 +42,30 @@ Meteor.methods({
 		} else {
 			Meteor.users.update({_id:userId}, {$inc:{score:-1*stake}});
 		}
+		return emojiActual === emojiGuessed;
+	},
+
+	/**
+	 * Get's the status (correct or incorrect) of a users guess on a given image
+	 * 
+	 * @param  String pictureId ID of the picture being bet on
+	 * @return boolean  Whether the user's guess was correct or not
+	 */
+	'bets.getGuessStatus'(pictureId) {
+		check(pictureId, String);
+		const userId = Meteor.userId();
+		//Ensure logged in
+		if (!userId) {
+			throw new Meteor.Error('not-authorized', 'You must be logged in to save a picture');
+		}
+
+		const bet = Bets.findOne({userId, pictureId});
+		if (!Meteor.isServer) {
+			if (!bet) {
+				throw new Meteor.Error('not-bet', 'User'+userId+' has not bet on'+pictureId);
+			}
+		}
+		return bet.emojiActual === bet.emojiGuessed;
 	}
 });
 

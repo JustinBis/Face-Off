@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import ItemCard from './ItemCard.jsx';
 
+/* An item in the store that user can click on to add to cart */
+
 export default class Item extends React.Component {
 
 	constructor(props) {
@@ -19,7 +21,6 @@ export default class Item extends React.Component {
 	}
 
 	render() {
-		var item = this.props.item;
 		var selected = this.state.isSelected ? ' selected' : '';
 		var classes = classNames('item', selected);
 		return (
