@@ -24,7 +24,7 @@ export default function reportError(err, prefix) {
 	}
 	else
 	{
-		errorString = `Error: unknown error. See console for details.`;
+		errorString = 'Error: unknown error: '+JSON.stringify(err);
 	}
 	console.error(errorString);
 
