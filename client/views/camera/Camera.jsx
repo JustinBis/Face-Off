@@ -102,7 +102,6 @@ export default class Camera extends React.Component {
 		{
 			view = (
 				<div className='viewfinder'>
-					<img src="/img/buttons/apple_thumbs_down.png" onClick={this.takePicture} />
 					<CameraOverlay
 						emojiString={this.state.selectedEmoji}
 						takePicture={this.takePicture}
@@ -282,7 +281,7 @@ export default class Camera extends React.Component {
 			quality: QUALITY,
 			targetWidth: IMAGE_WIDTH,
 			targetHeight: IMAGE_HEIGHT,
-			destinationType: Camera.DestinationType.DATA_URL
+			destinationType: 0 // Because minimization kills the Camera variable for some reason //Camera.DestinationType.DATA_URL
 		});
 	}
 
