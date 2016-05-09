@@ -1,5 +1,9 @@
 #camera-tile {
+	.uk-overlay {
+		border: 0px;
+	}
 	button {
+		background-color: #48A1A1;
 		height: $image-height;
 		img {
 			width: 70%;
