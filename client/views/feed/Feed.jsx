@@ -20,7 +20,7 @@ export default class Feed extends React.Component {
 					 <div className="score">
 					 <CameraButton />
 		               <span className='facebucks-text'>
-		                    Facebucks: {Meteor.user() && Meteor.user().score}
+		                    FACEBUCKS: {Meteor.user() && Meteor.user().score}
 		               </span>
 		            </div>
 				</div>
