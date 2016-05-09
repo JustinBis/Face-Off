@@ -14,7 +14,7 @@ class CameraButton extends React.Component {
     render() {
         return (
         	<div id="camera-button">
-        		<button onClick={this.onClick}><i className="uk-icon-camera"></i></button>
+        		<button onClick={this.onClick} onTap={this.onClick}><i className="uk-icon-camera"></i></button>
         	</div>);
     }
 }

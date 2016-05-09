@@ -15,8 +15,9 @@ export default class ImageList extends React.Component {
 		var imageComps = this.props.images.map((image, ind) => {
 			//See if user already bet on this image
 			var alreadyBet = image.usersBet.indexOf( Meteor.userId() ) !== -1;
+			var betStatus = 'not-bet';
 			return (
-				<Image key={image._id} picture={image} alreadyBet={alreadyBet} />
+				<Image key={image._id} picture={image} alreadyBet={alreadyBet} betStatus={betStatus} />
 			);
 		});
 		return (
@@ -37,21 +38,15 @@ export class Image extends React.Component {
 		this.state = {betStatus: 'not-bet'};
 	}
 
-	componentDidMount() {
-		if (this.props.alreadyBet) {
-			Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, correct) => {
-				if (err) {
-					reportError(err);
-				} 
-				if (correct) {
-					this.setState({betStatus:'bet-correct'});
-				} else {
-					this.setState({betStatus:'bet-incorrect'});
-				}
-			})
-		} else {
-			this.setState({betStatus: 'not-bet'});
-		}	
+
+	componentWillMount() {
+		Meteor.call('bets.getGuessStatus', this.props.picture._id, (err, status) => {
+			console.log(err, status)
+			if (err) {
+				reportError(err);
+			} 
+			this.setState({betStatus: status});
+		});
 	}
 
 	render() {
@@ -59,7 +54,7 @@ export class Image extends React.Component {
 		//If a given image has been visited, stop animation / eliminate blur
 		var visitedClass = this.props.alreadyBet ? '-visited' : '';
 		var betLink = !this.props.alreadyBet ? <BetLink id={this.props.picture._id} /> : '';
-		
+		console.log(this.state.betStatus)
 		return (
 			<div className="grid-item"> 
 				<div className={"uk-thumbnail thumbnail"+visitedClass}>
