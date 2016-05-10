@@ -53,45 +53,36 @@ export function insertPicture (pictureData, emoji, userId) {
 	});
 }
 
-// Used to track the users who have inserted a photo recently
-// NOTE: for scaling, this will have to change to be a collection in a database
-var _photo_insert_throttle_list = {};
 
 /**
- * Adds the current user to the list of throttled users
- * @param  {Meteor UserId} userId The Meteor UserId for this user
- * @return {null}        This method returns nothing
+ * Throttles the rate at which a particular user can request a given method.
+ * Throws a 'chill-out' Meteor Error object when this user is requesting a method too quickly
+ * @param  {string} method     The name of the method that is to be throttled
+ * @param  {string} userId     The ID of this user
+ *                             (usually returned by Meteor.userId(), but can be any unique identifier)
+ * @param  {number} timeout    The timeout between requests, in milliseconds
+ * @return {null}               This method returns nothing. Instead, it will throw a Meteor.Error if the user is throttled
  */
-function addUserToThrottleList(userId) {
-	_photo_insert_throttle_list[userId] = true;
-	Meteor.setTimeout(() => {
-		removeUserFromThrottleList(userId);
-	}, INSERT_THROTTLE_MILLIS);
+function throttleMethodRequestByUser(method, userId, timeout) {
+	// Store data as part of the function itself
+	// NOTE: for scalability, this should be replaced by a very fast distributed collection (e.g. Redis)
+	
+	// Ensure that all data is setup prior to the check
+	if( !throttleMethodRequestByUser.methods ) throttleMethodRequestByUser.methods = {};
+	if( !(method in throttleMethodRequestByUser.methods) ) throttleMethodRequestByUser.methods[method] = {};
+	if( !(userId in throttleMethodRequestByUser.methods[method]) ) throttleMethodRequestByUser.methods[method][userId] = 0;
+	
 
-}
+	var timeLastCalled = throttleMethodRequestByUser.methods[method][userId];
+	var timeNow = Date.now();
 
-/**
- * removeUserFromThrottleList Removes a user from the list of throttled users
- * @param  {Meteor UserId} userId The Meteor UserId for this user
- * @return {null}        This method returns nothing
- */
-function removeUserFromThrottleList(userId) {
-	delete _photo_insert_throttle_list[userId];
-}
-
-/**
- * userHasInsertedPhotoRecently Checks if the passed user has recently inserted a photo
- * @param  {Meteor UserId} userId The Meteor UserId for this user
- * @return {boolean} true if the user has recently inserted a photo, false otherwise.
- */
-function userHasInsertedPhotoRecently(userId) {
-	if(userId in _photo_insert_throttle_list)
+	if(timeNow - timeLastCalled < timeout)
 	{
-		return true;
+		throw new Meteor.Error('chill-out', `You are calling ${method} too quickly. Please wait a bit and try again.`);
 	}
 	else
 	{
-		return false;
+		throttleMethodRequestByUser.methods[method][userId] = timeNow;
 	}
 }
 
@@ -105,20 +96,8 @@ Meteor.methods({
 
 		check(pictureData, String);
 		check(emoji, String);
-		// TODO: check that the emoji is actually one of the approved emojis
-
-		// Ensure that the user isn't calling this method too often
-		if(Meteor.isServer)
-		{
-			if(userHasInsertedPhotoRecently(Meteor.userId()))
-			{
-				throw new Meteor.Error('chill-out', 'You are sending too many photos too quickly. Please wait a bit and try again.');
-			}
-			else
-			{
-				addUserToThrottleList(Meteor.userId());
-			}
-		}
+		
+		throttleMethodRequestByUser('pictures.insert', Meteor.userId(), INSERT_THROTTLE_MILLIS);
 
 		insertPicture(pictureData, emoji, Meteor.userId());
 
