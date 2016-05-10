@@ -76,8 +76,8 @@ export default class Bet extends React.Component {
 	}
 
 	render() {
-		if(!this.props.imageReady) {
-			return( <Loading /> );
+		if(!this.props.image) {
+			return( <div id="bet"><div className="bet-loading"> <Loading /> </div></div>);
 		}
 
 		var betStyle = { 

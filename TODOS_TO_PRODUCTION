@@ -1,18 +1,29 @@
 J: Server side debouncing of take-picture
 J: Icon / splash screen for phones / splash screen loading subscriptions 
+After J adds debounce 
 
-M: Better loading screen for bet photos
 M: why is loading bet so slow if already have image?
-
+M: Better loading screen for bet photos
 
 DONE M: Animation on feed item enter
 DONE M: Fake user - select all ID's from mongo instance, then re-select randomly from id's
 DONE M: Make check/x on overlay feed reactive
+DONE M: Cleanup already duplicate photos
 
 ?: Add friends via Facebook --> Send photo to friends?
 ?: Points / Notifications for other users getting your faces right?
 	- Limit amount of times they can use one emoji
-
+?: Deferred long-running timer task(s) to improve scrolling smoothness. See crbug.com/574343.
+73637ee….js?meteor_js_resource=true:165 CBXPoNMhYDkES4Bb6
 ????
 
 Profit
+
+
+
+Remove duplicate pictures (once connected)
+1. var duplicates = [];
+
+2. db.pictures.aggregate({$group: {_id:"$pictureData", dups:{$addToSet:"$_id"}, count:{$sum:1}} }).forEach(function(doc){doc.dups.shift(); doc.dups.forEach(function(each){duplicates.push(each)})  });
+
+3. duplicates.forEach(function(dupId){ db.pictures.remove({_id:dupId}); })

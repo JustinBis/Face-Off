@@ -5,7 +5,10 @@ export default class Loading extends React.Component {
         super(props);
     }
     render() {
-		return (<div> Loading ... </div>);
+		return (
+			<span> 
+				<i className="uk-icon-spinner uk-icon-spin"></i>
+			</span>);
     }
 }
 

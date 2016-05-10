@@ -8,12 +8,7 @@ export default createContainer( ({params}) => {
 	//Temp workaround is to just get Query Param inside here
 	// console.log(params); <-- Currently returns undefined
 	const id = FlowRouter.getQueryParam("id");
- 	const picHandle = Meteor.subscribe('pictures');
- 	const loading = !picHandle.ready();
- 	const image = Pictures.findOne({_id:id});
- 	const imageReady = !loading && !!image;
  	return {
-		image,
-		imageReady
+		image:Pictures.findOne({_id:id})
 	};
 }, Bet);
