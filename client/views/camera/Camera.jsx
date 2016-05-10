@@ -28,6 +28,7 @@ export default class Camera extends React.Component {
 		this.savePicture = this.savePicture.bind(this);
 		this.clearPictureData = this.clearPictureData.bind(this);
 		this.openItems = this.openItems.bind(this);
+		this.exitButtonClicked = this.exitButtonClicked.bind(this);
 
 		if(Meteor.isCordova)
 		{
@@ -62,7 +63,7 @@ export default class Camera extends React.Component {
   				// Crate the canvas element needed to capture frames from the video
   				this._canvas = document.createElement("canvas");
 
-  				this.setState({needsCameraPermission: false});
+  				this.setState({needsCameraPermission: false, cameraStream: stream});
 
   				// Setup the video source URL
   				var vendorURL = window.URL || window.webkitURL
@@ -184,10 +185,30 @@ export default class Camera extends React.Component {
 	}
 
 	/**
-	 * Click handler for the exit button. This will send the user back to the feed.
-	 * @return {null} This function returns nothing
+	 * Click handler for the exit button. This will stop the camera and send the user back to the feed.
+	 * @return {null} This method returns nothing
 	 */
 	exitButtonClicked() {
+		var stream = this.state.cameraStream;
+		try
+		{
+			if(stream.stop)
+			{
+				// Depricated MediaStream.stop() method
+				stream.stop();
+			}
+			else
+			{
+				// New MediaStreamTrack.stop() method
+				// We should only have one stream to stop here
+				stream.getTracks()[0].stop();	
+			}
+		}
+		catch (e)
+		{
+			console.error('Exception thrown when trying to stop camera stream', e);
+		}
+
 		FlowRouter.go('App.feed');
 	}
 
