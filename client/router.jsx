@@ -35,10 +35,11 @@ FlowRouter.route('/login', {
 		});
 
 		// Redirect on login
-		Accounts.onLogin((stop) => {
+		var retObject = Accounts.onLogin(() => {
 			FlowRouter.go(loggedInDefault)
-			// Unregister the hook
-			stop();
+			// Unregister the hook using the stop function returned by Accounts.onLogin
+			// Which is, for some reason, held in an object. Oh Meteor...
+			if(retObject && retObject.stop) retObject.stop();
 		});
 	},
 });
